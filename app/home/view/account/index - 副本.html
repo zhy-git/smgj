@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>花旗-个人中心</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--<link rel="icon" href="/Content/img/favicon.ico" type="image/x-icon">-->
+	<!--<link rel="shortcut icon" href="/Content/img/favicon.ico" type="image/x-icon" />-->
+	<link href="__CSS__/datatablecss.css" rel="stylesheet"/>
+	<link href="__CSS__/qn_index.css" rel="stylesheet"/>
+	<link href="__CSS__/universalToolsCss.css" rel="stylesheet"/>
+	<script src="__JS__/jquery.min.js"></script>
+	<script src="__JS__/layer.js" ></script>
+	<script src="__JS__/common.js" ></script>
+</head>
+
+<body>
+{include file='common/header2'}
+<script>
+    var BankList = [
+        { Name: "中国农业银行", ID: "3", Logo: "ABC.jpg", Type: "" },
+        { Name: "交通银行", ID: "4", Logo: "BCM.jpg", Type: "" },
+        { Name: "中国银行", ID: "5", Logo: "BOC.jpg", Type: "" },
+        { Name: "中国建设银行", ID: "6", Logo: "CCB.jpg", Type: "" },
+        { Name: "国家开发银行", ID: "7", Logo: "CDB.jpg", Type: "" },
+        { Name: "招商银行", ID: "8", Logo: "CMB.jpg", Type: "" },
+        { Name: "中国工商银行", ID: "9", Logo: "ICBC.jpg", Type: "" },
+        { Name: "中国民生银行", ID: "10", Logo: "CMBC.jpg", Type: "" },
+        { Name: "兴业银行", ID: "11", Logo: "CIB.jpg", Type: "" },
+        { Name: "上海浦东发展银行", ID: "12", Logo: "SPDB.jpg", Type: "" },
+        { Name: "中信银行", ID: "13", Logo: "CITICB.jpg", Type: "" },
+        { Name: "中国光大银行", ID: "14", Logo: "CEB.jpg", Type: "" },
+        { Name: "华夏银行", ID: "15", Logo: "HXB.jpg", Type: "" },
+        { Name: "广发银行", ID: "16", Logo: "CGB.jpg", Type: "" },
+        { Name: "中国邮政储蓄银行", ID: "17", Logo: "PSBC.jpg", Type: "" },
+        { Name: "平安银行", ID: "18", Logo: "PB.jpg", Type: "" },
+        { Name: "鞍山市商业银行", ID: "19", Logo: "", Type: "A" },
+        { Name: "安徽省农村信用社联合社", ID: "20", Logo: "", Type: "A" },
+        { Name: "北京银行", ID: "21", Logo: "", Type: "B" },
+        { Name: "包商银行", ID: "22", Logo: "", Type: "B" },
+        { Name: "渤海银行", ID: "23", Logo: "", Type: "B" },
+        { Name: "北京顺义银座村镇银行", ID: "24", Logo: "", Type: "B" },
+        { Name: "北京农村商业银行", ID: "25", Logo: "", Type: "B" },
+        { Name: "承德银行", ID: "26", Logo: "", Type: "C" },
+        { Name: "沧州银行", ID: "27", Logo: "", Type: "C" },
+        { Name: "长沙银行", ID: "28", Logo: "", Type: "C" },
+        { Name: "成都银行", ID: "29", Logo: "", Type: "C" },
+        { Name: "重庆银行", ID: "30", Logo: "", Type: "C" },
+        { Name: "长安银行", ID: "31", Logo: "", Type: "C" },
+        { Name: "常熟农村商业银行", ID: "32", Logo: "", Type: "C" },
+        { Name: "成都农村商业银行", ID: "33", Logo: "", Type: "C" },
+        { Name: "重庆农村商业银行", ID: "34", Logo: "", Type: "C" },
+        { Name: "重庆渝北银座村镇银行", ID: "35", Logo: "", Type: "C" },
+        { Name: "重庆黔江银座村镇银行", ID: "36", Logo: "", Type: "C" },
+        { Name: "大连银行", ID: "37", Logo: "", Type: "D" },
+        { Name: "东营银行", ID: "38", Logo: "", Type: "D" },
+        { Name: "德州银行", ID: "39", Logo: "", Type: "D" },
+        { Name: "东莞银行", ID: "40", Logo: "", Type: "D" },
+        { Name: "德阳银行", ID: "41", Logo: "", Type: "D" },
+        { Name: "东营莱商村镇银行股份有限公司", ID: "42", Logo: "", Type: "D" },
+        { Name: "东莞农村商业银行", ID: "43", Logo: "", Type: "D" },
+        { Name: "东亚银行（中国）有限公司", ID: "44", Logo: "", Type: "D" },
+        { Name: "鄂尔多斯银行", ID: "45", Logo: "", Type: "E" },
+        { Name: "阜新银行", ID: "46", Logo: "", Type: "F" },
+        { Name: "福建海峡银行", ID: "47", Logo: "", Type: "F" },
+        { Name: "富滇银行", ID: "48", Logo: "", Type: "F" },
+        { Name: "福建省农村信用社", ID: "49", Logo: "", Type: "F" },
+        { Name: "广发银行", ID: "50", Logo: "", Type: "G" },
+        { Name: "赣州银行", ID: "51", Logo: "", Type: "G" },
+        { Name: "广州银行", ID: "52", Logo: "", Type: "G" },
+        { Name: "广东华兴银行", ID: "53", Logo: "", Type: "G" },
+        { Name: "广东南粤银行", ID: "54", Logo: "", Type: "G" },
+        { Name: "广西北部湾银行", ID: "55", Logo: "", Type: "G" },
+        { Name: "桂林银行", ID: "56", Logo: "", Type: "G" },
+        { Name: "贵阳银行", ID: "57", Logo: "", Type: "G" },
+        { Name: "广州农村商业银行", ID: "58", Logo: "", Type: "G" },
+        { Name: "广西农村信用社（合作银行）", ID: "59", Logo: "", Type: "G" },
+        { Name: "华夏银行", ID: "60", Logo: "", Type: "H" },
+        { Name: "河北银行", ID: "61", Logo: "", Type: "H" },
+        { Name: "邯郸市商业银行", ID: "62", Logo: "", Type: "H" },
+        { Name: "衡水银行", ID: "63", Logo: "", Type: "H" },
+        { Name: "葫芦岛银行", ID: "64", Logo: "", Type: "H" },
+        { Name: "哈尔滨银行", ID: "65", Logo: "", Type: "H" },
+        { Name: "杭州银行", ID: "66", Logo: "", Type: "H" },
+        { Name: "湖州银行", ID: "67", Logo: "", Type: "H" },
+        { Name: "汉口银行", ID: "68", Logo: "", Type: "H" },
+        { Name: "湖北银行", ID: "69", Logo: "", Type: "H" },
+        { Name: "海口联合农村商业银行", ID: "70", Logo: "", Type: "H" },
+        { Name: "恒丰银行", ID: "71", Logo: "", Type: "H" },
+        { Name: "徽商银行", ID: "72", Logo: "", Type: "H" },
+        { Name: "湖北农信", ID: "73", Logo: "", Type: "H" },
+        { Name: "海南省农村信用社", ID: "74", Logo: "", Type: "H" },
+        { Name: "黄河农村商业银行", ID: "75", Logo: "", Type: "H" },
+        { Name: "韩亚银行", ID: "76", Logo: "", Type: "H" },
+        { Name: "交通银行", ID: "77", Logo: "", Type: "J" },
+        { Name: "晋商银行", ID: "78", Logo: "", Type: "J" },
+        { Name: "晋城银行", ID: "79", Logo: "", Type: "J" },
+        { Name: "锦州银行", ID: "80", Logo: "", Type: "J" },
+        { Name: "吉林银行", ID: "81", Logo: "", Type: "J" },
+        { Name: "江苏银行", ID: "82", Logo: "", Type: "J" },
+        { Name: "江苏长江商行", ID: "83", Logo: "", Type: "J" },
+        { Name: "嘉兴银行", ID: "84", Logo: "", Type: "J" },
+        { Name: "金华银行股份有限公司", ID: "85", Logo: "", Type: "J" },
+        { Name: "九江银行股份有限公司", ID: "86", Logo: "", Type: "J" },
+        { Name: "济宁银行", ID: "87", Logo: "", Type: "J" },
+        { Name: "焦作中旅银行", ID: "88", Logo: "", Type: "J" },
+        { Name: "江阴农商银行", ID: "89", Logo: "", Type: "J" },
+        { Name: "江西赣州银座村镇银行", ID: "90", Logo: "", Type: "J" },
+        { Name: "吉林农村信用社", ID: "91", Logo: "", Type: "J" },
+        { Name: "江苏省农村信用社联合社", ID: "92", Logo: "", Type: "J" },
+        { Name: "昆仑银行", ID: "93", Logo: "", Type: "K" },
+        { Name: "昆山农村商业银行", ID: "94", Logo: "", Type: "K" },
+        { Name: "廊坊银行", ID: "95", Logo: "", Type: "L" },
+        { Name: "龙江银行", ID: "96", Logo: "", Type: "L" },
+        { Name: "莱商银行", ID: "97", Logo: "", Type: "L" },
+        { Name: "临商银行", ID: "98", Logo: "", Type: "L" },
+        { Name: "洛阳银行", ID: "99", Logo: "", Type: "L" },
+        { Name: "柳州银行", ID: "100", Logo: "", Type: "L" },
+        { Name: "兰州银行", ID: "101", Logo: "", Type: "L" },
+        { Name: "绵阳市商业银行", ID: "102", Logo: "", Type: "M" },
+        { Name: "内蒙古银行", ID: "103", Logo: "", Type: "N" },
+        { Name: "南京银行", ID: "104", Logo: "", Type: "N" },
+        { Name: "宁波银行", ID: "105", Logo: "", Type: "N" },
+        { Name: "宁波通商银行股份有限公司", ID: "106", Logo: "", Type: "N" },
+        { Name: "南昌银行", ID: "107", Logo: "", Type: "N" },
+        { Name: "南充市商业银行", ID: "108", Logo: "", Type: "N" },
+        { Name: "宁夏银行", ID: "109", Logo: "", Type: "N" },
+        { Name: "平安银行（原深圳发展银行）", ID: "110", Logo: "", Type: "P" },
+        { Name: "平顶山银行", ID: "111", Logo: "", Type: "P" },
+        { Name: "攀枝花市商业银行", ID: "112", Logo: "", Type: "P" },
+        { Name: "泉州银行", ID: "113", Logo: "", Type: "Q" },
+        { Name: "齐鲁银行", ID: "114", Logo: "", Type: "Q" },
+        { Name: "青岛银行", ID: "115", Logo: "", Type: "Q" },
+        { Name: "齐商银行", ID: "116", Logo: "", Type: "Q" },
+        { Name: "青海银行", ID: "117", Logo: "", Type: "Q" },
+        { Name: "企业银行", ID: "118", Logo: "", Type: "Q" },
+        { Name: "日照银行", ID: "119", Logo: "", Type: "R" },
+        { Name: "上海浦东发展银行", ID: "120", Logo: "", Type: "S" },
+        { Name: "苏州银行", ID: "121", Logo: "", Type: "S" },
+        { Name: "绍兴银行", ID: "122", Logo: "", Type: "S" },
+        { Name: "厦门银行", ID: "123", Logo: "", Type: "S" },
+        { Name: "上饶银行", ID: "124", Logo: "", Type: "S" },
+        { Name: "顺德农村商业银行", ID: "125", Logo: "", Type: "S" },
+        { Name: "深圳福田银座村镇银行", ID: "126", Logo: "", Type: "S" },
+        { Name: "上海银行", ID: "127", Logo: "", Type: "S" },
+        { Name: "山东省农联社", ID: "128", Logo: "", Type: "S" },
+        { Name: "深圳农商行", ID: "129", Logo: "", Type: "S" },
+        { Name: "四川省联社", ID: "130", Logo: "", Type: "S" },
+        { Name: "上海农商银行", ID: "131", Logo: "", Type: "S" },
+        { Name: "深圳前海微众银行", ID: "132", Logo: "", Type: "S" },
+        { Name: "天津银行", ID: "133", Logo: "", Type: "T" },
+        { Name: "台州银行", ID: "134", Logo: "", Type: "T" },
+        { Name: "泰安市商业银行", ID: "135", Logo: "", Type: "T" },
+        { Name: "太仓农商行", ID: "136", Logo: "", Type: "T" },
+        { Name: "天津农商银行", ID: "137", Logo: "", Type: "T" },
+        { Name: "温州银行", ID: "138", Logo: "", Type: "W" },
+        { Name: "潍坊银行", ID: "139", Logo: "", Type: "W" },
+        { Name: "威海市商业银行", ID: "140", Logo: "", Type: "W" },
+        { Name: "乌鲁木齐市商业银行", ID: "141", Logo: "", Type: "W" },
+        { Name: "吴江农村商业银行", ID: "142", Logo: "", Type: "W" },
+        { Name: "武汉农村商业银行", ID: "143", Logo: "", Type: "W" },
+        { Name: "兴业银行", ID: "144", Logo: "", Type: "X" },
+        { Name: "邢台银行", ID: "145", Logo: "", Type: "X" },
+        { Name: "新韩银行中国", ID: "146", Logo: "", Type: "X" },
+        { Name: "西安银行", ID: "147", Logo: "", Type: "X" },
+        { Name: "营口银行", ID: "148", Logo: "", Type: "Y" },
+        { Name: "烟台银行", ID: "149", Logo: "", Type: "Y" },
+        { Name: "鄞州银行", ID: "150", Logo: "", Type: "Y" },
+        { Name: "云南省农村信用社", ID: "151", Logo: "", Type: "Y" },
+        { Name: "中国工商银行", ID: "152", Logo: "", Type: "Z" },
+        { Name: "中国农业银行", ID: "153", Logo: "", Type: "Z" },
+        { Name: "中国银行", ID: "154", Logo: "", Type: "Z" },
+        { Name: "张家口市商业银行", ID: "155", Logo: "", Type: "Z" },
+        { Name: "浙江稠州商业银行", ID: "156", Logo: "", Type: "Z" },
+        { Name: "浙江泰隆商业银行", ID: "157", Logo: "", Type: "Z" },
+        { Name: "浙江民泰商业银行", ID: "158", Logo: "", Type: "Z" },
+        { Name: "枣庄银行", ID: "159", Logo: "", Type: "Z" },
+        { Name: "郑州银行", ID: "160", Logo: "", Type: "Z" },
+        { Name: "中原银行", ID: "161", Logo: "", Type: "Z" },
+        { Name: "珠海华润银行", ID: "162", Logo: "", Type: "Z" },
+        { Name: "自贡市商业银行", ID: "163", Logo: "", Type: "Z" },
+        { Name: "张家港农村商业银行", ID: "164", Logo: "", Type: "Z" },
+        { Name: "浙商银行", ID: "165", Logo: "", Type: "Z" },
+        { Name: "浙江景宁银座村镇银行", ID: "166", Logo: "", Type: "Z" },
+        { Name: "浙江三门银座村镇银行", ID: "167", Logo: "", Type: "Z" },
+        { Name: "浙江省农村信用社", ID: "168", Logo: "", Type: "Z" },
+    ];
+    var GameTypeList = [
+        { Text: "AG", Value: "2" },
+        { Text: "PT", Value: "1" },
+    ];
+</script>
+
+<div class="eject">
+	<div class="tab">
+		<ul>
+			<li class="cur"><a href="javascript:;">个人中心</a></li>
+			<li><a href="javascript:;">密码管理</a></li>
+			<li><a href="javascript:;">奖金说明</a></li>
+			<li><a href="javascript:;">资金管理</a></li>
+			<li><a href="javascript:;">交易协定</a></li>
+			<li style="display:none;" id="myContractLeftMenuBar"><a href="/DividendContract/MyContract">我的契约</a></li>
+			<li style="display:none;" id="myDailyPayTabsMenuBar"><a href="/DailyPay/MyDailyPay">我的日工资</a></li>
+		</ul>
+	</div>
+	<!--个人中心-->
+	<div class="userbox active">
+
+		<!--基本资料-->
+		<div class="usercon usercon2">
+			<table cellpadding="0" cellspacing="0" class="zltable">
+				<tr>
+					<td class="bg">账号</td>
+					<td>{$mem.nickname}</td>
+					<td class="bg">彩票返点</td>
+					<td>{$mem.nickname}</td>
+					<td class="bg">彩票余额</td>
+					<td id="indexAmount">{$mem.money}</td>
+					<!--<td class="bg">AG余额</td>-->
+					<!--<td id="indexAGAmount">读取中</td>-->
+					<!--<td class="bg">PT余额</td>-->
+					<!--<td id="indexPTAmount">读取中</td>-->
+				</tr>
+			</table>
+			<ul class="tab_sohn w50 fl_l">
+				<li class="cur2">绑定银行卡</li>
+			</ul>
+			<!--<ul class="tab_sohn w50 fl_l">-->
+				<!--<li class="cur2">快速转账</li>-->
+			<!--</ul>-->
+			<div class="clear clearfix sb-wrap">
+				<div style="display:block" class="BankCardListSection" id="BankCardListSection">
+					<div class="sohnbox w50 fl_l">
+						<div class="inplist bankM">
+							{volist name="userCard" id="ucl"}
+							<dl>
+								<dt class="bankTitle">银行卡{$i}</dt>
+								<dd><div class="bank-box"><label><img src="__IMG__/BCM.jpg"><i class="ico ico-cur"></i></label>{$ucl.num}  {$ucl.name} <i class="red">已设默认</i></div></dd>
+							</dl>
+							{/volist}
+							<dl>
+								<dt class="bankTitle">银行卡2</dt>
+								<dd><a href="javascript:;"><div class="bank-box-add"><i class="ico-add"></i></div></a></dd>
+							</dl>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="userbox">
+		<!--基本资料-->
+		<div class="usercon usercon2 Main">
+			<ul class="tab_sohn w50 fl_l">
+				<li class="cur2">修改登录密码</li>
+			</ul>
+			<ul class="tab_sohn w50 fl_l">
+				<li class="cur2">修改资金密码</li>
+			</ul>
+			<!--密码安全-->
+			<div class="clear clearfix sb-wrap">
+				<div class="sohnbox w50 fl_l">
+					<form id="resetLoginPass" class="validate" data-ajax="true" data-ajax-failure="failurePassword" data-ajax-success="successPassword" id="form0" method="post" role="form" novalidate="novalidate">
+						<div id="passwordMsg" style="display:none;" class="f-red"></div>
+						<div class="inplist">
+							<dl>
+								<dt>原登录密码</dt>
+								<dd>
+									<input class="inp" data-val="true" data-val-required="输入旧登录密码 栏位必须输入" id="OldPassword" name="oldpassword" type="password">
+									<span class="field-validation-valid f-red valmsg" data-valmsg-for="OldPassword" data-valmsg-replace="true"></span>
+								</dd>
+							</dl>
+							<dl>
+								<dt>新登录密码</dt>
+								<dd>
+									<input class="inp" data-val="true" data-val-regex="输入新登录密碼 需长度在6〜30之间" data-val-regex-pattern="^{6,30}$" data-val-required="輸入新登录密碼 栏位必须输入" id="NewPassword" name="newpassword" type="password">
+									<span class="field-validation-valid f-red valmsg" data-valmsg-for="NewPassword" data-valmsg-replace="true"></span>
+									<p><span class="normal">需长度在6〜30之间</span></p>
+								</dd>
+							</dl>
+							<dl>
+								<dt>确认新密码</dt>
+								<dd>
+									<input class="inp" id="ConfirmPassword" name="renewpassword" type="password">
+									<span class="field-validation-valid Validform_checktip f-red valmsg" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true"></span>
+								</dd>
+							</dl>
+							<dl>
+								<dt>&nbsp;</dt>
+								<dd><input type="button" id = "subLogin" class="but" value="确定"></dd>
+							</dl>
+						</div>
+						<div class="clear"></div>
+					</form>
+				</div>
+				<script>
+					var subLoginCheck = true;
+                    $("#subLogin").click(function(){
+                        $('#resetLoginPass').serialize();
+                        var self = $('#resetLoginPass');
+                        var oldpassword = self.find('input[name=oldpassword]').val();
+                        var newpassword = self.find('input[name=newpassword]').val();
+                        var renewpassword = self.find('input[name=renewpassword]').val();
+
+                        if(oldpassword.length<6 || oldpassword.length>30){
+                            pop('原登录密码错误');
+                            return false;
+                        }
+                        if(newpassword.length<6 || newpassword.length>30){
+                            pop('新登录密码错误');
+                            return false;
+                        }
+                        if(renewpassword == ''){
+                            pop('两次密码输入不一致');
+                            return false;
+                        }
+                        if(renewpassword != newpassword){
+                            pop('两次密码输入不一致');
+                            return false;
+                        }
+                        if(subLoginCheck) {
+                            subLoginCheck = false;
+                            $.post("{:url('subLoginReset')}", self.serialize(), success, "json");
+                            return false;
+                            function success(data) {
+                                if (data.code == 1) {
+                                    pop(data.msg,data.url,3);
+                                } else {
+                                    pop(data.msg);
+                                    subLoginCheck = true;
+                                }
+                            }
+                        }
+                    })
+				</script>
+				{if $ismp == 1}
+				<div class="sohnbox w50 fl_l">
+					<form class="validate" data-ajax="true" data-ajax-failure="failureDrawPassword" data-ajax-success="successDrawPassword" id="resetMoneyPass" method="post" role="form" novalidate="novalidate">
+						<div id="drawpasswordMsg" style="display:none;" class="f-red"></div>
+						<div class="inplist">
+							<dl>
+								<dt>原资金密码</dt>
+								<dd>
+									<input name="oldpassword" class="inp text-box single-line password" id="OldDrawPassword" type="password" value="" data-val-required="原资金密码 栏位必须输入" data-val="true">
+									<span class="field-validation-valid Validform_checktip f-red valmsg" data-valmsg-for="OldDrawPassword" data-valmsg-replace="true"></span>
+								</dd>
+							</dl>
+							<dl>
+								<dt>新资金密码</dt>
+								<dd>
+
+									<input name="newpassword" class="inp text-box single-line password" type="password" value="" data-val-required="新资金密码 栏位必须输入" data-val="true" data-val-length-min="6" data-val-length-max="30" data-val-length="新资金密码 必须长度在 6 至 30 范围内">
+									<span class="field-validation-valid Validform_checktip f-red valmsg" data-valmsg-for="DrawPassword" data-valmsg-replace="true"></span>
+									<p><span class="normal">必须长度在6至30范围内</span></p>
+								</dd>
+							</dl>
+							<dl>
+								<dt>确认新密码</dt>
+								<dd>
+									<input class="inp text-box single-line password" name="renewpassword" type="password" value="">
+									<span class="field-validation-valid Validform_checktip f-red valmsg" data-valmsg-for="ConfirmDrawPassword" data-valmsg-replace="true"></span>
+								</dd>
+							</dl>
+							<dl>
+								<dt>&nbsp;</dt>
+								<dd><input type="button" id="subMoney" class="but" value="确定"> <a href="javascript:forgotDrawPassword($('#Forgot'));">忘记资金密码?</a></dd>
+							</dl>
+						</div>
+						<div class="clear"></div>
+					</form>
+				</div>
+				{else/}
+				<div class="sohnbox w50 fl_l">
+					<form class="validate" data-ajax="true" data-ajax-failure="failureDrawPassword" data-ajax-success="successDrawPassword" id="setMoneyPass" method="post" role="form" novalidate="novalidate">
+						<div class="inplist">
+							<dl>
+								<dt>新资金密码</dt>
+								<dd>
+									<input name="newpassword" class="inp text-box single-line password" type="password" value="" data-val-required="原资金密码 栏位必须输入" data-val="true">
+									<span class="field-validation-valid Validform_checktip f-red valmsg" data-valmsg-for="OldDrawPassword" data-valmsg-replace="true"></span>
+									<p><span class="normal">必须长度在6至30范围内</span></p>
+								</dd>
+							</dl>
+							<dl>
+								<dt>确认新密码</dt>
+								<dd>
+									<input class="inp text-box single-line password" name="renewpassword" type="password" value="">
+									<span class="field-validation-valid Validform_checktip f-red valmsg" data-valmsg-for="ConfirmDrawPassword" data-valmsg-replace="true"></span>
+								</dd>
+							</dl>
+							<dl>
+								<dt>&nbsp;</dt>
+								<dd><input type="button" id="subSetMoney" class="but" value="确定"></dd>
+							</dl>
+						</div>
+						<div class="clear"></div>
+					</form>
+				</div>
+				{/if}
+				<script>
+                    var subMoneyCheck = true;
+                    $("#subMoney").click(function(){
+                        $('#resetMoneyPass').serialize();
+                        var self = $('#resetMoneyPass');
+                        var oldpassword = self.find('input[name=oldpassword]').val();
+                        var newpassword = self.find('input[name=newpassword]').val();
+                        var renewpassword = self.find('input[name=renewpassword]').val();
+                        if(oldpassword.length<6 || oldpassword.length>30){
+                            pop('原资金密码错误');
+                            return false;
+                        }
+                        if(newpassword.length<6 || newpassword.length>30){
+                            pop('新资金密码错误');
+                            return false;
+                        }
+                        if(renewpassword == ''){
+                            pop('两次密码输入不一致');
+                            return false;
+                        }
+                        if(renewpassword != newpassword){
+                            pop('两次密码输入不一致');
+                            return false;
+                        }
+                        if(subMoneyCheck) {
+                            subMoneyCheck = false;
+                            $.post("{:url('subMoneyReset')}", self.serialize(), success, "json");
+                            return false;
+                            function success(data) {
+                                if (data.code == 1) {
+                                    pop(data.msg,data.url,3);
+                                } else {
+                                    pop(data.msg);
+                                    subMoneyCheck = true;
+                                }
+                            }
+                        }
+                    })
+
+                    var subSetMoneyCheck = true;
+                    $("#subSetMoney").click(function(){
+                        $('#setMoneyPass').serialize();
+                        var self = $('#setMoneyPass');
+                        var newpassword = self.find('input[name=newpassword]').val();
+                        var renewpassword = self.find('input[name=renewpassword]').val();
+                        if(newpassword.length<6 || newpassword.length>30){
+                            pop('密码长度不正确');
+                            return false;
+                        }
+                        if(newpassword == ''){
+                            pop('两次密码输入不一致');
+                            return false;
+                        }
+                        if(renewpassword != newpassword){
+                            pop('两次密码输入不一致');
+                            return false;
+                        }
+                        if(subSetMoneyCheck) {
+                            subSetMoneyCheck = false;
+                            $.post("{:url('subMoneySet')}", self.serialize(), success, "json");
+                            return false;
+                            function success(data) {
+                                if (data.code == 1) {
+                                    pop(data.msg,data.url,3);
+                                } else {
+                                    pop(data.msg);
+                                    subSetMoneyCheck = true;
+                                }
+                            }
+                        }
+                    })
+				</script>
+			</div>
+		</div>
+
+		<div class="usercon usercon2" id="Forgot" style="display:none; margin-left:290px;">
+			<ul class="tab_sohn w50 fl_l">
+				<li class="cur2">找回资金密码</li>
+			</ul>
+
+			<!--找回资金密码-->
+			<div class="clear clearfix sb-wrap">
+				<div class="sohnbox w50 fl_l">
+					<form action="/AccountCenter/ForgotDrawPassword" class="validate" data-ajax="true" data-ajax-failure="failureForgotDrawPassword" data-ajax-success="successForgotDrawPassword" id="form3" method="post" role="form" novalidate="novalidate">
+						<div class="inplist" style="width:600px;margin-top:-20px">
+						<dl>
+							<dt>&nbsp;</dt>
+							<dd>
+								<div id="forgotDrawPasswordMsg" style="display:none;" class="f-red"></div>
+							</dd>
+						</dl>
+						<dl>
+							<dt>真实姓名</dt>
+							<dd>
+								<input class="inp text-box single-line" data-val="true" data-val-required="真实姓名 栏位必须输入" id="BankName" name="BankName" type="text" value="">
+								<span class="field-validation-valid Validform_checktip f-red valmsg" data-valmsg-for="BankName" data-valmsg-replace="true"></span>
+							</dd>
+						</dl>
+						<dl>
+							<dt>银行卡号</dt>
+							<dd>
+								<input class="inp text-box single-line" data-val="true" data-val-length="The field 银行卡号 must be a string with a maximum length of 20." data-val-length-max="20" data-val-minlength="请输入最少10码" data-val-minlength-min="10" data-val-regex="请输入有效帐号" data-val-regex-pattern="[0-9]*" data-val-required="请输入有效帐号。" id="AccountNumber" name="AccountNumber" type="text" value="">
+								<span class="field-validation-valid Validform_checktip f-red valmsg" data-valmsg-for="AccountNumber" data-valmsg-replace="true"></span>
+								<p><span class="normal">任意一张已绑定银行卡信息!</span></p>
+							</dd>
+						</dl>
+						<dl>
+							<dt>新资金密码</dt>
+							<dd>
+								<input class="inp text-box single-line password" data-val="true" data-val-length="新资金密码 必须长度在 6 至 30 范围内" data-val-length-max="30" data-val-length-min="6" data-val-required="新资金密码 栏位必须输入" id="DrawPassword" name="DrawPassword" type="password" value="">
+								<span class="field-validation-valid Validform_checktip f-red valmsg" data-valmsg-for="DrawPassword" data-valmsg-replace="true"></span>
+							</dd>
+						</dl>
+						<dl>
+							<dt>确认资金密码</dt>
+							<dd>
+								<input class="inp text-box single-line password" id="ConfirmDrawPassword" name="ConfirmDrawPassword" type="password" value="">
+								<span class="field-validation-valid Validform_checktip f-red valmsg" data-valmsg-for="ConfirmDrawPassword" data-valmsg-replace="true"></span>
+							</dd>
+						</dl>
+						<dl>
+							<dt>&nbsp;</dt>
+							<dd><input type="submit" class="but" value="确定"><input type="button" class="but" value="取消" onclick="forgotDrawPassword($('.Main'))"></dd>
+						</dl>
+					</div>
+						<div class="clear"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="userbox">
+		<!--奖金说明-->
+		<div class="usercon usercon2">
+			<div class="tab_sohn">
+				<button class="lotteryMenu cur" lotterytype="limitLottery">彩种限红</button>
+				<button class="LotteryGame lotteryMenu" value="1">时时彩</button>
+				<button class="LotteryGame lotteryMenu" value="3">福体彩</button>
+				<button class="LotteryGame lotteryMenu" value="2">11选5</button>
+				<button class="LotteryGame lotteryMenu" value="5">北京赛车</button>
+				<button class="LotteryGame lotteryMenu" value="4">快三</button>
+				<button class="LotteryGame lotteryMenu" value="17">幸运28</button>
+				<button class="LotteryGame lotteryMenu" value="26">快乐8</button>
+				<button class="LotteryGame lotteryMenu" value="28">快乐十分</button>
+			</div>
+
+			<div id="otherLottery" style="display:none;">
+				<div class="ticketInfo">
+					单期最高利润：
+					<span class="font-g" style="font-weight:bold" id="maxPerIssue">400000</span>
+					单挑最高利润：
+					<span class="font-g" style="font-weight:bold" id="maxPerDanTiao">30000</span>
+				</div>
+
+				<div class="sohnbox">
+					<table class="xxtable line_l">
+						<thead>
+						<tr>
+							<th width="400px">彩种</th>
+							<th width="400px">玩法类型</th>
+							<th width="650px">玩法分类</th>
+							<th width="550px">奖金赔率</th>
+						</tr>
+						</thead>
+						<tbody id="awardDetails"><tr class="bdot"><td>时时彩</td><td>五星直选<br></td><td>五星直选复式</td><td>193200<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星直选<br></td><td>五星直选单式</td><td>193200<br></td></tr><tr class="bdot"><td>时时彩</td><td>四星直选<br></td><td>四星直选复式</td><td>19320<br></td></tr><tr class="bdot"><td>时时彩</td><td>四星直选<br></td><td>四星直选单式</td><td>19320<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三直选<br></td><td>前三直选复式</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三直选<br></td><td>前三直选单式</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三直选<br></td><td>中三直选复式</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三直选<br></td><td>中三直选单式</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三直选<br></td><td>后三直选复式</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三直选<br></td><td>后三直选单式</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>前二直选<br></td><td>前二直选复式</td><td>193.2<br></td></tr><tr class="bdot"><td>时时彩</td><td>前二直选<br></td><td>前二直选单式</td><td>193.2<br></td></tr><tr class="bdot"><td>时时彩</td><td>后二直选<br></td><td>后二直选复式</td><td>193.2<br></td></tr><tr class="bdot"><td>时时彩</td><td>后二直选<br></td><td>后二直选单式</td><td>193.2<br></td></tr><tr class="bdot"><td>时时彩</td><td>任四直选<br></td><td>任四直选复式</td><td>19320<br></td></tr><tr class="bdot"><td>时时彩</td><td>任四直选<br></td><td>任四直选单式</td><td>19320<br></td></tr><tr class="bdot"><td>时时彩</td><td>任三直选<br></td><td>任三直选复式</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>任三直选<br></td><td>任三直选单式</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>任二直选<br></td><td>任二直选复式</td><td>193.2<br></td></tr><tr class="bdot"><td>时时彩</td><td>任二直选<br></td><td>任二直选单式</td><td>193.2<br></td></tr><tr class="bdot"><td>时时彩</td><td>定位胆<br></td><td>定位胆</td><td>19.32<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星组合一等奖<br>五星组合二等奖<br>五星组合三等奖<br>五星组合四等奖<br>五星组合五等奖<br></td><td>五星直选组合</td><td>193200<br>19320<br>1932<br>193.2<br>19.32<br></td></tr><tr class="bdot"><td>时时彩</td><td>四星组合一等奖<br>四星组合二等奖<br>四星组合三等奖<br>四星组合四等奖<br></td><td>四星直选组合</td><td>19320<br>1932<br>193.2<br>19.32<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三组合一等奖<br>前三组合二等奖<br>前三组合三等奖<br></td><td>前三直选组合</td><td>1932<br>193.2<br>19.32<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三组合一等奖<br>中三组合二等奖<br>中三组合三等奖<br></td><td>中三直选组合</td><td>1932<br>193.2<br>19.32<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三组合一等奖<br>后三组合二等奖<br>后三组合三等奖<br></td><td>后三直选组合</td><td>1932<br>193.2<br>19.32<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星组选组选120<br></td><td>五星组选组选120</td><td>1610<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星组选组选60<br></td><td>五星组选组选60</td><td>3220<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星组选组选30<br></td><td>五星组选组选30</td><td>6440<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星组选组选20<br></td><td>五星组选组选20</td><td>9660<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星组选组选10<br></td><td>五星组选组选10</td><td>19320<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星组选组选5<br></td><td>五星组选组选5</td><td>38640<br></td></tr><tr class="bdot"><td>时时彩</td><td>四星组选组选24<br></td><td>四星组选组选24</td><td>805<br></td></tr><tr class="bdot"><td>时时彩</td><td>四星组选组选12<br></td><td>四星组选组选12</td><td>1610<br></td></tr><tr class="bdot"><td>时时彩</td><td>四星组选组选6<br></td><td>四星组选组选6</td><td>3220<br></td></tr><tr class="bdot"><td>时时彩</td><td>四星组选组选4<br></td><td>四星组选组选4</td><td>4830<br></td></tr><tr class="bdot"><td>时时彩</td><td>前二组选<br></td><td>前二组选复式</td><td>96.6<br></td></tr><tr class="bdot"><td>时时彩</td><td>前二组选<br></td><td>前二组选单式</td><td>96.6<br></td></tr><tr class="bdot"><td>时时彩</td><td>后二组选<br></td><td>后二组选复式</td><td>96.6<br></td></tr><tr class="bdot"><td>时时彩</td><td>后二组选<br></td><td>后二组选单式</td><td>96.6<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三组选组三<br></td><td>前三组选组三复式</td><td>644<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三组选组三<br></td><td>前三组选组三单式</td><td>644<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三组选组六<br></td><td>前三组选组六复式</td><td>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三组选组六<br></td><td>前三组选组六单式</td><td>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三组选组三<br></td><td>中三组选组三复式</td><td>644<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三组选组三<br></td><td>中三组选组三单式</td><td>644<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三组选组六<br></td><td>中三组选组六复式</td><td>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三组选组六<br></td><td>中三组选组六单式</td><td>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三组选组三<br></td><td>后三组选组三复式</td><td>644<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三组选组三<br></td><td>后三组选组三单式</td><td>644<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三组选组六<br></td><td>后三组选组六复式</td><td>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三组选组六<br></td><td>后三组选组六单式</td><td>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三组选组三<br>前三组选组六<br></td><td>前三混合组选</td><td>644<br>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三组选组三<br>中三组选组六<br></td><td>中三混合组选</td><td>644<br>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三组选组三<br>后三组选组六<br></td><td>后三混合组选</td><td>644<br>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三直选和值<br></td><td>前三直选和值</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三直选和值<br></td><td>中三直选和值</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三直选和值<br></td><td>后三直选和值</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三组选组三<br>前三组选组六<br></td><td>前三组选和值</td><td>644<br>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三组选组三<br>中三组选组六<br></td><td>中三组选和值</td><td>644<br>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三组选组三<br>后三组选组六<br></td><td>后三组选和值</td><td>644<br>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三直选跨度<br></td><td>前三直选跨度</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三直选跨度<br></td><td>中三直选跨度</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三直选跨度<br></td><td>后三直选跨度</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>前二直选跨度<br></td><td>前二直选跨度</td><td>193.2<br></td></tr><tr class="bdot"><td>时时彩</td><td>后二直选跨度<br></td><td>后二直选跨度</td><td>193.2<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三组选组三<br>前三组选组六<br></td><td>前三组选包胆</td><td>644<br>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三组选组三<br>中三组选组六<br></td><td>中三组选包胆</td><td>644<br>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三组选组三<br>后三组选组六<br></td><td>后三组选包胆</td><td>644<br>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>前二组选包胆<br></td><td>前二组选包胆</td><td>96.6<br></td></tr><tr class="bdot"><td>时时彩</td><td>后二组选包胆<br></td><td>后二组选包胆</td><td>96.6<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三和值尾数<br></td><td>前三和值尾数</td><td>19.32<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三和值尾数<br></td><td>中三和值尾数</td><td>19.32<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三和值尾数<br></td><td>后三和值尾数</td><td>19.32<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三豹子<br>前三顺子<br>前三对子<br>前三杂六<br>前三半顺<br></td><td>前三特殊号码</td><td>193.2<br>32.2<br>7.155<br>6.44<br>5.366<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三豹子<br>中三顺子<br>中三对子<br>中三杂六<br>中三半顺<br></td><td>中三特殊号码</td><td>193.2<br>32.2<br>7.155<br>6.44<br>5.366<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三豹子<br>后三顺子<br>后三对子<br>后三杂六<br>后三半顺<br></td><td>后三特殊号码</td><td>193.2<br>32.2<br>7.155<br>6.44<br>5.366<br></td></tr><tr class="bdot"><td>时时彩</td><td>前二直选和值<br></td><td>前二直选和值</td><td>193.2<br></td></tr><tr class="bdot"><td>时时彩</td><td>后二直选和值<br></td><td>后二直选和值</td><td>193.2<br></td></tr><tr class="bdot"><td>时时彩</td><td>前二组选和值<br></td><td>前二组选和值</td><td>96.6<br></td></tr><tr class="bdot"><td>时时彩</td><td>后二组选和值<br></td><td>后二组选和值</td><td>96.6<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星一码不定位<br></td><td>五星一码不定位</td><td>4.717<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星二码不定位<br></td><td>五星二码不定位</td><td>13.169<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星三码不定位<br></td><td>五星三码不定位</td><td>44.413<br></td></tr><tr class="bdot"><td>时时彩</td><td>前四一码不定位<br></td><td>前四一码不定位</td><td>5.617<br></td></tr><tr class="bdot"><td>时时彩</td><td>前四二码不定位<br></td><td>前四二码不定位</td><td>19.835<br></td></tr><tr class="bdot"><td>时时彩</td><td>后四一码不定位<br></td><td>后四一码不定位</td><td>5.617<br></td></tr><tr class="bdot"><td>时时彩</td><td>后四二码不定位<br></td><td>后四二码不定位</td><td>19.835<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三一码不定位<br></td><td>前三一码不定位</td><td>7.129<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三二码不定位<br></td><td>前三二码不定位</td><td>35.777<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三一码不定位<br></td><td>后三一码不定位</td><td>7.129<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三二码不定位<br></td><td>后三二码不定位</td><td>35.777<br></td></tr><tr class="bdot"><td>时时彩</td><td>前三大小单双<br></td><td>前三大小单双</td><td>15.456<br></td></tr><tr class="bdot"><td>时时彩</td><td>后三大小单双<br></td><td>后三大小单双</td><td>15.456<br></td></tr><tr class="bdot"><td>时时彩</td><td>前二大小单双<br></td><td>前二大小单双</td><td>7.728<br></td></tr><tr class="bdot"><td>时时彩</td><td>后二大小单双<br></td><td>后二大小单双</td><td>7.728<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星特殊一帆风顺<br></td><td>五星特殊一帆风顺</td><td>4.717<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星特殊好事成双<br></td><td>五星特殊好事成双</td><td>23.717<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星特殊三星报喜<br></td><td>五星特殊三星报喜</td><td>225.7<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星特殊四季发财<br></td><td>五星特殊四季发财</td><td>4200<br></td></tr><tr class="bdot"><td>时时彩</td><td>任四组选组选24<br></td><td>任四组选组选24</td><td>805<br></td></tr><tr class="bdot"><td>时时彩</td><td>任四组选组选12<br></td><td>任四组选组选12</td><td>1610<br></td></tr><tr class="bdot"><td>时时彩</td><td>任四组选组选6<br></td><td>任四组选组选6</td><td>3220<br></td></tr><tr class="bdot"><td>时时彩</td><td>任四组选组选4<br></td><td>任四组选组选4</td><td>4830<br></td></tr><tr class="bdot"><td>时时彩</td><td>任三组选组三<br></td><td>任三组选组三复式</td><td>644<br></td></tr><tr class="bdot"><td>时时彩</td><td>任三组选组三<br></td><td>任三组选组三单式</td><td>644<br></td></tr><tr class="bdot"><td>时时彩</td><td>任三组选组六<br></td><td>任三组选组六复式</td><td>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>任三组选组六<br></td><td>任三组选组六单式</td><td>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>任三组选组三<br>任三组选组六<br></td><td>任三混合组选</td><td>644<br>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>任三直选和值<br></td><td>任三直选和值</td><td>1932<br></td></tr><tr class="bdot"><td>时时彩</td><td>任三组选组三<br>任三组选组六<br></td><td>任三组选和值</td><td>644<br>322<br></td></tr><tr class="bdot"><td>时时彩</td><td>任二组选<br></td><td>任二组选复式</td><td>96.6<br></td></tr><tr class="bdot"><td>时时彩</td><td>任二组选<br></td><td>任二组选单式</td><td>96.6<br></td></tr><tr class="bdot"><td>时时彩</td><td>任二直选和值<br></td><td>任二直选和值</td><td>193.2<br></td></tr><tr class="bdot"><td>时时彩</td><td>任二组选和值<br></td><td>任二组选和值</td><td>96.6<br></td></tr><tr class="bdot"><td>时时彩</td><td>和<br>龙<br>虎<br></td><td>五星其它龙虎和</td><td>19.32<br>4.293<br>4.293<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星总和大小单双<br></td><td>五星总和大小单双</td><td>3.864<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三一码不定位<br></td><td>中三一码不定位</td><td>7.129<br></td></tr><tr class="bdot"><td>时时彩</td><td>中三二码不定位<br></td><td>中三二码不定位</td><td>35.777<br></td></tr><tr class="bdot"><td>时时彩</td><td>牛1<br>牛3<br>牛5<br>牛7<br>牛9<br>牛牛<br>牛2<br>牛4<br>牛6<br>牛8<br>无牛<br></td><td>牛牛</td><td>15.152<br>15.152<br>15.152<br>15.152<br>15.152<br>14.962<br>14.85<br>14.85<br>14.85<br>14.85<br>2.709<br></td></tr><tr class="bdot"><td>时时彩</td><td>牛单<br>牛质<br>牛小<br>牛大<br>牛合<br>牛双<br></td><td>牛牛双面</td><td>3.03<br>3.018<br>3.006<br>2.998<br>2.986<br>2.974<br></td></tr><tr class="bdot"><td>时时彩</td><td>五条<br>炸弹<br>葫芦<br>顺子<br>两对<br>三条<br>散号<br>单对<br></td><td>牛牛梭哈</td><td>9660<br>214.666<br>107.333<br>80.5<br>8.944<br>13.416<br>3.326<br>1.916<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星总和小单<br>五星总和大双<br>五星总和大单<br>五星总和小双<br></td><td>五星总和组合大小雙单</td><td>8.224<br>8.224<br>7.288<br>7.288<br></td></tr><tr class="bdot"><td>时时彩</td><td>五星小单<br>五星大双<br>五星大单<br>五星小双<br></td><td>五星组合大小雙单</td><td>9.66<br>9.66<br>6.44<br>6.44<br></td></tr></tbody>
+					</table>
+				</div>
+			</div>
+
+			<!--特别说明-->
+			<div class="sohnbox" id="limitLottery">
+				<table cellpadding="0" cellspacing="0" class="xxtable line_l xxtable2">
+					<tbody><tr>
+						<th>单期定义</th>
+						<th colspan="7">单期最高利润</th>
+					</tr>
+					<tr>
+						<td>同一彩种、同一期号</td>
+						<td>时时彩类型<br><span class="HighFreqMaxPrizePerIssue">400,000</span></td>
+						<td>11选5类型<br><span class="HighFreqMaxPrizePerIssue">400,000</span></td>
+						<td>快三类型<br><span class="HighFreqMaxPrizePerIssue">400,000</span></td>
+						<td>PK10类型<br><span class="HighFreqMaxPrizePerIssue">400,000</span></td>
+						<td>六合彩类型<br><span class="LowFreqMaxPrizePerIssue">200,000</span></td>
+						<td>3D/P3/P5<br><span class="LowFreqMaxPrizePerIssue">200,000</span></td>
+					</tr>
+					<tr>
+						<th>单挑定义</th>
+						<th colspan="7">单挑最高利润</th>
+					</tr>
+					<tr>
+						<td>小于、等于投注所选玩法的总注数的1%</td>
+						<td colspan="7">高频彩  <span id="MaxPrizePerBet">30,000</span>、低频彩 <span id="LowFreqMaxPrizePerDanTiao">20,000</span> </td>
+					</tr>
+					</tbody></table>
+				<table cellpadding="0" cellspacing="0" class="xxtable xxtable3 line_l">
+					<tbody><tr class="bd0">
+						<td>
+							<h3>五星直选</h3>
+							<span>1000注及以内</span>
+						</td>
+						<td>
+							<h3>四星直选</h3>
+							<span>100注及以内</span>
+						</td>
+						<td>
+							<h3>三星直选</h3>
+							<span>10注及以内</span>
+						</td>
+						<td>
+							<h3>二星直选</h3>
+							<span>1注</span>
+						</td>
+						<td rowspan="2">
+							<h3>所有组选转为直选注数计算</h3>
+						</td>
+					</tr>
+					</tbody></table>
+				<div class="ml40 mt10 cl_ed7c4f textCenter">
+					<p><span>禁止投注概率高于80%,恶意对打、套取活动、套取红利等套利行为一经发现，公司保留收回红利及红利所产生之盈利的权利。</span></p>
+				</div>
+			</div>
+			<!-- End 特别说明-->
+		</div>
+	</div>
+	<div class="usercon usercon2 userbox">
+		<input name="__RequestVerificationToken" type="hidden" value="bRdghVAA-HIV7-TaSnj91LOI1jcUojj2jV5wLbT-Tvx35utnJ0UzySnPp-EhEAu1Kd0u8VVHGWKkrOEZEKcziS1hlk-0sFeLPUP7gRpxqw79zbjsfjGe7vrv1uMR_-61wxkUIS_VaYDBKLgiwIk3_A2">
+		<div class="sohnbox">
+			<div class="searchbar mt0">
+				<ul class="fl_list clearfix list_ml" style="margin-bottom:15px;">
+					<li>
+						充值方式
+						<select name="DepositAccountType" id="DepositAccountType">
+							<option value="" selected="selected">所有类型</option>
+							<option value="2">第三方充值</option>
+							<option value="3">微信充值</option>
+							<option value="0">支付宝充值</option>
+							<option value="1">网银汇款</option>
+							<option value="5">其他</option>
+						</select>
+					</li>
+					<li style="display:none">
+						类别：
+						<select name="RecordTypeTitle" id="RecordTypeTitle" placeholder="所有类型">
+							<option class="RecordType" value="0">所有类型</option>
+							<option class="RecordType" selected="selected" value="1">充值</option>
+							<option class="RecordType" value="2">提款</option>
+						</select>
+					</li>
+					<li>
+						<span>时间</span><input name="StartTime" id="StartTime" class="inp date" type="text" onclick="WdatePicker({ minDate: '2018/01/05 03:00:00', dateFmt: 'yyyy-MM-dd HH:mm:ss', autoPickDate: true })">
+					</li>
+					<li class="ml0">
+						<span>至</span><input name="EndTime" id="EndTime" class="inp date" type="text" onclick="WdatePicker({ minDate: '2018/01/05 03:00:00', dateFmt: 'yyyy-MM-dd HH:mm:ss', autoPickDate: true })">
+					</li>
+					<li><input id="querybutton" type="button" class="but" value="搜索" data-bind="click: Search"></li>
+				</ul>
+				<div style="" class="viewport">
+					<div class="overview" id="mainPage" style="display:none;">
+						<div id="WithdrawRecordTable_wrapper" class="dataTables_wrapper"><table id="WithdrawRecordTable" width="100%" cellspacing="0" class="dataTable display xxtable line_l" style="clear: none; table-layout: fixed; width: 100%;" data-bind="visible: errmsg() == ''" role="grid" aria-describedby="WithdrawRecordTable_info">
+							<thead>
+							<tr role="row"><th class="sorting" tabindex="0" aria-controls="WithdrawRecordTable" rowspan="1" colspan="1" aria-label="充值方式: 以升序排列此列" style="width: 0px;">充值方式</th><th class="sorting" tabindex="0" aria-controls="WithdrawRecordTable" rowspan="1" colspan="1" aria-label="充值金额: 以升序排列此列" style="width: 0px;">充值金额</th><th class="sorting" tabindex="0" aria-controls="WithdrawRecordTable" rowspan="1" colspan="1" aria-label="手续费: 以升序排列此列" style="width: 0px;">手续费</th><th class="sorting_desc" tabindex="0" aria-controls="WithdrawRecordTable" rowspan="1" colspan="1" aria-sort="descending" aria-label="状态: 以升序排列此列" style="width: 0px;">状态</th><th class="sorting" tabindex="0" aria-controls="WithdrawRecordTable" rowspan="1" colspan="1" aria-label="充值日期: 以升序排列此列" style="width: 0px;">充值日期</th><th class="sorting" tabindex="0" aria-controls="WithdrawRecordTable" rowspan="1" colspan="1" aria-label="备注: 以升序排列此列" style="width: 0px;">备注</th></tr>
+							</thead>
+							<tbody data-bind="foreach: cashFlowRcords"><tr class="odd"><td valign="top" colspan="6" class="dataTables_empty">查无资料</td></tr></tbody>
+							<tfoot>
+							<tr><td rowspan="1" colspan="1"><span>合計</span></td><td colspan="5" style="text-align:left" rowspan="1"><span id="sum"></span></td></tr>
+							</tfoot>
+						</table><div class="bottom"><div class="dataTables_info" id="WithdrawRecordTable_info" role="status" aria-live="polite">显示第 0 至 0 项结果，共 0 项</div><div class="dataTables_paginate paging_full_numbers" id="WithdrawRecordTable_paginate"><a class="paginate_button first disabled" aria-controls="WithdrawRecordTable" data-dt-idx="0" tabindex="0" id="WithdrawRecordTable_first">首页</a><a class="paginate_button previous disabled" aria-controls="WithdrawRecordTable" data-dt-idx="1" tabindex="0" id="WithdrawRecordTable_previous">上页</a><span></span><a class="paginate_button next disabled" aria-controls="WithdrawRecordTable" data-dt-idx="2" tabindex="0" id="WithdrawRecordTable_next">下页</a><a class="paginate_button last disabled" aria-controls="WithdrawRecordTable" data-dt-idx="3" tabindex="0" id="WithdrawRecordTable_last">末页</a></div></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="userbox">
+		<!--奖金说明-->
+		<div class="usercon usercon2">
+			<div class="tab_sohn">
+				<button class="detail cur" detailtype="General">一般说明</button>
+				<button class="detail" detailtype="Deposit">充提款说明</button>
+				<button class="detail" detailtype="AccountSerial">帐号注单说明</button>
+			</div>
+			<div class="sohnbox" id="General">
+				<table cellpadding="0" cellspacing="0" class="xxtable line_l xxtable2">
+					<tbody><tr>
+						<th colspan="7">一般说明</th>
+					</tr>
+					<tr>
+						<td colspan="7" style="text-align: left;">
+							（1）在线客服服务时间为24小时，如有系统与操作相关问题请利用平台右侧客服系统联系与谘询。<br>
+							（2）每月1号与16号凌晨02：50到06：00，为平台例行维护。如果在预定时间内无法完成维护内容，开机时间也将继续顺延，此例行维护不另行公告，请留意投注时间，避免造成不必要的损失。<br>
+							（3）请用户定期更新登入及资金密码，并确保个人帐户之相关帐密与个资的保密性，用户有责任保管好自己的帐密相关资料，因此所有投注成功之注单都将视为有效注单，若用户帐号遭盗用所进行的任何投注或提款等行为，用户将自行承担。<br>
+							（4）若会员追号 如果官方延迟开奖导致中奖后无法停止继续追号 平台将判定之后追号也算正常注单 请会员自行手动撤单 平台將不負任何責任。
+						</td>
+					</tr>
+					</tbody></table>
+				<div class="ml10 mt10 cl_ed7c4f textCenter">
+					<p>本平台保有修改和增加交易协定的权力，更改后均以网站上之条款为有效决策，进入本平台前请详读各条规则，若会员同意后进入本平台，将视为已接受本条款。</p>
+				</div>
+			</div>
+
+			<div class="sohnbox" id="Deposit" style="display:none;">
+				<table cellpadding="0" cellspacing="0" class="xxtable line_l xxtable2">
+					<tbody><tr>
+						<th colspan="7">充提款说明</th>
+					</tr>
+					<tr>
+						<td colspan="7" style="text-align: left;">
+							（1）平台每日取款次数限3次以内，单次最低取款金额100元，单次最高200,000元，当日最高600,000元。<br>
+							（2）为杜绝洗钱和盗刷他人银行卡的套利不法会员，会员在充值后必须完成充值金额50％的流水，方可出款。若发现有任何不法之情事，平台有权直接冻结所有关联帐户，并收回资金。<br>
+							（3）线上存、提款时间均为24小时。<br>
+							（4）<span class="cl_ed7c4f">平台除了网站提供的线上客服以外，绝无QQ或其它联系方式，客服亦不会私下给汇款帐号，请当心此种诈骗方式，若对平台有任何疑问或反馈请多利用本平台24小时线上客服。</span><br>
+							（5）会员充值时请依提交订单时平台提供的银行帐号为主，若因会员疏失导致无法到帐或延迟到帐，平台将不负任何责任。<br>
+							（6）为确保用户资金安全，平台将不定期更换充、提款相关卡号，请务必确认后再进行付款，避免造成不到帐的情况。
+						</td>
+					</tr>
+					</tbody></table>
+				<div class="ml10 mt10 cl_ed7c4f textCenter">
+					<p><span>本平台保有修改和增加交易协定的权力，更改后均以网站上之条款为有效决策，进入本平台前请详读各条规则，若会员同意后进入本平台，将视为已接受本条款。</span></p>
+				</div>
+			</div>
+
+
+			<div class="sohnbox" id="AccountSerial" style="display:none;">
+				<table cellpadding="0" cellspacing="0" class="xxtable line_l xxtable2">
+					<tbody><tr>
+						<th colspan="7">帐号注单说明</th>
+					</tr>
+					<tr>
+						<td colspan="7" style="text-align: left;">
+							（1）会员下注均以下注成功之注单为有效，投注完成后，请核对是否下注成功。<br>
+							（2）若遇不可抗拒之情事造成损失，例：骇客侵入、网络不稳或传输中断...等，将依本平台发布公告为主。<br>
+							（3）会员投注若有违反平台规则或利用平台BUG非法盈利时，本平台有权取消不法盈利，并停用会员帐号。<br>
+							（4）请会员定时修改帐户密码，定时清理电脑以免发生电脑中毒而被盗号，帐号被盗用所造成的损失，平台将不负任何责任。<br>
+							（5）如遇官方未开奖，平台会在30分钟后撤单，若撤单后官方才开出奖号，平台不予处理。如官网奖号开奖号错误，将采用官网修正最终结果，平台有权在上述事件发生时即时终止注单交易，并进行订单修正。<br>
+							（6）<span class="cl_ed7c4f">平台（高频彩）每期最高中奖利润400,000元，（低频彩）每期最高中奖利润为200,000元，单挑每期中奖利润最高30,000元（高频彩），单挑每期中奖利润最高20,000元（低频彩）超出的利润将视为无效。</span><br>
+							（7）平台自动删除帐号条件如下：超过45天未登入，且帐户馀额小于5元，7天內无任何帐变和登入记录平台将视为无用帐号进行删号处理。<br>
+							（8）腾讯分分彩官方偶尔会出现不即时更新的情形，若发生则当期不列入计算 （若因为官方数据超过2期未更新，导致每期开奖号码相同，此时平台有权将相同号码之期数以强制撤单处理，不计输赢）。<br>
+
+						</td>
+					</tr>
+					</tbody></table>
+				<div class="ml10 mt10 cl_ed7c4f textCenter">
+					<p><span>本平台保有修改和增加交易协定的权力，更改后均以网站上之条款为有效决策，进入本平台前请详读各条规则，若会员同意后进入本平台，将视为已接受本条款。</span></p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="footer"></div>
+
+<style type="text/css">
+	.userbox{
+		display: none;
+	}
+	.userbox.active{
+		display: block;
+	}
+	.sohnbox {
+		min-height: 280px;
+	}
+
+	.ip_Li {
+		height: 30px;
+		line-height: 30px;
+		cursor: default;
+		margin: 10px 0 0 0;
+		float: left;
+		padding: 0 12px 0 15px;
+	}
+</style>
+<script type="text/javascript">
+    $(".eject .tab ul li").click(function(){
+        var index=$(this).index();
+        $(this).addClass('cur').siblings().removeClass("cur");
+        $(".userbox ").eq(index).addClass("active").siblings().removeClass("active");
+    })
+</script>
+{include file="common/top_slide" /}
+</body>
+</html>

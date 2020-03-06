@@ -1,0 +1,67 @@
+{extend name="common:base" /}
+
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li class="active">返利设置</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <form class="gameForm"  method="post" action="{:url('edit')}">
+                        <header class="panel-heading"></header>
+                        <div class="panel-body">
+                            <div class="col-sm-5">
+                                <div class="adv-table editable-table ">
+                                    <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                                        <thead>
+                                        <tr>
+                                            <th>规则</th>
+                                            <th>返点</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr>
+                                            <td>投注返利</td>
+                                            <td>
+                                                <input type="text" class="form-control small" name="tuozhu_rebate" value="{$list[0]['val']}">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>介绍返利</td>
+                                            <td>
+                                                <input type="text" class="form-control small" name="jieshao_rebate" value="{$list[1]['val']}">
+                                            </td>
+                                        </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    <button class="btn btn-primary ajax-post" target-form="gameForm"  type="submit">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<!--body wrapper end-->
+{/block}

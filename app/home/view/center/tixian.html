@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>提现记录</title>
+    <script src="__JS__/jquery-1.6.2.min.js" ></script>
+    <script src="__JS__/mui.min.js"></script>
+    <script src="__JS__/index.js" ></script>
+    <link href="__CSS__/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/index.css"/>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+</head>
+<body id="recharge">
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="{:url('index')}"></a>
+    <h1 class="mui-title">小时代</h1>
+</header>
+<div class="mui-content cathexis" id="cathexis">
+
+    <table border="" cellspacing="" cellpadding="">
+        <tr>
+            <th>ID</th>
+            <th>时间</th>
+            <th>金额</th>
+            <th>状态</th>
+        </tr>
+        {volist name="list" id="v"}
+        <tr>
+            <td>{$i}</td>
+            <td>{$v.create_at|date='Y-m-d H:i:s',###}</td>
+            <td>￥{$v.money/100}</td>
+            <td>{if ($v.state eq 1)}已提现{else/}待提现{/if}</td>
+        </tr>
+        {/volist}
+    </table>
+</div>
+</body>
+</html>

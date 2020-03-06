@@ -1,0 +1,165 @@
+{extend name="common:base" /}
+{block name="css"}
+<!--pickers css-->
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-datepicker/css/datepicker-custom.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-timepicker/css/timepicker.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-datetimepicker/css/datetimepicker-custom.css" />
+<style>
+    .table td{
+        height: 42px;
+        font-size: 2ch;
+    }
+</style>
+{/block}
+{block name="main"}
+<!--body wrapper start-->
+<!--<div class="wrapper">-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+            <!--&lt;!&ndash;breadcrumbs start &ndash;&gt;-->
+            <!--<ul class="breadcrumb panel">-->
+                <!--<li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>-->
+                <!--<li><a href="{:url('index')}">首页</a></li>-->
+            <!--</ul>-->
+            <!--<form class="form-inline" action="{:url('')}">-->
+                <!--<div class="form-group">-->
+                    <!--<div class="col-md-5">-->
+                        <!--<div class="input-group  custom-date-range">-->
+                            <!--<input type="text" class="form-control form_datetime" value="{$_GET['from'] ??  ''}" name="from" placeholder="开始时间">-->
+                            <!--<span class="input-group-addon">到</span>-->
+                            <!--<input type="text" class="form-control form_datetime" value="{$_GET['to'] ?? ''}" name="to" placeholder="结束时间">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>-->
+                <!--</div>-->
+            <!--</form>-->
+            <!--&lt;!&ndash;breadcrumbs end &ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<div class="col-sm-12">-->
+            <!--<section class="panel">-->
+                <!--<header class="panel-heading col-xs-12 " style="text-align: center">-->
+                        <!--<div class="form-group">-->
+                            <!--<h4 style="text-align: center">财务统计</h4>-->
+                        <!--</div>-->
+
+                <!--</header>-->
+
+                <!--<div class="panel-body">-->
+                    <!--<form class="ids" action="{:url('')}" method="post">-->
+                        <!--<table class="table" style="text-align: center;background:bisque;" float="left">-->
+                            <!--<tbody>-->
+                            <!--<tr >-->
+                                <!--<td >昨日留盘</td>-->
+                                <!--<td >{$back.yesterday_money|default='0.00'}</td>-->
+                                <!--<td  style="background:burlywood;" >PC蛋蛋</td>-->
+                                <!--<td  style="background:burlywood;">{$back.pc_money|default='0.00'}</td>-->
+                            <!--</tr>-->
+                            <!--<tr >-->
+                                <!--<td>今日留盘</td>-->
+                                <!--<td>{$back.today_money|default='0.00'}</td>-->
+                                <!--<td style="background:burlywood;">加拿大28</td>-->
+                                <!--<td style="background:burlywood;">{$back.canada_moneyl|default='0.00'}</td>-->
+                            <!--</tr>-->
+                            <!--<tr >-->
+                                <!--<td>今日充值</td>-->
+                                <!--<td>{$back.today_recharge|default='0.00'}</td>-->
+                                <!--<td style="background:burlywood;">北京赛车</td>-->
+                                <!--<td style="background:burlywood;">{$back.car_money|default='0.00'}</td>-->
+                            <!--</tr>-->
+                            <!--<tr >-->
+                                <!--<td>今日提现</td>-->
+                                <!--<td>{$back.today_tx|default='0.00'}</td>-->
+                                <!--<td style="background:burlywood;">幸运飞艇</td>-->
+                                <!--<td style="background:burlywood;">{$back.ship_money|default='0.00'}</td>-->
+                            <!--</tr>-->
+                            <!--<tr >-->
+                                <!--<td>今日佣金</td>-->
+                                <!--<td>{$back.today_yj|default='0.00'}</td>-->
+                                <!--<td style="background:burlywood;">重庆时时彩</td>-->
+                                <!--<td style="background:burlywood;">{$back.ssc_money|default='0.00'}</td>-->
+                            <!--</tr>-->
+                            <!--<tr >-->
+                                <!--<td>今日退水</td>-->
+                                <!--<td>{$back.today_ts|default='0.00'}</td>-->
+                                <!--<td style="background:burlywood;">天津时时彩</td>-->
+                                <!--<td style="background:burlywood;">{$back.tjssc_money|default='0.00'}</td>-->
+                            <!--</tr>-->
+                            <!--<tr >-->
+                                <!--<td>今日微信</td>-->
+                                <!--<td>{$back.today_wx|default='0.00'}</td>-->
+                                <!--<td style="background:burlywood;">广州快乐十分</td>-->
+                                <!--<td style="background:burlywood;">{$back.gd10_money|default='0.00'}</td>-->
+                            <!--</tr>-->
+                            <!--<tr >-->
+                                <!--<td>今日支付宝</td>-->
+                                <!--<td>{$back.today_pay|default='0.00'}</td>-->
+                                <!--<td style="background:burlywood;">重庆快乐十分</td>-->
+                                <!--<td style="background:burlywood;">{$back.cq10_money|default='0.00'}</td>-->
+                            <!--</tr>-->
+                            <!--<tr >-->
+                                <!--<td>今日银行</td>-->
+                                <!--<td>{$back.today_bank|default='0.00'}</td>-->
+                                <!--<td style="background:burlywood;">江苏快三</td>-->
+                                <!--<td style="background:burlywood;">{$back.fast_money|default='0.00'}</td>-->
+                            <!--</tr>-->
+                            <!--<tr >-->
+                                <!--<td>今日上分</td>-->
+                                <!--<td>{$back.today_up|default='0.00'}</td>-->
+                                <!--<td style="background:burlywood;">广东11选5</td>-->
+                                <!--<td style="background:burlywood;">{$back.gd11_money|default='0.00'}</td>-->
+                            <!--</tr>-->
+                            <!--<tr >-->
+                                <!--<td>今日下分</td>-->
+                                <!--<td>{$back.today_down|default='0.00'}</td>-->
+                                <!--<td style="background:burlywood;">香港六合彩</td>-->
+                                <!--<td style="background:burlywood;">{$back.hk_money|default='0.00'}</td>-->
+                            <!--</tr>-->
+                            <!--<tr >-->
+                                <!--<td>今日总盈亏</td>-->
+                                <!--<td>{$back.win_lose|default='0.00'}</td>-->
+                                <!--<td style="background:burlywood;">AG</td>-->
+                                <!--<td style="background:burlywood;">{$back.ag_money|default='0.00'}</td>-->
+                            <!--</tr>-->
+                            <!--<tr >-->
+                                <!--<td></td>-->
+                                <!--<td></td>-->
+                                <!--<td style="background:burlywood;">BB</td>-->
+                                <!--<td style="background:burlywood;">{$back.bb_money|default='0.00'}</td>-->
+                            <!--</tr>-->
+                            <!--<tr >-->
+                                <!--<td></td>-->
+                                <!--<td></td>-->
+                                <!--<td style="background:burlywood;">总和</td>-->
+                                <!--<td style="background:burlywood;">{$back.all_money|default='0.00'}</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</section>-->
+        <!--</div>-->
+
+    <!--</div>-->
+<!--</div>-->
+<!--body wrapper end-->
+<!-- Modal -->
+{/block}
+<!-- modal -->
+{block name="js"}
+<!--pickers plugins-->
+<script type="text/javascript" src="__JS__/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-daterangepicker/moment.min.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+
+<!--pickers initialization-->
+<script src="__JS__/pickers-init.js"></script>
+{/block}
+
+

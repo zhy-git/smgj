@@ -1,0 +1,74 @@
+{extend name="common:base" /}
+
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="pull-left">
+
+        <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回"><i class="fa fa-reply"></i></a>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li><a href="{:url('index')}">彩票管理</a></li>
+                <li class="active">房间设置</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <form class="ids" action="" method="post">
+                        <table class="table">
+                            <thead>
+                            <tr>
+
+                                <th>大厅ID</th>
+                                <th>彩种名称</th>
+                                <th>房间名称</th>
+                                <th>房间logo</th>
+                                <th>开启/关闭</th>
+                                <th>机器人设置</th>
+                                <th>回水、流水设置</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name='data' id='v'}
+                            <tr>
+                                <td>{$v.id}</td>
+                                <td>{$v.cate_name}</td>
+                                <td>{$v.name}</td>
+                                <td><img width="100" src="URL_IMG{$v.hall_img}"></td>
+                                <td>{if $v.status ==1} 开放{else/}关闭{/if}</td>
+                                <td>
+                                    <a href="{:url('member/robot',array('cate'=>$v['cate'],'hall'=>$v['hall']))}"  title="机器人设置">机器人设置</a>
+                                </td>
+                                <td>
+                                    <a href="{:url('lottery/water_show',array('cate'=>$v['cate'],'hall'=>$v['hall']))}"  title="回水设置">回水、流水设置</a>
+                                </td>
+
+                                <td>
+                                    <a href="{:url('lottery/hall_show',['id'=>$v['id']])}" class="fa fa-edit" title="编辑"></a>
+
+                                </td>
+                            </tr>
+                            {/volist}
+
+                            </tbody>
+                        </table>
+                    </form>
+
+                </div>
+            </section>
+        </div>
+
+    </div>
+</div>
+<!--body wrapper end-->
+{/block}

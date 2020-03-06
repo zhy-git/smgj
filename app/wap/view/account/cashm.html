@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>资金管理</title>
+	<script src="__JS__/wap/mui.min.js"></script>
+	<link href="__CSS__/wap/mui.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/wap/common.css"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/wap/index.css"/>
+	<script src="__JS__/wap/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/wap/time.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/wap/index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/jquery.validate.min.js"></script>
+	<script src="__JS__/layer.js" ></script>
+	<script src="__JS__/common.js" ></script>
+	<script type="text/javascript" charset="utf-8">
+        mui.init();
+	</script>
+	<style>
+		.displayNone{ display: none;}
+		.spring_box{
+			width: 90%;
+			position: fixed;
+			background: #fff;
+			box-shadow: 0 0 2px 2px rgba(0,0,0,.3);
+			left: 5%;
+			top: 20%;
+			padding: 10px;
+			border-radius:5px ;
+		}
+		.dr_box{
+			width: 50%;
+			margin: auto;
+			padding: 30px 0;
+		}
+		.bank_box{
+			width: 100%;
+			margin: auto;
+			padding: 20px 0;
+		}
+		.bank_box input{
+			width: 66%;
+			margin: 0;
+			height: 35px;
+		}
+		.bank_box label{
+			width: 85px;
+			color: #555;
+			text-align: right;
+		}
+	</style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">资金管理</h1>
+</header>
+<nav class="mui-bar mui-bar-tab">
+	<a class="mui-tab-item1 " href="{:url('Index/index')}">
+		<span class="mui-icon "><img src="__IMG__/wap/icon1.png" alt="" /></span>
+		<span class="mui-tab-label">首页</span>
+	</a>
+	<a class="mui-tab-item1" href="{:url('Index/game')}" >
+		<span class="mui-icon "><img src="__IMG__/wap/icon2.png" alt="" /></span>
+		<span class="mui-tab-label">游戏大厅</span>
+	</a>
+	<a class="mui-tab-item1 mui-active" href="{:url('Account/index')}">
+		<span class="mui-icon "><img src="__IMG__/wap/icon3_r.png" alt="" /></span>
+		<span class="mui-tab-label">资金管理</span>
+	</a>
+	<a class="mui-tab-item1" href="{:url('Center/index')}">
+		<span class="mui-icon "><img src="__IMG__/wap/icon4.png" alt="" /></span>
+		<span class="mui-tab-label">我的</span>
+	</a>
+</nav>
+<div class="mui-content ">
+	<div class="fund_top ">
+		<dl class="clearfix">
+			<dt class="left"><img class="width100"  src="__IMG__/wap/head.png" alt="" /></dt>
+			<dd class="left">
+				<h4 class="mui-h4 color_ff mg_top20">{$mem.gm_name}
+					<a href="{:url('Center/conversion')}" class="basic_a mg_left10">资金转账</a>
+				</h4>
+				<p class="color_ff mg_top10">账户余额：<span>{$mem.money}</span></p>
+			</dd>
+		</dl>
+	</div>
+	<div class="fund_main ">
+		<ul class="clearfix">
+			<li><a href="{:url('index')}">存款</a></li>
+			<li><a href="{:url('withdrawMoney')}">取款</a></li>
+			<li><a href="{:url('rechargem')}">存款记录</a></li>
+			<li class="active"><a href="{:url('cashm')}">取款记录</a></li>
+		</ul>
+		<!--取款记录-->
+		<div class="funds_div active" id="cashTbody">
+		</div>
+	</div>
+</div>
+<script>
+    $(function(){
+        setTimeout(function(){
+            cash("{:url('cashlist')}");
+        },1000);
+    });
+    var cashCheck = true;
+    function cash(page){
+        if(!cashCheck){
+            return;
+        }
+        cashCheck = false;
+        var self = $('#cashForm');
+        if(page){
+            var url = page;
+        }else{
+            var url = "{:url('cashlist')}";
+        }
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: self.serialize(),
+            success: function(n) {
+                if (n.code == 1) {
+                    var str = '';
+                    $.each(n.data.data,function(k,v){
+                        // str+='<tr class="trcolor"><td>'+v.id+'</td>';
+                        // str+='<td>'+v.create_at+'</td>';
+                        // str+='<td>'+v.way+'</td>';
+                        // str+='<td>'+v.money+'</td>';
+                        // str+='<td>收款人：'+v.username+' 卡号：'+v.account_bank+'</td>';
+                        // str+='<td>'+v.status+'</td></tr>';
+
+                        str+='<div class="padding_10 bor_b bg_ff">';
+                        str+='<h4 class="clearfix mui-h4">';
+                        str+='<span class="left">'+v.username+'</span>';
+                        str+='<span class="right">'+v.money+'</span>';
+                        str+='</h4>';
+                        str+='<p class="mg_top10 clearfix">';
+                        str+='<span class="left">'+v.create_at+'</span>';
+                        str+='<span class="right red">'+v.status+'</span>';
+                        str+='</p>';
+                        str+='</div>';
+                    })
+                    $('#cashTbody').html(str);
+                }else{
+                    // $('#cashTbody').html('<tr class="even"><td valign="top" colspan="7" class="dataTables_empty">查无资料</td></tr>');
+                    // $('#BetTable_paginate2').html('');
+                }
+            },
+            error: function() {
+                //$('#cashTbody').html('<tr><td colspan="7">查询失败，请稍后再试</td></tr>');
+            },
+            beforeSend: function() {
+                // $('#cashTbody').html('<tr><td colspan="7"><img src="/static/home/img/803.gif"><br>正在查询</td></tr>');
+                // $('#BetTable_paginate2').html('');
+            },
+            complete: function() {
+                cashCheck = true;
+            }
+        })
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+{extend name="common:base" /}
+
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="pull-left">
+
+        <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回"><i class="fa fa-reply"></i></a>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li><a href="{:url('Users/index')}">广告管理</a></li>
+                <li class="active">广告编辑</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    广告编辑
+                </header>
+                <div class="panel-body">
+                    <div class="form">
+                        <form class="form-horizontal adminex-form userForm"  method="post" action="{:url('')}">
+                            <div class="form-group ">
+                                <label  class="control-label col-lg-2">广告名称</label>
+                                <div class="col-lg-6">
+                                    <input class=" form-control" name="ad_name" value="{$data.ad_name}" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label  class="control-label col-lg-2">广告logo</label>
+                                <div class="col-lg-6">
+                                    <p class="bor_b left mg_tb10">
+                                        <img height="150px"  src="URL_IMG{$data.ad_url}"/><br />
+                                        <p style="color:green"> 图片不要传太大，不然会影响加载速度哦</p>
+                                        <span class="file_p text-center" id="btn_logo">
+                                       <label >点此选择图片</label>
+                                       <img height="100px"   id="btn_logo_img" src="__IMG__/add-button.jpg"/><br />
+                                       <input type="hidden" name="ad_url" value="{$data.ad_url}"/>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <input type="hidden" name="id" value="{$data.id}">
+                                    <button class="btn btn-primary " target-form="userForm"  type="submit">保存</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<script src="__JS__/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__JS__/Plupload/plupload.full.min.js"></script>
+
+<script type="text/javascript">
+
+    var ids = new Array("btn_logo");
+
+    $.each(ids,function(i,n){
+
+        var self = this.toString();
+
+        var uploader_avatar = new plupload.Uploader({
+
+            runtimes: 'gears,html5,html4,silverlight,flash', //上传插件初始化选用那种方式的优先级顺序
+
+            browse_button: self, // 上传按钮
+
+            url: "{:url('upload_one')}", //远程上传地址
+
+            flash_swf_url: '__DTSC__/Moxie.swf',//flash文件地址
+
+            silverlight_xap_url: '__DTSC__/Moxie.xap', //silverlight文件地址
+
+            filters: {
+
+                max_file_size: '100mb', //最大上传文件大小（格式100b, 10kb, 10mb, 1gb）
+
+                mime_types: [//允许文件上传类型
+
+                    {title: "files", extensions: "jpg,png,gif,jpeg"}
+
+                ]
+
+            },
+
+            multi_selection: false, //true:ctrl多文件上传, false 单文件上传
+
+            init: {
+
+                FilesAdded: function(up, files) { //文件上传前
+
+                    uploader_avatar.start();
+
+                },
+
+                UploadProgress: function(up, file) { //上传中，显示进度条
+
+                    var percent = file.percent;
+
+                    $("#" + file.id).find('.bar').css({"width": percent + "%"});
+
+                    $("#" + file.id).find(".percent").text(percent + "%");
+
+                },
+
+                FileUploaded: function(up, file, info) { //文件上传成功的时候触发
+
+                    var data = eval("(" + info.response + ")");//解析返回的json数据
+
+                    if(data.status == 1){
+
+                        var img = self+'_img'
+
+                        document.getElementById(img).src = data.pic;
+
+                        document.getElementById(img).width = 200;
+
+                        $('#'+self).find('i').remove();
+
+                        $('#'+self).find('input').val(data.picd);
+
+                    }else{
+
+                        alert(data.error);
+
+                    }
+
+                },
+
+                Error: function(up, err) { //上传出错的时候触发
+
+                    alert(err.message);
+
+                }
+
+            }
+
+        });
+
+        uploader_avatar.init();
+
+    })
+
+
+
+
+
+
+
+</script>
+<!--body wrapper end-->
+{/block}
+

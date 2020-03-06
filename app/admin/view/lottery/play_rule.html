@@ -1,0 +1,58 @@
+{extend name="common:base" /}
+
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="pull-left">
+
+        <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回"><i class="fa fa-reply"></i></a>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li><a href="{:url('Users/index')}">彩票管理</a></li>
+                <li class="active">游戏规则</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                   {$cate_name}--> 游戏说明
+                    <span class="tools pull-right">
+                                <a class="fa fa-chevron-down" href="javascript:;"></a>
+                    </span>
+                </header>
+                <div class="panel-body">
+                    <div class="form">
+                        <form action="{:url('')}" method="post" class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <textarea class="form-control ckeditor" name="play_rule"  rows="10">{$data.play_rule}</textarea>
+                                </div>
+                            </div>
+                            <input type="hidden" name="id" value="{$data.id}">
+                            <button class="btn btn-primary " target-form="userForm"  type="submit">保存</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<!--body wrapper end-->
+{/block}
+{block name="js"}
+<!--以下是在线编辑器 代码 -->
+
+<script type="text/javascript" src="__JS__/ckeditor/ckeditor.js"></script>
+
+
+{/block}
+

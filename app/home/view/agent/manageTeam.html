@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>代理中心</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+	<meta HTTP-EQUIV="Expires" CONTENT="-1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="shortcut icon" href="__IMG__/favicon.ico" />
+	<link rel="bookmark" href="__IMG__/favicon.ico" type="image/x-icon"　/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/skin.css"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/common.css"/>
+	<link rel="stylesheet" href="__CSS__/index.css">
+	<link type="text/css" rel="stylesheet" href="__CSS__/chat-index.css">
+	<link rel="stylesheet" type="text/css" href="__CSS__/index-index-inde.css"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/index_sy.css"/>
+	<script src="__JS__/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/jquery.validate.min.js"></script>
+	<script src="__JS__/layer.js" ></script>
+	<script src="__JS__/common.js" ></script>
+	<style type="text/css">
+		.subnaviarrow,.recharge_div,.subcontent,.addbankcard_form{display: none;}
+		.subnaviarrow.active,.recharge_div.active,.subcontent.active{display: block;}
+		.records_ul li{
+			float: left;
+			width: 25%;
+			margin: 0 3%;
+			border: 1px solid #D3D1D1;
+			border-radius: 5px;
+			padding: 10px;
+		}
+		.records_choose span{
+			padding: 10px;
+		}
+		.records_choose select,.records_choose input{
+			width: 300px;
+			border-radius:5px ;
+			border: 1px solid #D3D1D1;
+			padding: 10px 5px;
+		}
+		.records_choose label{width: 70px;}
+		.header .lotterys .show>a{height: 37px;line-height: 37px;}
+		.header .menu2{left: 705px;}
+		.logo2 {left: 0; }
+		.info span{display: inline;}
+		.agent_spring{
+			width: 600px;
+			background: #fff;
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: 0 0 5px 2px rgba(0,0,0,.5);
+			/*display: none;*/
+		}
+		.agent_spring_top{
+			background: #6a1f2d;
+			color: #fff;
+		}
+		.agent_spring select{
+			padding: 8px;
+			border-radius: 5px;
+			margin: 15px 0;
+		}
+		.agent_spring .table_box,.agent_spring .table_box table{
+			width: 98%;
+			margin: 10px auto;
+			padding: 20px 0;
+
+		}
+		.agent_spring .table_box table td{
+			padding: 2px;
+		}
+		.agent_spring .table_box table td:nth-child(2n+1){
+			background: #F0F0F0;
+		}
+		.Rebate_spring form{
+			width: 50%;
+			margin: 20px auto;
+			padding: 20px 0;
+		}
+		.agent_spring input{
+			padding: 5px;
+			border-radius: 5px;
+			border: 1px solid #E0DAD7;
+		}
+	</style>
+</head>
+<body>
+<div id="appLoading" class="bet-loading" style="position: fixed; width: 100%; top: 200px; text-align: center; z-index: 3000; display: none;">
+	<div class="spinner">
+		<div class="three-bounce">
+			<div class="one"></div>
+			<div class="two"></div>
+			<div class="three"></div>
+		</div>
+	</div>
+</div>
+<div class="main-body skin_red" style="right: 0px;">
+	{include file="common/index_top" /}
+	<div class="main-wrap">
+		{include file="common/index_siderbar" /}
+		<div class="content-wrap" style="width: 1000px;border: 1px solid #D2D2D2;">
+			<div class="content">
+				<div class="sub-wrap clearfix">
+					<div class="center-page">
+						<div class="recharge_div active">
+							<h4 class="h4 padding_10 bor_b">团队管理</h4>
+							<form action="" id="searchForm">
+								<div class="clearfix padding_10">
+									<div class="left">
+										<label for="" class="padding_lr10">账号</label><input type="text" name="username" value="" />
+										<a href="javascript:;" onclick="getTeam()" class="btn"> 搜索</a>
+									</div>
+									<div class="right">
+										<a href="javascript:;" onclick='teamDetail({:session("member_info.uid")})' class="btn"> 团队总览</a>
+									</div>
+								</div>
+							</form>
+							<div class="table_box">
+								<table border="" cellspacing="" cellpadding="">
+									<tr>
+										<th>用户名</th>
+										<th>类型</th>
+										<th>奖金</th>
+										<th>个人余额</th>
+										<th>团队余额</th>
+										<th>用户状态</th>
+										<th>团队人数</th>
+										<th>在线人数</th>
+										<th>操作</th>
+									</tr>
+									<tbody id="teamList">
+									<tr>
+										<td colspan="8">暂无数据</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="__JS__/laydate/laydate.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/laydate.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $("#agent_list li").click(function(){
+        var index =$(this).index();
+//				$(this).addClass("active").siblings().removeClass("active");
+        $(".recharge_div").eq(index).addClass("active").siblings().removeClass("active");
+    })
+    $(".tabs .tab").click(function(){
+        var index =$(this).index()-1;
+        $(this).addClass("tabactive").siblings().removeClass("tabactive");
+        $(".subcontent").eq(index).addClass("active").siblings().removeClass("active");
+    })
+    $(".addbankcard_img").click(function(){
+        $(".addbankcard_form").show();
+        $(".addbankcard").hide();
+    })
+    $(".lottery_box_one").hover(function(){
+        $("#lottery_list").fadeIn(200);
+    },function(){
+        $("#lottery_list").fadeOut(200);
+    })
+    $(".agent").hover(function(){
+        $("#agent_list").fadeIn(200);
+    },function(){
+        $("#agent_list").fadeOut(200);
+    })
+    //删除
+    $(".dell_a").click(function(){
+        $(this).parent().parent().remove();
+    })
+    $(".main-wrap").css("height",$(document).height()-180 );
+</script>
+<script>
+	$(function(){
+	    setTimeout(function(){
+            getTeam();
+		},1000)
+	})
+    var getTeamCheck = true;
+    function getTeam(){
+        $('#searchForm').serialize();
+        var self = $('#searchForm');
+        if(getTeamCheck) {
+            getTeamCheck = false;
+            $.ajax({
+                url: "{:url('getTeam')}",
+                type: "POST",
+                data: self.serialize(),
+                success: function (data) {
+                    console.log(data);
+                    if (data.code == 1) {
+                        var str = '';
+                        $.each(data.data,function(k,v){
+                            str += '<tr><td id="name_'+v.id+'">'+v.gm_name+'</td>';
+                            str += '<td>'+v.is_proxy+'</td>';
+                            str += '<td>'+v.bonus+'</td>';
+                            str += '<td>'+v.money+'</td>';
+                            str += '<td>'+v.teamMoney+'</td>';
+                            str += '<td>'+v.onLine+'</td>';
+                            if(v.junior_num>1){
+                                str += '<td style="cursor: pointer;" onclick="getNextTeam('+v.id+')"><span style="background: linear-gradient(to bottom,#d87c86 0,#6a1f2d 100%);padding: 3px 9px;color: white;border-radius: 5px;border: 1px solid #D3D1D1;">'+v.junior_num+'</span></td>';
+							}else{
+                                str += '<td>'+v.junior_num+'</td>';
+							}
+                            str += '<td>'+v.onlineNum+'</td>';
+                            if(v.proxy_id == v.pid){
+                                str += '<td><a href="javascript:;" onclick="transferMoneyAlert('+v.id+')" class="btn">转账</a>';
+                                str += '<a href="javascript:;" onclick="teamDetail('+v.id+')" class="btn">总览</a></td></tr>';
+                            }else{
+                                str += '<td><a href="javascript:;" onclick="teamDetail('+v.id+')" class="btn">总览</a></td></tr>';
+							}
+                        })
+                        $('#teamList').html(str);
+                    } else {
+                        pop(data.msg);
+                    }
+                    setTimeout(function(){
+                        getTeamCheck = true;
+                    },1000);
+                },
+                error: function() {
+                    //warningMessage("查询失败")
+                },
+                beforeSend: function() {
+                    index = layer.load(0, {shade: false});
+                    //$('#reportList').html('<tr><td colspan="13"><img src="/static/home/img/803.gif"><br>正在查询</td></tr>');
+                },
+                complete: function() {
+                    layer.close(index);
+                }
+            });
+        }
+    }
+    var getNextTeamCheck = true;
+    function getNextTeam(id){
+        if(getNextTeamCheck) {
+            getNextTeamCheck = false;
+            $.ajax({
+                url: "{:url('getNextTeam')}",
+                type: "POST",
+                data: {id:id},
+                success: function (data) {
+                    if (data.code == 1) {
+                        var str = '';
+                        $.each(data.data,function(k,v){
+                            str += '<tr><td id="name_'+v.id+'">'+v.gm_name+'</td>';
+                            str += '<td>'+v.is_proxy+'</td>';
+                            str += '<td>'+v.bonus+'</td>';
+                            str += '<td>'+v.money+'</td>';
+                            str += '<td>'+v.teamMoney+'</td>';
+                            if(v.junior_num>1){
+                                str += '<td style="cursor: pointer;" onclick="getNextTeam('+v.id+')"><span style="background: linear-gradient(to bottom,#d87c86 0,#6a1f2d 100%);padding: 3px 9px;color: white;border-radius: 5px;border: 1px solid #D3D1D1;">'+v.junior_num+'</span></td>';
+                            }else{
+                                str += '<td>'+v.junior_num+'</td>';
+                            }
+                            str += '<td>'+v.onlineNum+'</td>';
+                            // str += '<td><a href="javascript:;" onclick="transferMoneyAlert('+v.id+')" class="btn">转账</a>';
+                            str += '<td><a href="javascript:;" onclick="teamDetail('+v.id+')" class="btn">总览</a></td></tr>';
+                        })
+                        $('#teamList').html(str);
+                    } else {
+                        pop(data.msg);
+                    }
+                    setTimeout(function(){
+                        getNextTeamCheck = true;
+                    },1000);
+                },
+                error: function() {
+                    //warningMessage("查询失败")
+                },
+                beforeSend: function() {
+                    index = layer.load(0, {shade: false});
+                    //$('#reportList').html('<tr><td colspan="13"><img src="/static/home/img/803.gif"><br>正在查询</td></tr>');
+                },
+                complete: function() {
+                    layer.close(index);
+                }
+            });
+        }
+	}
+    var teamDetailCheck = true;
+    function teamDetail(id){
+        if(teamDetailCheck) {
+            teamDetailCheck = false;
+            $.ajax({
+                url: "{:url('teamDetail')}",
+                type: "POST",
+                data: {id: id},
+                success: function (data) {
+                    if (data.code == 1) {
+                        var str = '';
+                        str += '<div class="agent_spring" id="teamZl">';
+                        str += '<h4 class="padding_10  h4 agent_spring_top"> 团队总览</h4>';
+                        str += '<div class="table_box"><p><span>';
+                        str += '<label for="">时间</label>';
+                        str += '<input type="text" class="demo-input" placeholder="请选择日期" name="rangeTime" id="rangeTime">';
+                        str += '</span>';
+                        str += '<a href="javascript:;" class="btn" onclick="searchTeam(' + id + ')">搜索</a>';
+                        str += '</p>';
+                        str += '<table border="" cellspacing="" cellpadding="">';
+                        str += '<tr>';
+                        str += '<td>账号</td>';
+                        str += '<td id="teamZl_account">' + data.data.gm_name + '</td>';
+                        str += '<td>级别</td>';
+                        str += '<td id="teamZl_rebate">' + data.data.rebate + '</td>';
+                        str += '<td>注册时间</td>';
+                        str += '<td id="teamZl_create_at">' + data.data.create_at + '</td>';
+                        str += '<td>团队余额</td>';
+                        str += '<td id="teamZl_teamMoney">' + data.data.teamMoney + '</td>';
+                        str += '</tr>';
+                        str += '<td>用户状态</td>';
+                        str += '<td id="teamZl_teamMoney">' + data.data.teamMoney + '</td>';
+                        str += '</tr>';
+                        str += '<tr>';
+                        str += '<td>最后登录时间</td>';
+                        str += '<td id="teamZl_update_at">' + data.data.update_at + '</td>';
+                        str += '<td>团队注册</td>';
+                        str += '<td id="teamZl_junior_num">' + data.data.junior_num + '</td>';
+                        str += '<td>团队总人数</td>';
+                        str += '<td id="teamZl_junior_num2">' + data.data.junior_num + '</td>';
+                        str += '<td>团队当前在线</td>';
+                        str += '<td id="teamZl_junior_onlineNum">' + data.data.onlineNum + '</td>';
+                        str += '</tr>';
+                        str += '<tr>';
+                        str += '<td>团队投注额</td>';
+                        str += '<td id="teamZl_teamBet">' + data.data.teamBet + '</td>';
+                        str += '<td>团队充值</td>';
+                        str += '<td id="teamZl_teamRecharge">' + data.data.teamRecharge + '</td>';
+                        str += '<td>团队提现</td>';
+                        str += '<td id="teamZl_teamCash">' + data.data.teamCash + '</td>';
+                        str += '<td>团队中奖</td>';
+                        str += '<td id="teamZl_teamWin">' + data.data.teamWin + '</td>';
+                        str += '</tr>';
+                        str += '<tr>';
+                        str += '<td>团队返点</td>';
+                        str += '<td id="teamZl_teamFan">' + data.data.teamFan + '</td>';
+                        str += '<td>团队亏盈</td>';
+                        str += '<td id="teamZl_yk">' + data.data.teamYk + '</td>';
+                        str += '<td></td>';
+                        str += '<td></td>';
+                        str += '<td></td>';
+                        str += '<td></td>';
+                        str += '</tr></table></div></div>';
+                        layer.open({
+                            type: 1,
+                            title: false,
+                            closeBtn: 1,
+                            shadeClose: true,
+                            resize: false,
+                            scrollbar: false,
+                            skin: 'layui-layer-rim', //加上边框
+                            area: ['auto', 'auto'], //宽高
+                            content: str,
+                            success: function () {
+                                laydate.render({
+                                    elem: $('#rangeTime').get(0),
+                                    type: 'date',
+                                    theme: '#86384e',
+                                    min: "{$time.start}",
+                                    max: "{$time.end}",
+                                    range: '~',
+                                    format: 'yyyy-MM-dd'
+                                });
+                            }
+                        });
+                    } else {
+                        pop(data.msg);
+                    }
+                    setTimeout(function () {
+                        teamDetailCheck = true;
+                    }, 1000);
+                }
+            })
+        }
+	}
+
+    var searchTeamCheck = true;
+	function searchTeam(id){
+        if(searchTeamCheck) {
+            searchTeamCheck = false;
+            var index;
+			$.ajax({
+                url:"{:url('teamDetail')}",
+                type: "POST",
+				data:{id:id,rangeTime:$('#rangeTime').val()},
+				success : function(data) {
+					if (data.code == 1) {
+						$('#teamZl_account').html(data.data.account);
+						$('#teamZl_rebate').html(data.data.rebate);
+						$('#teamZl_create_at').html(data.data.create_at);
+						$('#teamZl_teamMoney').html(data.data.teamMoney);
+						$('#teamZl_update_at').html(data.data.update_at);
+						$('#teamZl_junior_num').html(data.data.junior_num);
+						$('#teamZl_junior_num2').html(data.data.junior_num);
+						$('teamZl_junior_onlineNum').html(data.data.onlineNum);
+						$('#teamZl_teamBet').html(data.data.teamBet);
+						$('#teamZl_teamRecharge').html(data.data.teamRecharge);
+						$('#teamZl_teamCash').html(data.data.teamCash);
+						$('#teamZl_teamWin').html(data.data.teamWin);
+						$('#teamZl_teamFan').html(data.data.teamFan);
+						$('#teamZl_yk').html(data.data.teamYk);
+					} else {
+						pop(data.msg);
+					}
+					setTimeout(function(){
+						searchTeamCheck = true;
+					},1000);
+				},
+				error: function() {
+					//warningMessage("查询失败")
+				},
+				beforeSend: function() {
+                    index = layer.load(0, {shade: [0.5, '#393D49']});
+					//$('#reportList').html('<tr><td colspan="13"><img src="/static/home/img/803.gif"><br>正在查询</td></tr>');
+				},
+				complete: function() {
+                    layer.close(index);
+                }
+        	})
+        }
+	}
+    var transferMoneyAlertCheck = true;
+    function transferMoneyAlert(id){
+        if(!transferMoneyAlertCheck){
+            return;
+        }
+        var name = $('#name_'+id).html();
+        transferMoneyAlertCheck == false;
+        var str = '';
+        str += '<div class="agent_spring">';
+        str += '<h4 class="padding_10  h4 agent_spring_top"> 转账 </h4>';
+        str += '<form action="" id="zzForm">';
+        str += '<div class="padding_10">姓名：'+name+'</div>';
+        str += '<div class="padding_10">';
+        str += '<label for="">金额：</label>';
+        str += '<input type="number" name="money" value="" />';
+        str += ' </div>';
+        str += '<div class="mg_top10 text-center">';
+        str += '<a href="javascript:;" onclick="transferMoney('+id+')" class="btn">提交</a>';
+        str += '</div>';
+        str += '</form></div>';
+        layer.open({
+            type: 1,
+            title:false,
+            closeBtn: 1,
+            shadeClose: true,
+            resize:false,
+            scrollbar:false,
+            skin: 'layui-layer-rim', //加上边框
+            area: ['auto','auto'], //宽高
+            content: str
+        });
+        setTimeout(function(){
+            transferMoneyAlertCheck == true;
+		},1000)
+	}
+    var transferMoneyCheck = true;
+    function transferMoney(id){
+        var self = $('#zzForm');
+        var money = self.find('input[name=money]').val();
+        if(money == ''){
+            pop('金额不能为空');
+            return false;
+        }
+        if(money < 10){
+            pop('充值金额不能低于10');
+            return false;
+        }
+        if(transferMoneyCheck) {
+            transferMoneyCheck = false;
+            $.post("{:url('ransferMoney')}", {id:id,money:money}, success, "json");
+            return false;
+            function success(data) {
+                if (data.code == 1) {
+                    pop(data.msg,"{:url('Agent/index?type=manageTeam')}");
+                } else {
+                    pop(data.msg);
+                }
+                setTimeout(function(){
+                    transferMoneyCheck = true;
+                },1000);
+            }
+        }
+    }
+</script>
+</body>
+</html>

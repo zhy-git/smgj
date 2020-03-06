@@ -1,0 +1,71 @@
+{extend name="common:base" /}
+
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li><a href="{:url('index')}">设置中心</a></li>
+                <li class="active">额度转化</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <form class="ids" action="" method="post">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>用户id</th>
+                                <th>用户星级</th>
+                                <th>最高额度</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name='data' id='v'}
+                            <tr>
+                                <td>{$v.id}</td>
+                                <td>{$v.star}</td>
+                                <td><input type="text" id = "open_{$v['id']}" value="{$v['up']}"></td>
+                                <td><a href="#" class="btn btn-success ajax-get" onclick="edit_quota('{$v.id}')" title="修改">修改</a></td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
+                    </form>
+
+                </div>
+            </section>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+
+    function edit_quota(id) {
+        var openid = 'open_'+id;
+        var up =document.getElementById(openid).value;
+        $.ajax({
+            type: "post",
+            url: "{:url('quota_edit')}",
+            data: {'up':up,'id':id},
+            dataType: "json",
+            async: false,
+            success: function(data) {
+                var info = data.msg;
+                alert(info);
+                location.reload();
+            }
+        });
+    }
+</script>
+
+<!--body wrapper end-->
+{/block}

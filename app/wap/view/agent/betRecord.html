@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>团队投注</title>
+	<script src="__JS__/wap/mui.min.js"></script>
+	<link href="__CSS__/wap/mui.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/wap/common.css"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/wap/index.css"/>
+	<script src="__JS__/wap/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/wap/time.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/wap/index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/jquery.validate.min.js"></script>
+	<script src="__JS__/layer.js" ></script>
+	<script src="__JS__/common.js" ></script>
+	<script type="text/javascript" charset="utf-8">
+        mui.init();
+	</script>
+	<style>
+		.displayNone{ display: none;}
+	</style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">团队投注</h1>
+</header>
+<div class="mui-content ">
+	<!--<ul class="clearfix team">-->
+		<!--<li><a href="javascript:void(0);">重庆时时彩</a></li>-->
+		<!--<li><a href="javascript:void(0);">重庆时时彩</a></li>-->
+		<!--<li><a href="javascript:void(0);">重庆时时彩</a></li>-->
+		<!--<li><a href="javascript:void(0);">重庆时时彩</a></li>-->
+	<!--</ul>-->
+	<div class="TeamBox aaa">
+		<div class="bg_ff mg_tb10 padding_10 agent_box">
+			<form action="" id="searchForm" method="post">
+				<input type="hidden" name="lotteryId" value="0" placeholder="用户名" />
+				<input type="text" name="username" value="" placeholder="用户名" />
+				<a href="javascript:void(0);" id="querybutton" class="basic_a">搜索</a>
+			</form>
+		</div>
+		<div class="note_tab">
+			<table border="" cellspacing="" cellpadding="">
+				<tr>
+					<th>用户名</th>
+					<th>彩种</th>
+					<th>投注金额</th>
+					<th>状态</th>
+				</tr>
+				<tbody id="betCon">
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="TeamBoxD displayNone aaa">
+		<ul class="mui-table-view agent_ld">
+			<li class="mui-table-view-cell">
+				<a class="clearfix">
+					<span class="left mui-h4">彩票名称</span>
+					<span class="right" id="singleName"></span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="clearfix">
+					<span class="left mui-h4">期数</span>
+					<span class="right" id="singleStage"></span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="clearfix">
+					<span class="left mui-h4">编号</span>
+					<span class="right" id="singleId"></span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="clearfix">
+					<span class="left mui-h4">玩法</span>
+					<span class="right" id="singlePlay"></span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="clearfix">
+					<span class="left mui-h4">投注金额</span>
+					<span class="right" id="singleMoney"></span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="clearfix">
+					<span class="left mui-h4">投注时间</span>
+					<span class="right" id="singleDate"></span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="clearfix">
+					<span class="left mui-h4">投注号码</span>
+					<span class="right" id="singleBet"></span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="clearfix">
+					<span class="left mui-h4">状态</span>
+					<span class="right" id="singleStatus"></span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="clearfix">
+					<span class="left mui-h4">中奖金额</span>
+					<span class="right" id="singleZmoney"></span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a class="clearfix">
+					<span class="left mui-h4">开奖号码</span>
+					<span class="right" id="singleOpenNum"></span>
+				</a>
+			</li>
+		</ul>
+		<p class="text-center mg_top40"><a href="javascript:;" onclick="fanhui()" class="btn_big">返回上一页</a></p>
+	</div>
+</div>
+<script>
+	setTimeout(function(){
+        getData();
+	},1000)
+    $('#querybutton').click(function(){
+        getData();
+    })
+    function getData(page){
+        var self = $('#searchForm');
+        if(page){
+            var url = page;
+        }else{
+            var url = "{:url('betRecord')}";
+        }
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: self.serialize(),
+            success: function(n) {
+                if (n.code == 1) {
+                    console.log(n.data.data);
+                    var str = '';
+                    $.each(n.data.data,function(k,v){
+                        var str1 = '';
+                        str1 = v.name+','+v.stage+','+v.id+','+v.title+','+v.number+','+v.odds+','+v.money+','+v.create_at+','+v.status+','+v.z_money+','+v.open_number;
+                        str += '<tr id="detail_'+v.id+'" data-num="'+str1+'">';
+                        str += '<td>'+v.gm_name+'</td>';
+                        str += '<td>'+v.title+'</td>';
+                        str += '<td class="red">'+v.money+'</td>';
+                        str += '<td><a href="javascript:;" onclick="getDetail('+v.id+')" class="yell">'+v.status+'  &gt;</a></td>';
+                        str += '</tr>';
+                        //$('.yell').data('sss',v);
+                    })
+                    $('#betCon').html(str);
+                    //$('#BetTable_paginate').html(n.page);
+                    //pageAjax();
+					//console.log($('.yell').data('sss'))
+                }else{
+                    $('#betCon').html('<tr class="even"><td valign="top" colspan="4" class="dataTables_empty">查无资料</td></tr>');
+                    //$('#BetTable_paginate').html('');
+                }
+            },
+            error: function() {
+                $('#betCon').html('<tr><td colspan="4">查询失败，请稍后再试</td></tr>');
+            },
+            beforeSend: function() {
+                $('#betCon').html('<tr><td colspan="4"><img src="/static/home/img/803.gif"><br>正在查询</td></tr>');
+                //$('#BetTable_paginate').html('');
+            },
+            complete: function() {
+                //hideloading()
+            }
+        })
+    }
+    function getDetail(id){
+		var aa = $('#detail_'+id).attr('data-num');
+		var aArr = aa.split(',');
+		console.log(aArr);
+		$('.TeamBox').addClass('displayNone');
+		$('.TeamBoxD').removeClass('displayNone');
+    	var str = '<i class="round1"></i>';
+        $('#singleName').html(aArr[0]);
+        $('#singleStage').html(aArr[1]);
+        $('#singleId').html(aArr[2]);
+        //第三名 龙@1.961
+        $('#singlePlay').html(aArr[3]+' '+aArr[4]+'@'+aArr[5]);
+        $('#singleMoney').html(aArr[6]);
+        $('#singleDate').html(aArr[7]);
+        $('#singleBet').html(aArr[8]);
+        $('#singleStatus').html(aArr[4]);
+        $('#singleZmoney').html(aArr[9]);
+        $('#singleOpenNum').html(aArr[10]);
+	}
+	function fanhui(){
+        $('.TeamBox').removeClass('displayNone');
+        $('.TeamBoxD').addClass('displayNone');
+	}
+</script>
+</body>
+</html>

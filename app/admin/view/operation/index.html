@@ -1,0 +1,61 @@
+{extend name="common:base" /}
+
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li><a href="{:url('index')}">公告管理</a></li>
+                <li class="active">设置系统参数</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+
+        <div class="panel-body">
+            <form method="post" action="{:url('edit')}" class="form-horizontal bucket-form">
+                <div class="form-group ">
+                    <label  class="control-label col-lg-2">回水模式开放/关闭</label>
+                    <div class="col-lg-6">
+                        <label><input name="is_watter_back" type="radio" value="1" {if $data.is_watter_back==1} checked {/if} />开启 </label>
+                        <label><input name="is_watter_back" type="radio" value="0" {if $data.is_watter_back==0} checked {/if} />关闭 </label>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label  class="control-label col-lg-2">流水模式开放/关闭</label>
+                    <div class="col-lg-6">
+                        <label><input name="is_watter_flow" type="radio" value="1" {if $data.is_watter_flow==1} checked {/if} />开启 </label>
+                        <label><input name="is_watter_flow" type="radio" value="0" {if $data.is_watter_flow==0} checked {/if} />关闭 </label>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label  class="control-label col-lg-2">回水流水是否审核</label>
+                    <div class="col-lg-6">
+                        <label><input name="is_examine" type="radio" value="1" {if $data.is_examine==1} checked {/if} />审核 </label>
+                        <label><input name="is_examine" type="radio" value="0" {if $data.is_examine==0} checked {/if} />自动 </label>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label  class="control-label col-lg-2">佣金比例</label>
+                    <div class="col-lg-6">
+                        <input name="re_back" type="text" value="{$data.re_back}" />
+                    </div>
+                </div>
+
+                <input type="hidden" name="id" value="{$data.id}">
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label"></label>
+                    <div class="col-lg-10 right">
+                        <button class="btn btn-primary " target-form="bucket-form"  type="submit">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<!--body wrapper end-->
+{/block}

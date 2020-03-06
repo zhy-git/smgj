@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	    <title>推广中心--用户注册</title>
+		<link href="__CSS__/mui.min.css" rel="stylesheet"/>
+	    <style type="text/css">
+	    	.mui-content{
+	    		width: 100%;
+	    		height: 100%;
+	    		background: url(__IMG__/bg.png)no-repeat;
+	    		background-size:100% 100% ;
+				margin-top: 40px;
+	    	}
+	    	form p{
+	    		color: #fff;
+	    		padding: 10px;
+	    		margin-top: 20px;
+	    	}
+			form p:first-child{
+				margin-top: 40px;
+			}
+	    	.reg_form p input{
+	    		width: 65%;
+	    		font-size: 14px;
+	    		margin: 0;
+	    		padding: 5px;
+	    		border-radius: 20px;
+	    		text-align: center;
+	    		background: #3CD6FC;
+	    		border: none;
+	    		box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, .9);
+	    		color: #fff;
+	    	}
+	    	.reg_form p label{
+	    		display: inline-block;
+	    		width: 50px;
+	    	}
+	    	.code_box{
+	    		position: relative;
+	    	}
+	    	.code{
+	    		display: inline-block;
+	    		font-style: normal;
+	    		position: absolute;
+	    		width: 45px;
+	    		height: 45px;
+	    		padding: 3px;
+	    		border-radius: 50%;
+	    		text-align: center;
+	    		top: 5px;
+	    		right:10px;
+	    		background: rgba(22,18,22,.6);
+	    		font-size: 12px;
+	    	}
+	    	.btn_box{
+	    		text-align: center;
+	    	}
+	    	.reg_form p input.btn{
+	    		width: 65%;
+	    		padding: 10px 0;
+	    		background: #FFEC19;
+	    		color: #0082AD;
+	    	
+	    	}
+	    	::-webkit-input-placeholder{
+	    		color: #fff;
+	    	}
+	    	.mui-bar .mui-icon{
+	    		color: #555;
+	    	}
+	    </style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">推广中心--用户注册</h1>
+		</header>
+		<div class="mui-content" >
+		    <form action="" method="post" class="reg_form">
+		    	<p>
+		    		<label for="">用户名</label>
+		    		<input type="text" name="mobile" id="mobile" value=""placeholder="请输入用户电话" />
+		    	</p>
+		    	<p class="code_box">
+		    		<label for="">验证码</label>
+		    		<input type="text" name="code" id="code" value="" placeholder="请输入验证码"/>
+		    		<i class="code" id="send">获取验证码</i>
+		    	</p>
+		    	<p>
+		    		<label for="">密码</label>
+		    		<input type="password" name="password" id="password" value=""placeholder="请输入密码" />
+		    	</p>
+		    	<p>
+		    		<label for="">推荐人</label>
+		    		<input type="text" name="recommend_phone" id="recommend_phone" value="{$p_mobile}"placeholder="请输入用户名" />
+		    	</p>
+		    	<p class="btn_box"><input type="button" value="确认" id="doRegister" class="btn"/></p>
+		    </form>
+		</div>
+		<script src="__JS__/jquery-1.6.2.min.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				$(".mui-content").css("height",$(document).height()-40)
+			})
+            $(document).ready(function() {
+                var wait = 60;
+                function time(o) {
+                    if (wait == 0) {
+
+                        $('#send').html("获取验证码");
+
+                        $('#send').attr('disabled',false);
+
+                        wait = 60;
+
+                    } else {
+
+                        $('#send').html("重新发送(" + wait + ")");
+
+                        $('#send').attr('disabled',true);
+
+                        wait--;
+
+                        setTimeout(function () {
+
+                            time()
+
+                        }, 1000)
+
+                    }
+
+                }
+
+                $('#send').click(function () {
+
+                    var ret = '';
+
+                    var mobile = $('#mobile').val();
+
+                    if (mobile.length != 11) {
+
+                        alert("手机号码格式错误");
+
+                        return false;
+
+                    } else {
+
+                        $.ajax({
+
+                            type: "POST",
+
+                            url: "{:url('sendSms')}",
+
+                            data: {mobile: mobile},
+
+                            async: false,
+
+                            dataType: "json",
+
+                            success: function (data) {
+                                ret = data.ret;
+                                msg = data.msg;
+                                alert(msg);
+                            }
+
+                        })
+                        if (ret == 200) {
+
+                            time()
+
+                        }
+
+                    }
+
+                })
+
+
+
+                // 注册
+
+                $('#doRegister').click(function(){
+
+                    var mobile =   $('#mobile').val();
+
+                    var password = $('#password').val();
+
+                    var code     = $('#code').val();
+
+                    var recommend_phone = $('#recommend_phone').val();
+
+                    if(code == ''){
+
+                        alert('请输入验证码');
+
+                        return false;
+                    }
+                    $.ajax({
+
+                        type: "post",
+
+                        url: "{:url('register')}",
+
+                        data: {
+
+                            "mobile": mobile,
+
+                            'password': password,
+
+                            'code': code,
+
+                            'recommend_phone': recommend_phone
+
+                        },
+
+                        dataType: "json",
+
+                        async: false,
+
+                        success: function(data) {
+
+                            var msg = data.msg;
+
+                                alert(msg);
+                               location.reload;
+
+                        }
+
+                    });
+
+
+
+                });
+
+
+
+            });
+		</script>
+	</body>
+</html>

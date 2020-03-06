@@ -1,0 +1,68 @@
+<!--左侧菜单 start-->
+<ul class="nav nav-pills nav-stacked custom-nav">
+    <li class="menu-list {eq name='controllerName' value='users'}nav-active{/eq}"><a href="{:url('Users/index')}"><i class="fa fa-group"></i><span>用户管理</span></a>
+        <ul class="sub-menu-list">
+            <li {if ($actionName eq 'index' || $actionName eq 'edit')}class="active"{/if}><a href="{:url('Users/index')}">用户信息</a></li>
+            <li {eq name='actionName' value='add'}class="active"{/eq}><a href="{:url('Users/add')}">添加用户</a></li>
+        </ul>
+    </li>
+    <li class="menu-list {eq name='controllerName' value='member'}nav-active{/eq}"><a href="{:url('Member/index')}"><i class="fa fa-user"></i><span>会员管理</span></a>
+        <ul class="sub-menu-list">
+            <li {if ($actionName eq 'index' || $actionName eq 'edit')}class="active"{/if}><a href="{:url('Member/index')}">会员信息</a></li>
+            <!--<li {eq name='actionName' value='add'}class="active"{/eq}><a href="{:url('Member/add')}">添加会员</a></li>-->
+            <li {eq name='actionName' value='recharge'}class="active"{/eq}><a href="{:url('Member/recharge')}">充值记录</a></li>
+            <li {eq name='actionName' value='cash'}class="active"{/eq}><a href="{:url('Member/cash')}">提现记录</a></li>
+        </ul>
+    </li>
+    <li class="menu-list {eq name='controllerName' value='ssc'}nav-active{/eq}"><a href="{:url('Ssc/index')}"><i class="fa  fa-gamepad"></i><span>重庆时时彩</span></a>
+        <ul class="sub-menu-list">
+            <li {if ($actionName eq 'index' )}class="active"{/if}><a href="{:url('Ssc/index')}">龙虎设置</a></li>
+            <li {if ($actionName eq 'dw' )}class="active"{/if}><a href="{:url('Ssc/dw')}">定位设置</a></li>
+            <li {if ($actionName eq 'dm' )}class="active"{/if}><a href="{:url('Ssc/dm')}">单码设置</a></li>
+            <li {if ($actionName eq 'hy' )}class="active"{/if}><a href="{:url('Ssc/hy')}">花样玩法</a></li>
+            <li {if ($actionName eq 'ds' )}class="active"{/if}><a href="{:url('Ssc/ds')}">大小单双</a></li>
+        </ul>
+    </li>
+    <li class="menu-list {eq name='controllerName' value='car'}nav-active{/eq}"><a href="{:url('Car/index')}"><i class="fa  fa-gamepad"></i><span>北京赛车PK10</span></a>
+        <ul class="sub-menu-list">
+            <li {if ($actionName eq 'index' )}class="active"{/if}><a href="{:url('Car/index')}">竞猜车号</a></li>
+            <li {if ($actionName eq 'dw' )}class="active"{/if}><a href="{:url('Car/dw')}">冠亚和值</a></li>
+            <li {if ($actionName eq 'dm' )}class="active"{/if}><a href="{:url('Car/dm')}">大小单双</a></li>
+            <li {if ($actionName eq 'hy' )}class="active"{/if}><a href="{:url('Car/hy')}">龙虎斗</a></li>
+        </ul>
+    </li>
+    <li class="menu-list {eq name='controllerName' value='airship'}nav-active{/eq}"><a href="{:url('Airship/index')}"><i class="fa  fa-gamepad"></i><span>幸运飞艇</span></a>
+        <ul class="sub-menu-list">
+            <li {if ($actionName eq 'index' )}class="active"{/if}><a href="{:url('Airship/index')}">竞猜船号</a></li>
+            <li {if ($actionName eq 'dw' )}class="active"{/if}><a href="{:url('Airship/dw')}">冠亚和值</a></li>
+            <li {if ($actionName eq 'dm' )}class="active"{/if}><a href="{:url('Airship/dm')}">大小单双</a></li>
+            <li {if ($actionName eq 'hy' )}class="active"{/if}><a href="{:url('Airship/hy')}">龙虎斗</a></li>
+        </ul>
+    </li>
+    <li class="menu-list {eq name='controllerName' value='eight'}nav-active{/eq}"><a href="{:url('Eight/index')}"><i class="fa  fa-gamepad"></i><span>pc蛋蛋</span></a>
+        <ul class="sub-menu-list">
+            <li {if ($actionName eq 'index' )}class="active"{/if}><a href="{:url('Eight/index')}">猜组合</a></li>
+            <li {if ($actionName eq 'dw' )}class="active"{/if}><a href="{:url('Eight/dw')}">猜特码</a></li>
+            <li {if ($actionName eq 'dm' )}class="active"{/if}><a href="{:url('Eight/dm')}">猜大小单双</a></li>
+            <li {if ($actionName eq 'hy' )}class="active"{/if}><a href="{:url('Eight/hy')}">猜极大极小</a></li>
+        </ul>
+    </li>
+    <li class="menu-list {eq name='controllerName' value='fast'}nav-active{/eq}"><a href="{:url('Fast/index')}"><i class="fa  fa-gamepad"></i><span>江苏快3</span></a>
+        <ul class="sub-menu-list">
+            <li {if ($actionName eq 'index' )}class="active"{/if}><a href="{:url('Fast/index')}">和值</a></li>
+            <li {if ($actionName eq 'dw' )}class="active"{/if}><a href="{:url('Fast/dw')}">三同号单选</a></li>
+            <li {if ($actionName eq 'dm' )}class="active"{/if}><a href="{:url('Fast/dm')}">二同号复选</a></li>
+            <li {if ($actionName eq 'hy' )}class="active"{/if}><a href="{:url('Fast/hy')}">三不同号</a></li>
+            <li {if ($actionName eq 'ds' )}class="active"{/if}><a href="{:url('Fast/ds')}">三连号通选</a></li>
+        </ul>
+    </li>
+    <li class="menu-list {eq name='controllerName' value='record'}nav-active{/eq}"><a href="{:url('Record/index')}"><i class="fa  fa-gears"></i><span>投注记录</span></a>
+        <ul class="sub-menu-list">
+            <li {if ($actionName eq 'index')}class="active"{/if}><a href="{:url('Record/index')}">记录列表</a></li>
+        </ul>
+    </li>
+    <li {eq name='controllerName' value='notice'}class="active"{/eq}><a href="{:url('Notice/index')}"><i class="fa fa-bullhorn"></i> <span>公告</span></a></li>
+    <li class="{eq name='controllerName' value='rebate'}active{/eq}"><a href="{:url('Rebate/index')}"><i class="fa fa-bullhorn"></i> <span>返利设置</span></a></li>
+
+</ul>
+<!--左侧菜单 end-->

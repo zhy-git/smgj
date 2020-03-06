@@ -1,0 +1,47 @@
+{if !session('member_info.is_temporary')}
+{if session('member_info.is_proxy')}
+<div class="menu2">
+    <span><a href="javascript:void(0)" class="menu2_list1">未结明细</a>&nbsp;&nbsp;|</span>
+    <span><a href="javascript:void(0)" class="menu2_list2">今天已结</a>&nbsp;&nbsp;|</span>
+    <span><a href="javascript:void(0)" class="menu2_list3">开奖结果</a>&nbsp;&nbsp;|</span>
+    <span><a href="javascript:void(0)" class="menu2_list4">历史报表</a></span> <br>
+    <span><a href="javascript:void(0)" class="menu2_list5">个人资讯</a>&nbsp;&nbsp;|</span>
+    <span><a href="javascript:void(0)" class="menu2_list6">游戏规则</a>&nbsp;&nbsp;|</span>
+    <span><a href="javascript:void(0)" class="menu2_list7">充值提现</a>&nbsp;&nbsp;|</span>
+    <span id="skinPanel">
+        代理中心
+        <ul>
+            <li><a href="{:url('Agent/index?type=add')}" class="menu2_list8">新增用户</a></li>
+            <li><a href="{:url('Agent/index?type=link')}" class="menu2_list9">推广链接</a></li>
+            <li><a href="{:url('Agent/index?type=report')}" class="menu2_list10">盈亏报表</a></li>
+            <li><a href="{:url('Agent/index?type=betRecord')}" class="menu2_list11">投注记录</a></li>
+            <li><a href="{:url('Agent/index?type=accountRecord')}" class="menu2_list12">账变记录</a></li>
+             <li><a href="{:url('Agent/index?type=manageTeam')}" class="menu2_list12">团队管理</a></li>
+        </ul>
+    </span>
+</div>
+{else/}
+<div class="menu2">
+    <span><a href="javascript:void(0)" class="menu2_list1">未结明细</a>&nbsp;&nbsp;|</span>
+    <span><a href="javascript:void(0)" class="menu2_list2">今天已结</a>&nbsp;&nbsp;|</span>
+    <span><a href="javascript:void(0)" class="menu2_list3">开奖结果</a>&nbsp;&nbsp;|</span>
+    <span><a href="javascript:void(0)" class="menu2_list4">历史报表</a></span> <br>
+    <span><a href="javascript:void(0)" class="menu2_list5">个人资讯</a>&nbsp;&nbsp;|</span>
+    <span><a href="javascript:void(0)" class="menu2_list6">游戏规则</a>&nbsp;&nbsp;|</span>
+    <span><a href="javascript:void(0)" class="menu2_list7">充值提现</a>&nbsp;&nbsp;</span>
+</div>
+{/if}
+{else/}
+<div class="menu2">
+    <span><a href="javascript:void(0)" class="menu2_list1">未结明细</a>&nbsp;&nbsp;|</span>
+    <span><a href="javascript:void(0)" class="menu2_list2">今天已结</a>&nbsp;&nbsp;|</span>
+    <span><a href="javascript:void(0)" class="menu2_list3">开奖结果</a>&nbsp;&nbsp;</span>
+    <br>
+    <span><a href="javascript:void(0)" class="menu2_list5">个人资讯</a>&nbsp;&nbsp;|</span>
+    <span><a href="javascript:void(0)" class="menu2_list6">游戏规则</a>&nbsp;&nbsp;</span>
+</div>
+{/if}
+<div class="menu4">
+    <a href="javascript:void(0);" class="support"></a>
+</div>
+<div class="menu3"><a href="{:url('Index/index')}" class="logout">首页</a></div>
