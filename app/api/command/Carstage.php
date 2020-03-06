@@ -73,9 +73,9 @@ class Carstage extends Command
                 $startStage++;
                 $startStr += $fiveStr;
                 array_push($insertData, $arr);
-                var_dump(date('Y-m-d h:i:s',$arr['start_time'])); 
-                var_dump(date('Y-m-d h:i:s',$arr['end_time']));
-            }die();
+                var_dump('start_time='.date('Y-m-d h:i:s',$arr['start_time'])); 
+                var_dump('end_time='.date('Y-m-d h:i:s',$arr['end_time']));
+            }
             Db::name('car_stage')->insertAll($insertData);
         }
     }
