@@ -292,7 +292,7 @@ return [
         'xyft' =>'http://ho.apiplus.net/newly.do?token=t60d7dc0fc3b974bfk&code=mlaft&format=json', //幸运飞艇
         'jndeb'=>'http://ho.apiplus.net/newly.do?token=t60d7dc0fc3b974bfk&code=cakeno&format=json',//加拿大28
         'pcdd' =>'http://ho.apiplus.net/newly.do?token=t60d7dc0fc3b974bfk&code=bjkl8&format=json', //PC蛋蛋 （北京快8）
-        'gdsyxw' => 'http://f.apiplus.net/gd11x5.json';
+        'gdsyxw' => 'http://f.apiplus.net/gd11x5.json',
 //      'gdsyxw' =>'http://ho.apiplus.net/newly.do?token=t3a8eb309806d8f01k&code=gd11x5&format=json', //广东11选5 ··
         //      'jsks' =>'http://ho.apiplus.net/newly.do?token=t3a8eb309806d8f01k&code=jsk3&format=json', //江苏快三··
 //      'msssc' =>'http://ho.apiplus.net/newly.do?token=t3a8eb309806d8f01k&code=er75ssc&format=json', //秒速时时彩··
