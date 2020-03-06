@@ -1,5 +1,0 @@
----------------------------------------------------------------
-[ 2019-07-10T03:50:04+00:00 ] ::1 ::1 GET /
-[ info ] localhost:8080/ [运行时间：0.258014s][吞吐率：3.88req/s] [内存消耗：1,101.02kb] [文件加载：33]
-[ error ] [4]syntax error, unexpected ';', expecting ']'[E:\phpStudy\PHPTutorial\WWW\smgj\config\config.php:295]
-[ info ] [ LOG ] INIT File

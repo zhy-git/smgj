@@ -1,3 +1,0 @@
-<?php
-//000000000060a:16:{s:2:"id";i:1;s:14:"is_watter_back";i:0;s:14:"is_watter_flow";i:1;s:7:"re_back";s:4:"0.01";s:10:"is_examine";i:0;s:12:"msssc_is_win";i:0;s:11:"mssc_is_win";i:0;s:14:"cash_max_money";i:999999;s:14:"cash_min_money";i:10;s:12:"service_qq_1";s:10:"2271030162";s:12:"android_link";s:19:"http://58.64.167.49";s:8:"ios_link";s:19:"http://58.64.167.49";s:14:"android_qrcode";s:81:"http://58.64.167.49/uploads/picture/20181013/c9be11bf3dbcd554cf4d37f4b8252d90.jpg";s:10:"ios_qrcode";s:81:"http://58.64.167.49/uploads/picture/20181013/44f0850e6d98e83a60e4de36118f2bd0.jpg";s:8:"bet_back";d:0.02;s:9:"draw_flow";i:10000;}
-?>
