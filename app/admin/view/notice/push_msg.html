@@ -1,0 +1,56 @@
+{extend name="common:base" /}
+
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li><a href="{:url('index')}">消息管理</a></li>
+                <li class="active">推送模板</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <form class="ids" action="" method="post">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>消息ID</th>
+                                <th>标题</th>
+                                <th>内容</th>
+                                <th>时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name='data' id='v'}
+                            <tr>
+                                <td>{$v.id}</td>
+                                <td>{$v.title}</td>
+                                <td>{$v.content}</td>
+                                <td>{$v.create_at}</td>
+                                <td>
+                                    <a href="{:url('notice/push_del',['id'=>$v['id']])}" class="fa fa-times confirm " onclick="return confirm('确定删除?');" title="删除"></a>
+                                    <a href="{:url('notice/push_show',['id'=>$v['id']])}" class="fa fa-edit" title="编辑"></a>
+                                </td>
+                            </tr>
+                            {/volist}
+
+                            </tbody>
+                        </table>
+                    </form>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!--body wrapper end-->
+{/block}

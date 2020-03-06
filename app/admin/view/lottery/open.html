@@ -1,0 +1,49 @@
+{extend name="common:base" /}
+
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li><a href="{:url('index')}">彩票管理</a></li>
+                <li class="active">彩票开奖</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+
+        <div class="panel-body">
+            <form method="post" action="{:url('system_edit')}" class="form-horizontal bucket-form">
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">开奖彩种</label>
+                    <div class="col-sm-11">
+                        <select name="cate" class="form-control ">
+                            <option value="" >选择彩种</option>
+                            {foreach $cates as $v}
+                            <option value="{$v.id}"  {if (isset($cate) && $cate eq $v.id )}selected="selected"{/if}>{$v.name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1 control-label">开奖期数</label>
+                    <div class="col-sm-11">
+                       <input type="text" value="">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-1 control-label"></label>
+                    <div class="col-lg-10 right">
+                        <button class="btn btn-primary " target-form="bucket-form"  type="submit">开奖</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<!--body wrapper end-->
+{/block}

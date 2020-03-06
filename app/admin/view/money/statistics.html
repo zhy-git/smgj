@@ -1,0 +1,103 @@
+{extend name="common:base" /}
+{block name="css"}
+<!--pickers css-->
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-datepicker/css/datepicker-custom.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-timepicker/css/timepicker.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-datetimepicker/css/datetimepicker-custom.css" />
+<style>
+    td{
+        height: 100px;
+        font-size: 4ch;
+    }
+</style>
+{/block}
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li><a href="{:url('index')}">金额管理</a></li>
+                <li class="active">金额统计</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <header class="panel-heading col-xs-12 ">
+                    <form class="form-inline" action="{:url('')}">
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <div class="input-group  custom-date-range">
+                                    <input type="text" class="form-control form_datetime" value="{$_GET['from'] ?? ''}" name="from" placeholder="开始时间">
+                                    <span class="input-group-addon">到</span>
+                                    <input type="text" class="form-control form_datetime" value="{$_GET['to'] ?? ''}" name="to" placeholder="结束时间">
+                                </div>
+                            </div>
+                            <input type="text" name="mobile" class="form-control" placeholder="请输入手机号码">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
+                </header>
+
+                <div class="panel-body">
+                    <form class="ids" action="{:url('')}" method="post">
+                        <table class="table" style="text-align: center">
+                            <tbody>
+                            <tr style="background:rosybrown;">
+                                <td >总盈亏</td>
+                                <td >{$profit}</td>
+                            </tr>
+                            <tr style="background: darkslategray">
+                                <td>总充值</td>
+                                <td>{$recharge_total}</td>
+                                <td>总提现</td>
+                                <td>{$withdrawals_total}</td>
+                            </tr>
+                            <tr style="background: darkslateblue">
+                                <td>总投注金额</td>
+                                <td>{$betting_total}</td>
+                                <td>总中奖金额</td>
+                                <td>{$winning_total}</td>
+                            </tr>
+                            <tr style="background: goldenrod">
+                                <td>总回水</td>
+                                <td>{$back_total}</td>
+                                <td>总流水</td>
+                                <td>{$flow_total}</td>
+                                <td>总代理回水</td>
+                                <td>{$d_back_total}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+    </div>
+</div>
+<!--body wrapper end-->
+<!-- Modal -->
+{/block}
+<!-- modal -->
+{block name="js"}
+<!--pickers plugins-->
+<script type="text/javascript" src="__JS__/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-daterangepicker/moment.min.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+
+<!--pickers initialization-->
+<script src="__JS__/pickers-init.js"></script>
+{/block}
+
+

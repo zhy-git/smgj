@@ -1,0 +1,101 @@
+{extend name="common:base" /}
+{block name="css"}
+<!--pickers css-->
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-datepicker/css/datepicker-custom.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-timepicker/css/timepicker.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-datetimepicker/css/datetimepicker-custom.css" />
+{/block}
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li class="active">投注记录</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <header class="panel-heading col-xs-12 ">
+                    <form class="form-inline" action="{:url('')}">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="input-group  custom-date-range" data-date="2013/07/03" data-date-format="yyyy/mm/dd h:i:s">
+                                    <input type="text" class="form-control form_datetime" value="{$_GET['from'] ?? ''}" name="from">
+                                    <span class="input-group-addon">到</span>
+                                    <input type="text" class="form-control form_datetime" value="{$_GET['to'] ?? ''}" name="to">
+                                </div>
+                            </div>
+                            <input type="text" name="key" class="form-control" value="{$_GET['key'] ?? ''}" placeholder="关键字">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
+                </header>
+
+                <div class="panel-body">
+                    <form class="ids" action="{:url('del')}" method="post">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>玩家ID</th>
+                                <th>昵称</th>
+                                <th>下注次数</th>
+                                <th>下注额</th>
+                                <th>盈亏</th>
+                                <th>回水</th>
+                            </tr>
+                            </thead>
+                            {volist name="detail" id="v"}
+                                <tr>
+                                    <td>{$v.uid}</td>
+                                    <td><a href="{:url('touzhu',array('id'=>$v['uid']))}">{$v.member.nickname}</a></td>
+                                    <td>{$v.num}</td>
+                                    <td>{$v.money/100}</td>
+                                    {php}
+                                        $ying = $v->detail()->where('exp',['=',41],['=',42],'or')->sum('money');
+                                        $ky = $ying-$v['money'];
+                                        $hui = $v->detail()->where('exp',['=',51],['=',52],'or')->sum('money');
+                                    {/php}
+                                    <td>{$ky/100}</td>
+                                    <td>{$hui/100}</td>
+                                </tr>
+                            {/volist}
+                        </table>
+                    </form>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="dataTables_info" id="dynamic-table_info">
+                                总人数：{$total}&nbsp;&nbsp;总次数：{$total_count}&nbsp;&nbsp;总金额:{$total_money/100}&nbsp;&nbsp;总盈亏:{$kuiying/100}&nbsp;&nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <!--<a href="{:url('del')}" class="btn btn-sm btn-primary ajax-post confirm" target-form="ids">批量删除</a>-->
+                </div>
+            </section>
+            {$page}
+        </div>
+
+    </div>
+</div>
+<!--body wrapper end-->
+{/block}
+{block name="js"}
+<!--pickers plugins-->
+<script type="text/javascript" src="__JS__/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-daterangepicker/moment.min.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+
+<!--pickers initialization-->
+<script src="__JS__/pickers-init.js"></script>
+
+{/block}

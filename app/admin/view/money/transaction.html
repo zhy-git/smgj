@@ -1,0 +1,102 @@
+{extend name="common:base" /}
+{block name="css"}
+<!--pickers css-->
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-datepicker/css/datepicker-custom.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-timepicker/css/timepicker.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-datetimepicker/css/datetimepicker-custom.css" />
+{/block}
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li><a href="{:url('index')}">金额管理</a></li>
+                <li class="active">金额记录</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <header class="panel-heading col-xs-12 ">
+                    <form class="form-inline" action="{:url('',array('id'=>$id))}">
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <div class="input-group  custom-date-range">
+                                    <input type="text" class="form-control form_datetime" value="{$_GET['from'] ?? ''}" name="from" placeholder="开始时间">
+                                    <span class="input-group-addon">到</span>
+                                    <input type="text" class="form-control form_datetime" value="{$_GET['to'] ?? ''}" name="to" placeholder="结束时间">
+                                </div>
+                            </div>
+                            <select class="form-control" name="exp">
+                                <option value="0">选择方式</option>
+                                {volist name='detail_exp' id='del'}
+                                <option value="{$del.id}" {if (isset($_GET['exp']) && $_GET['exp'] == $del['id'])}selected{/if}>{$del.name}</option>
+                                {/volist}
+                            </select>
+                            <select class="form-control" name="is_temporary">
+                                <option value="0">用户</option>
+                                <option value="1">游客</option>
+                            </select>
+                            <input type="text" name="gm_name" class="form-control" value="{$_GET['gm_name'] ?? ''}" placeholder="用户账号">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
+                </header>
+
+                <div class="panel-body">
+                    <form class="ids" action="" method="post">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>昵称/账号</th>
+                                <th>金额</th>
+                                <th>余额</th>
+                                <th>方式</th>
+                                <th>详情</th>
+                                <th >时间</th>
+                            </tr>
+                            </thead>
+                            {volist name="list" id="v"}
+                            <tr>
+                                <td>{$v.id}</td>
+                                <td>{$v.member.gm_name}</td>
+                                <td>{$v.money}</td>
+                                <td>{$v.balance}</td>
+                                <td>{:getExp($v['exp'])}</td>
+                                <td>{$v.explain}</td>
+                                <td>{if (isTimeZero($v.create_at))}{$v.create_at}{/if}</td>
+                            </tr>
+                            {/volist}
+                        </table>
+
+                    </form>
+                    <!--<a href="{:url('del')}" class="btn btn-sm btn-primary ajax-post confirm" target-form="ids">批量删除</a>-->
+                </div>
+            </section>
+            {$page}
+        </div>
+
+    </div>
+</div>
+<!--body wrapper end-->
+{/block}
+{block name="js"}
+<!--pickers plugins-->
+<script type="text/javascript" src="__JS__/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-daterangepicker/moment.min.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+
+<!--pickers initialization-->
+<script src="__JS__/pickers-init.js"></script>
+{/block}

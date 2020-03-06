@@ -1,0 +1,111 @@
+{extend name="common:base" /}
+{block name="css"}
+<!--pickers css-->
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-datepicker/css/datepicker-custom.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-timepicker/css/timepicker.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-datetimepicker/css/datetimepicker-custom.css" />
+{/block}
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li class="active">投注记录</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <header class="panel-heading col-xs-12 ">
+                    <form class="form-inline" action="{:url('',array('id'=>$id))}">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="input-group  custom-date-range">
+                                    <input type="text" class="form-control form_datetime" value="{$_GET['from'] ?? ''}" name="from">
+                                    <span class="input-group-addon">到</span>
+                                    <input type="text" class="form-control form_datetime" value="{$_GET['to'] ?? ''}" name="to">
+                                </div>
+                            </div>
+                            <select name="exp" class="form-control ">
+                                <option value="">请选择类型</option>
+                                <option value="1"  {if (isset($_GET['exp']) && $_GET['exp'] eq 1)}selected="selected"{/if}>充值</option>
+                                <option value="2" {if (isset($_GET['exp']) && $_GET['exp'] eq 2)}selected="selected"{/if}>提现</option>
+                                <option value="31" {if (isset($_GET['exp']) && $_GET['exp'] eq 31)}selected="selected"{/if}>投注时时彩</option>
+                                <option value="32" {if (isset($_GET['exp']) && $_GET['exp'] eq 32)}selected="selected"{/if}>投注北京赛车</option>
+                                <option value="41" {if (isset($_GET['exp']) && $_GET['exp'] eq 41)}selected="selected"{/if}>时时彩中奖</option>
+                                <option value="42" {if (isset($_GET['exp']) && $_GET['exp'] eq 42)}selected="selected"{/if}>北京赛车中奖</option>
+                                <option value="51" {if (isset($_GET['exp']) && $_GET['exp'] eq 51)}selected="selected"{/if}>投注返利</option>
+                                <option value="52" {if (isset($_GET['exp']) && $_GET['exp'] eq 52)}selected="selected"{/if}>拉人返利</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
+                </header>
+
+                <div class="panel-body">
+                    <form class="ids" action="{:url('del')}" method="post">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>昵称</th>
+                                <th>类型</th>
+                                <th>金额</th>
+                                <th style="width: 35%;">说明</th>
+                                <th style="width: 10%;">时间</th>
+                            </tr>
+                            </thead>
+                            {volist name="detail" id="v"}
+                            <tr>
+                                <td>{$i}</td>
+                                <td>{$v.member.nickname}</td>
+                                <td>
+                                    {switch name="v.exp"}
+                                        {case value="1"}充值{/case}
+                                        {case value="2"}提现{/case}
+                                        {case value="31"}投注时时彩{/case}
+                                        {case value="32"}投注北京赛车{/case}
+                                        {case value="41"}时时彩中奖{/case}
+                                        {case value="41"}北京赛车中奖{/case}
+                                        {case value="51"}投注返利{/case}
+                                        {case value="52"}拉人返利{/case}
+                                        {default /}其它
+                                    {/switch}
+                                </td>
+                                <td>{if ($v.type eq 2)}-{/if}{$v.money/100}</td>
+                                <td>{$v.explain}</td>
+                                <td>{$v.create_at}</td>
+                            </tr>
+                            {/volist}
+                        </table>
+
+                    </form>
+                    <!--<a href="{:url('del')}" class="btn btn-sm btn-primary ajax-post confirm" target-form="ids">批量删除</a>-->
+                </div>
+            </section>
+            {$page}
+        </div>
+
+    </div>
+</div>
+<!--body wrapper end-->
+{/block}
+{block name="js"}
+<!--pickers plugins-->
+<script type="text/javascript" src="__JS__/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-daterangepicker/moment.min.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+
+<!--pickers initialization-->
+<script src="__JS__/pickers-init.js"></script>
+{/block}

@@ -1,0 +1,48 @@
+think\exception\ErrorException: Undefined index: win in D:\PHPTutorial\WWW\smgj\app\api\command\Xyft.php:87
+Stack trace:
+#0 D:\PHPTutorial\WWW\smgj\app\api\command\Xyft.php(87): think\Error::appError(8, 'Undefined index...', 'D:\\PHPTutorial\\...', 87, Array)
+#1 D:\PHPTutorial\WWW\smgj\app\api\command\Xyft.php(21): app\api\command\Xyft->doCron()
+#2 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\console\Command.php(175): app\api\command\Xyft->execute(Object(think\console\Input), Object(think\console\Output))
+#3 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(562): think\console\Command->run(Object(think\console\Input), Object(think\console\Output))
+#4 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(187): think\Console->doRunCommand(Object(app\api\command\Xyft), Object(think\console\Input), Object(think\console\Output))
+#5 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(125): think\Console->doRun(Object(think\console\Input), Object(think\console\Output))
+#6 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(84): think\Console->run()
+#7 D:\PHPTutorial\WWW\smgj\thinkphp\console.php(20): think\Console::init()
+#8 D:\PHPTutorial\WWW\smgj\think(20): require('D:\\PHPTutorial\\...')
+#9 {main}3998
+think\exception\ErrorException: Undefined index: win in D:\PHPTutorial\WWW\smgj\app\api\command\Xyft.php:87
+Stack trace:
+#0 D:\PHPTutorial\WWW\smgj\app\api\command\Xyft.php(87): think\Error::appError(8, 'Undefined index...', 'D:\\PHPTutorial\\...', 87, Array)
+#1 D:\PHPTutorial\WWW\smgj\app\api\command\Xyft.php(21): app\api\command\Xyft->doCron()
+#2 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\console\Command.php(175): app\api\command\Xyft->execute(Object(think\console\Input), Object(think\console\Output))
+#3 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(562): think\console\Command->run(Object(think\console\Input), Object(think\console\Output))
+#4 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(187): think\Console->doRunCommand(Object(app\api\command\Xyft), Object(think\console\Input), Object(think\console\Output))
+#5 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(125): think\Console->doRun(Object(think\console\Input), Object(think\console\Output))
+#6 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(84): think\Console->run()
+#7 D:\PHPTutorial\WWW\smgj\thinkphp\console.php(20): think\Console::init()
+#8 D:\PHPTutorial\WWW\smgj\think(20): require('D:\\PHPTutorial\\...')
+#9 {main}3999
+think\exception\ErrorException: Undefined index: win in D:\PHPTutorial\WWW\smgj\app\api\command\Xyft.php:87
+Stack trace:
+#0 D:\PHPTutorial\WWW\smgj\app\api\command\Xyft.php(87): think\Error::appError(8, 'Undefined index...', 'D:\\PHPTutorial\\...', 87, Array)
+#1 D:\PHPTutorial\WWW\smgj\app\api\command\Xyft.php(21): app\api\command\Xyft->doCron()
+#2 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\console\Command.php(175): app\api\command\Xyft->execute(Object(think\console\Input), Object(think\console\Output))
+#3 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(562): think\console\Command->run(Object(think\console\Input), Object(think\console\Output))
+#4 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(187): think\Console->doRunCommand(Object(app\api\command\Xyft), Object(think\console\Input), Object(think\console\Output))
+#5 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(125): think\Console->doRun(Object(think\console\Input), Object(think\console\Output))
+#6 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(84): think\Console->run()
+#7 D:\PHPTutorial\WWW\smgj\thinkphp\console.php(20): think\Console::init()
+#8 D:\PHPTutorial\WWW\smgj\think(20): require('D:\\PHPTutorial\\...')
+#9 {main}4000
+think\exception\ErrorException: Undefined index: win in D:\PHPTutorial\WWW\smgj\app\api\command\Xyft.php:87
+Stack trace:
+#0 D:\PHPTutorial\WWW\smgj\app\api\command\Xyft.php(87): think\Error::appError(8, 'Undefined index...', 'D:\\PHPTutorial\\...', 87, Array)
+#1 D:\PHPTutorial\WWW\smgj\app\api\command\Xyft.php(21): app\api\command\Xyft->doCron()
+#2 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\console\Command.php(175): app\api\command\Xyft->execute(Object(think\console\Input), Object(think\console\Output))
+#3 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(562): think\console\Command->run(Object(think\console\Input), Object(think\console\Output))
+#4 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(187): think\Console->doRunCommand(Object(app\api\command\Xyft), Object(think\console\Input), Object(think\console\Output))
+#5 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(125): think\Console->doRun(Object(think\console\Input), Object(think\console\Output))
+#6 D:\PHPTutorial\WWW\smgj\thinkphp\library\think\Console.php(84): think\Console->run()
+#7 D:\PHPTutorial\WWW\smgj\thinkphp\console.php(20): think\Console::init()
+#8 D:\PHPTutorial\WWW\smgj\think(20): require('D:\\PHPTutorial\\...')
+#9 {main}4001

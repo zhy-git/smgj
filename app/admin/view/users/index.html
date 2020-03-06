@@ -1,0 +1,64 @@
+{extend name="common:base" /}
+
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li><a href="{:url('Users/index')}">用户管理</a></li>
+                <li class="active">用户信息</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <form class="ids" action="{:url('del')}" method="post">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th><input class="check-all" type="checkbox"/></th>
+                            <th>ID</th>
+                            <th>用户名</th>
+                            <th>角色</th>
+                            <th>最后登录IP</th>
+                            <th>最后登录时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name='list' id='v'}
+                        <tr>
+                            <td><input class="ids" type="checkbox" value="{$v.uid}" name="ids[]"/></td>
+                            <td>{$v.uid}</td>
+                            <td>{$v.username}</td>
+                            <td>{if ($v.role eq 0)}超级管理员{else}管理员{/if}</td>
+                            <td>{if ($v.lg_ip)}{$v.lg_ip}{/if}</td>
+                            <td>{if ($v.lg_time)}{$v.lg_time|date='Y-m-d H:i:s',###}{/if}</td>
+                            <td>
+                                {if ($v.role neq 0)}
+                                <a href="{:url('edit',['id'=>$v['uid']])}" class="fa fa-edit" title="编辑"></a>
+                                <a href="{:url('del',array('ids'=>$v['uid']))}" class="fa fa-times confirm ajax-get" title="删除"></a>
+                                {/if}
+                            </td>
+                        </tr>
+                        {/volist}
+
+                        </tbody>
+                    </table>
+                    </form>
+                    <a href="{:url('del')}" class="btn btn-sm btn-primary ajax-post confirm" target-form="ids">批量删除</a>
+                </div>
+            </section>
+            {$page}
+        </div>
+
+    </div>
+</div>
+<!--body wrapper end-->
+{/block}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		<meta HTTP-EQUIV="Expires" CONTENT="-1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>我的账户</title>
+		<link rel="shortcut icon" href="__IMG__/favicon.ico" />
+		<link rel="bookmark" href="__IMG__/favicon.ico" type="image/x-icon" 　/>
+		<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+		<script src="__JS__/jquery-3.2.1.min.js" ></script>
+		<script src="__JS__/laydate/laydate.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/laydate.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/paging.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/index.js"></script>
+		<script src="__JS__/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+		<script src="__JS__/area.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/layer.js" ></script>
+		<script src="__JS__/common.js" ></script>
+	</head>
+
+	<body id="account">
+		<div class="bg_ff">
+			{include file="common/top" /}
+		</div>
+		<section>
+		<ul class="account_list clearfix">
+			<li><a href="{:url('index')}">充值</a></li>
+			<li><a href="{:url('cash')}">提现</a></li>
+			<li><a href="{:url('rechargelist')}">充值记录</a></li>
+			<li class="active"><a href="{:url('cashlist')}">提现记录</a></li>
+			<li><a href="{:url('manage')}">密码管理</a></li>
+			<li><a href="{:url('addcard')}">添加银行卡</a></li>
+		</ul>
+		<div class="account_main active">
+	    	<h4 class="padding_10 title_list">提现记录</h4>
+			<form action="">
+			<div class="game_list clearfix">
+				<span>
+					<input type="text" class="demo-input" placeholder="请选择日期" name="from" id="test13">	至
+      	    	    <input type="text" class="demo-input" placeholder="请选择日期" name="to" id="test14">
+				</span>
+      	    	<span class=""><input type="submit" value="查询" class="basic_a" /></span>
+			</div>
+			</form>
+			<div class="table_box">
+		    	<table border="" cellspacing="" cellpadding="">
+		    		<thead>
+		    			<tr>
+			    			<th>提现金额</th>
+			    			<th>申请时间</th>
+			    			<th>提现银行</th>
+			    			<th>卡号尾号</th>
+			    			<th>状态</th>
+			    		</tr>
+		    		</thead>
+		    		<tbody>
+					{if !empty($list)}
+					{volist name='list' id='rll'}
+		    			<tr>
+		    				<td>{$rll.money}</td>
+		    				<td>{$rll.create_at|date="Y-m-d H:i:s",###}</td>
+		    				<td>{$rll.bank_name}</td>
+		    				<td>{$rll.account_bank}</td>
+		    				<td>{if $rll.status eq 1}审核中{elseif $rll.status eq 2 /}成功{else/}失败{/if}</td>
+		    			</tr>
+					{/volist}
+					{else/}
+		    			<tr>
+			    			<td colspan="5">暂无信息</td>
+			    		</tr>
+					{/if}
+		    		</tbody>
+		    	</table>
+				{$page}
+		   </div>
+		</div>
+		</section>
+		{include file="common/footer" /}
+	</body>
+</html>

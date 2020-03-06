@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<!-- saved from url=(0026)https://www.mtc9.com/game/ -->
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+	<meta HTTP-EQUIV="Expires" CONTENT="-1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="shortcut icon" href="__IMG__/favicon.ico" />
+	<link rel="bookmark" href="__IMG__/favicon.ico" type="image/x-icon"　/>
+	<!--<link rel="stylesheet" type="text/css" href="css/common.css"/>-->
+	<script src="__JS__/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/jquery.validate.min.js"></script>
+	<script src="__JS__/layer.js" ></script>
+	<script src="__JS__/common.js" ></script>
+	<title>PC蛋蛋</title>
+	<link rel="stylesheet" href="__CSS__/index.css">
+	<style>
+		.spinner {
+			width: 60px;
+			height: 30px;
+			display: inline-block;
+			background: rgba(255, 255, 255, 0.85);
+			padding: 10px 50px 0;
+		}
+
+		.spinner .three-bounce {
+			position: relative;
+			text-align: center;
+			top: 50%;
+			bottom: 50%;
+			margin-top: -9px
+		}
+
+		.spinner .three-bounce>div {
+			display: inline-block;
+			width: 18px;
+			height: 18px;
+			border-radius: 100%;
+			top: 50%;
+			margin-top: -9px;
+			background: #aeadba;
+			-webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+			animation: bouncedelay 1.4s infinite ease-in-out;
+			-webkit-animation-fill-mode: both;
+			animation-fill-mode: both
+		}
+
+		.spinner .three-bounce .one {
+			-webkit-animation-delay: -.32s;
+			animation-delay: -.32s;
+			background: rgb(55,137,250);
+		}
+
+		.spinner .three-bounce .two {
+			-webkit-animation-delay: -.16s;
+			animation-delay: -.16s;
+			background: rgb(99,99,99);
+		}
+
+		.spinner .three-bounce .three {
+			background: rgb(235,67,70);
+		}
+
+		@keyframes bouncedelay {
+			0%,100%,80% {
+				transform: scale(0);
+				-webkit-transform: scale(0)
+			}
+
+			40% {
+				transform: scale(1);
+				-webkit-transform: scale(1)
+			}
+		}
+		.fengpan{color: rgb(170, 152, 152);}
+		.bet-modal .u-btn1{
+			background: linear-gradient(to bottom,#d87c86 0,#6a1f2d 100%);
+			border: 1px solid #ab374a;
+			color: #fff;
+		}
+	</style>
+	<link type="text/css" rel="stylesheet" href="__CSS__/chat-index.css"></head>
+<body>
+<div id="appLoading" class="bet-loading" style="position: fixed; width: 100%; top: 200px; text-align: center; z-index: 3000; display: none;">
+	<div class="spinner">
+		<div class="three-bounce">
+			<div class="one"></div>
+			<div class="two"></div>
+			<div class="three"></div>
+		</div>
+	</div>
+</div>
+<div class="main-body skin_red" style="right: 0px;">
+	<div class="header">
+		<div class="header-top clearfix">
+			<div class="logo2">
+				<img src="__IMG__/logo.png" alt="最专业彩票网" height="53"></div>
+			<div class="menu1">
+				<div class="draw_number">
+					<div>PC蛋蛋</div>
+					<div><span class="cur_turn_num"></span>期开奖</div>
+				</div>
+				<div id="result_balls" style="top:0;">
+					<span class="ball mr15 c-b1 mt10"></span>
+					<span class="ball mr15 c-b1 mt10"></span>
+					<span class="ball mr15 c-b1 mt10"></span>
+					<span style="margin: 15px; color: rgb(255, 255, 255);">总和：</span>
+					<span class="ball mr15 c-b1 mt10"></span>
+				</div>
+				<div id="result-wrap" class="T_PK10">
+					<span class="resultData">小</span>
+					<span class="resultData">单</span>
+				</div>
+				<!--<div title="点击关闭提醒声音" class="open_sound"></div>-->
+			</div>
+			{include file="common/detail_top" /}
+		</div>
+		<div class="header-middle lotterys">
+			{include file="common/cate_top" /}
+		</div>
+		<div class="header-bottom sub">
+			<div class="show cate_menu">
+				<a href="" class="router-link-exact-active selected">幸运蛋蛋</a>
+			</div>
+		</div>
+	</div>
+	<div class="main-wrap"><!---->
+		{include file="common/siderbar" /}
+		<div class="content-wrap">
+			<div class="content">
+				<div class="sub-wrap clearfix">
+					<div class="cont-main active">
+						<div class="cont-col3">
+							<div class="u-header play_tab_1 clearfix">
+								<div class="fl"><span id="page_game_name">PC蛋蛋</span>&nbsp;&nbsp;-&nbsp;&nbsp;
+									<span id="page_name">PC蛋蛋</span>
+									<!--<span id="total_sum_money_text">&nbsp;&nbsp;-->
+                                         <!--当前彩种输赢：-->
+                                         <!--<span id="total_sum_money">0.000</span>-->
+        	        					<!--</span>-->
+								</div>
+								<div class="fr">
+									<span id="stageStatus" data-status="off" style="display: none;"></span>
+									<span id="next_turn_num"></span>&nbsp;期 距离封盘：
+									<span id="bet-date">00:00</span> 距离开奖：
+									<span id="open-date">00:00</span>
+								</div>
+							</div>
+							<div>
+								<div class="cont-col3-hd clearfix">
+									<div class="cont-col3-box2">
+										<span>金额 </span>
+										<input type="number" class="bet-money" oninput="changeVale(this)" onpropertychange="changeVale(this)" maxlength="6" value="" />
+										<a href="javascript:void(0)" class="u-btn1 betTab">确定</a>
+										<a href="javascript:void(0)" class="u-btn1 betReset">重置</a>
+									</div>
+								</div>
+								<div>
+									<div>
+										<div class="cont-col3-bd">
+											<table class="u-table2">
+												<thead>
+												<tr>
+													<th colspan="12" data-target-type="1">混合</th>
+												</tr>
+												</thead>
+												<tbody>
+												{volist name="rule_data.hh" id="vo"}
+												<tr>
+													{volist name="vo" id="sub"}
+													<td data-id="{$sub.id}" class="name" data-num="{$sub.rule}">{$sub.rule}</td>
+													<td data-id="{$sub.id}" class="odds"><span class="c-txt3">{$sub.rate}</span></td>
+													<td data-id="{$sub.id}" class="amount"><input type="text" style="" /></td>
+													{/volist}
+												</tr>
+												{/volist}
+												</tbody>
+											</table>
+											<table class="u-table2" style="margin-top: 10px;">
+												<thead>
+												<tr>
+													<th colspan="12" data-target-type="2">特码</th>
+												</tr>
+												</thead>
+												<tbody>
+												{volist name="rule_data.tm" id="vo"}
+												<tr>
+													{volist name="vo" id="sub"}
+													<td data-id="{$sub.id}" class="name" data-num="{$sub.rule}">{$sub.rule}</td>
+													<td data-id="{$sub.id}" class="odds"><span class="c-txt3">{$sub.rate}</span></td>
+													<td data-id="{$sub.id}" class="amount"><input type="text" style="" /></td>
+													{/volist}
+												</tr>
+												{/volist}
+												</tbody>
+											</table>
+											<table class="u-table2" style="margin-top: 10px;">
+												<thead>
+												<tr>
+													<th colspan="12" data-target-type="3">特殊玩法</th>
+												</tr>
+												</thead>
+												<tbody>
+												{volist name="rule_data.ts" id="vo"}
+												<tr>
+													{volist name="vo" id="sub"}
+													<td data-id="{$sub.id}" class="name" data-num="{$sub.rule}">{$sub.rule}</td>
+													<td data-id="{$sub.id}" class="odds"><span class="c-txt3">{$sub.rate}</span></td>
+													<td data-id="{$sub.id}" class="amount"><input type="text" style="" /></td>
+													{/volist}
+												</tr>
+												{/volist}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class="cont-col3-hd clearfix" style="margin-top: 15px;">
+									<div class="cont-col3-box2">
+										<span>金额 </span>
+										<input type="number" class="bet-money" oninput="changeVale(this)" onpropertychange="changeVale(this)" maxlength="6" value=""/>
+										<a href="javascript:void(0)" class="u-btn1 betTab">确定</a>
+										<a href="javascript:void(0)" class="u-btn1 betReset">重置</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{include file="pcdd/integration2" /}
+				</div>
+			</div>
+
+			<div class="iframe_table">
+				<iframe id="iframeMain" src="" width="1100"  frameborder="0" scrolling="no" id="test" ></iframe>
+			</div>
+		</div>
+	</div>
+	<div id="betModal" style="display: none;">
+		<div class="el-dialog el-dialog--small bet-modal">
+			<div class="el-dialog__header">
+				<span class="el-dialog__title">下注明细 (请确认注单)</span>
+				<button type="button" aria-label="Close" class="el-dialog__headerbtn"><i class="el-dialog__close el-icon el-icon-close" onclick="layer.closeAll();"><img src="__IMG__/close.png" alt="" /></i></button>
+			</div>
+			<div class="el-dialog__body">
+				<div>
+					<div style="max-height: 380px; overflow-y: auto;">
+						<table class="u-table10">
+							<thead>
+							<tr>
+								<th style="width: 60%;">号码</th>
+								<th style="width: 15%;">赔率</th>
+								<th style="width: 15%;">金额</th>
+								<th style="width: 10%;">确认</th>
+							</tr>
+							</thead>
+							<tbody id="betModalList"></tbody>
+						</table>
+					</div>
+					<div class="bet-bottom" style="margin-top: 10px;">
+						<span class="bcount">组数：<b class="bcountVal" id="bcountVal"></b></span> <span class="btotal">总金额：
+                    <b class="btotalVal" id="btotalVal"><span></span></b></span></div>
+					<div class="cont-col3-hd clearfix">
+						<div class="cont-col3-box2">
+							<a href="javascript:void(0)" class="u-btn1" onclick="lotteryBetController.setOrder();">确定</a>
+							<a href="javascript:void(0)" onclick="layer.closeAll();" class="u-btn1">取消</a>
+						</div>
+						<div class="bet-loading" style="display: none;">
+							<div class="gif"></div>
+							<div class="txt">正在提交</div>
+						</div>
+					</div>
+				</div>
+			</div><!---->
+		</div>
+	</div>
+	<!--弹框结束-->
+	{include file="common/footer" /}
+</div>
+
+</div>
+
+</div>
+<div class="gameservice"><!----></div>
+<script src="__JS__/tab.js" type="text/javascript" charset="utf-8"></script>
+{include file="pcdd/js" /}
+</body>
+</html>

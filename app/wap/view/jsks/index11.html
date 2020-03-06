@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>江苏快三</title>
+	<script src="__JS__/wap/mui.min.js"></script>
+	<link href="__CSS__/wap/mui.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/wap/common.css"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/wap/index.css"/>
+	<script src="__JS__/wap/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/wap/time.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/wap/index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/jquery.validate.min.js"></script>
+	<script src="__JS__/layer.js" ></script>
+	<script src="__JS__/common.js" ></script>
+	<script type="text/javascript" charset="utf-8">
+        mui.init();
+	</script>
+</head>
+<body style="background: #E5BCC3;">
+<div class="main">
+	<header class="">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left mg_top10 color_ff"></a>
+		<h1 class="mui-title mui-pull-left color_ff">
+			<span class="left">江苏快三 <a href="javascript:void(0);"><img class="menu_img" src="__IMG__/wap/muen.png" alt="" /></a></span>
+		</h1>
+		{include file="common/top_list" /}
+	</header>
+	<div class="mui-content">
+		<ul class="mui-clearfix game_box1">
+			<li class="active"><a href="javascript:void(0);">投注区</a></li>
+			<li><a href="javascript:void(0);">聊天室</a></li>
+		</ul>
+		<div class="game_box2 padding_tb10 bor_bd7">
+			<div class="clearfix ">
+				<p class="left game_B2L cur_turn_num"></p>
+				<div id="result_balls" class="left game_B2R">
+					<p>
+						<i class="round3"><img src="__IMG__/wap/Dice1.png" alt="" /></i>
+						<i class="round3"><img src="__IMG__/wap/Dice5.png" alt="" /></i>
+						<i class="round3"><img src="__IMG__/wap/Dice6.png" alt="" /></i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="game_box2 padding_tb10 bor_bd7">
+			<div class="clearfix ">
+				<p class="left game_B2L" id="next_turn_num"></p>
+				<div class="left game_B2R">
+					<div class="clearfix left">
+						<span class="left lin_30">封盘：</span>
+						<div class="colockbox clearfix left" id="bet-date">
+							<span class="minute"></span>
+							<span class="second"></span>
+						</div>
+						</span>
+					</div>
+					<div class="clearfix left">
+						<span class="left lin_30 mg_left10">开奖：</span>
+						<div class="colockbox clearfix left" id="open-date">
+							<span class="minute"></span>
+							<span class="second"></span>
+						</div>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="game_box3 mui-clearfix">
+			<ul class="left game_B3L">
+				<li class="active"><a href="javascript:void(0);"><i class="round_small"></i> 三军</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 围骰</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 点数</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 长牌</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 短牌</a></li>
+			</ul>
+			<div class="game_tab left">
+				<div class="tab_box active">
+					<div class="">
+						<h4 class="mui-text-center padding_10 bor_bd7">三军</h4>
+						<ul class="mui-clearfix two" data-target-type="1" data-target-num="三军">
+							<li data-num="1"><a href="javascript:void(0);"><span class="round3"><img src="__IMG__/wap/Dice1.png" alt="" /></span><i data-id="53" class="odds"></i></a></li>
+							<li data-num="2"><a href="javascript:void(0);"><span class="round3"><img src="__IMG__/wap/Dice2.png" alt="" /></span><i data-id="53" class="odds"></i></a></li>
+							<li data-num="3"><a href="javascript:void(0);"><span class="round3"><img src="__IMG__/wap/Dice3.png" alt="" /></span><i data-id="53" class="odds"></i></a></li>
+							<li data-num="4"><a href="javascript:void(0);"><span class="round3"><img src="__IMG__/wap/Dice4.png" alt="" /></span><i data-id="53" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="round3"><img src="__IMG__/wap/Dice5.png" alt="" /></span><i data-id="53" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="round3"><img src="__IMG__/wap/Dice6.png" alt="" /></span><i data-id="53" class="odds"></i></a></li>
+							<li data-num="大"><a href="javascript:void(0);">大<i data-id="52" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);">小<i data-id="52" class="odds"></i></a></li>
+
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">围骰</h4>
+						<ul class="mui-clearfix two" data-target-type="2" data-target-num="围骰">
+							<li data-num="1,1,1">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice1.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice1.png"/>
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice1.png"/>
+				        					</span>
+									<p class="color_55"><i data-id="54" class="odds"></i></p>
+								</a>
+							</li>
+							<li data-num="2,2,2">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice2.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice2.png"/>
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice2.png"/>
+				        					</span>
+									<p  class="color_55"><i data-id="54" class="odds"></i></p>
+								</a>
+							</li>
+							<li data-num="3,3,3">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice3.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice3.png"/>
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice3.png"/>
+				        					</span>
+									<p  class="color_55"><i data-id="54" class="odds"></i></p>
+								</a>
+							</li>
+							<li data-num="4,4,4">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice4.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice4.png"/>
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice4.png"/>
+				        					</span>
+									<p  class="color_55"><i data-id="54" class="odds"></i></p>
+								</a>
+							</li>
+							<li data-num="5,5,5">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice5.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice5.png"/>
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice5.png"/>
+				        					</span>
+									<p  class="color_55"><i data-id="54" class="odds"></i></p>
+								</a>
+							</li>
+							<li data-num="6,6,6">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice6.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice6.png"/>
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice6.png"/>
+				        					</span>
+									<p  class="color_55"><i data-id="54" class="odds"></i></p>
+								</a>
+							</li>
+						</ul>
+
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">点数</h4>
+						<ul class="mui-clearfix two" data-target-type="3" data-target-num="点数">
+							<li data-num="4"><a href="javascript:void(0);"><span class="">4点</span><i data-id="56" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="">5点</span><i data-id="57" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="">6点</span><i data-id="58" class="odds"></i></a></li>
+							<li data-num="7"><a href="javascript:void(0);"><span class="">7点</span><i data-id="59" class="odds"></i></a></li>
+							<li data-num="8"><a href="javascript:void(0);"><span class="">8点</span><i data-id="60" class="odds"></i></a></li>
+							<li data-num="9"><a href="javascript:void(0);"><span class="">9点</span><i data-id="61" class="odds"></i></a></li>
+							<li data-num="10"><a href="javascript:void(0);"><span class="">10点</span><i data-id="277" class="odds"></i></a></li>
+							<li data-num="11"><a href="javascript:void(0);"><span class="">11点</span><i data-id="278" class="odds"></i></a></li>
+							<li data-num="12"><a href="javascript:void(0);"><span class="">12点</span><i data-id="279" class="odds"></i></a></li>
+							<li data-num="13"><a href="javascript:void(0);"><span class="">13点</span><i data-id="280" class="odds"></i></a></li>
+							<li data-num="14"><a href="javascript:void(0);"><span class="">14点</span><i data-id="281" class="odds"></i></a></li>
+							<li data-num="15"><a href="javascript:void(0);"><span class="">15点</span><i data-id="282" class="odds"></i></a></li>
+							<li data-num="16"><a href="javascript:void(0);"><span class="">16点</span><i data-id="283" class="odds"></i></a></li>
+							<li data-num="17"><a href="javascript:void(0);"><span class="">17点</span><i data-id="284" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">长牌</h4>
+						<ul class="mui-clearfix two" data-target-type="4" data-target-num="长牌">
+							<li data-num="1,2">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice1.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice2.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="1,3">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice1.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice3.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="1,4">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice1.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice4.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="1,5">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice1.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice5.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="1,6">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice1.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice6.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="2,3">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice2.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice3.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="2,4">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice2.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice4.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="2,5">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice2.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice5.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="2,6">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice2.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice6.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="3,4">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice3.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice4.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="3,5">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice3.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice5.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="3,6">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice3.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice6.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="4,5">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice4.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice5.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="4,6">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice4.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice6.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="5,6">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice5.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice6.png" alt="" />
+				        					</span>
+									<i data-id="285" class="odds"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">短牌</h4>
+
+						<ul class="mui-clearfix two" data-target-type="5" data-target-num="短牌">
+							<li data-num="1,1">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice1.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice1.png" alt="" />
+				        					</span>
+									<i data-id="286" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="2,2">
+							<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice2.png" alt="" />
+				        					</span>
+								<span class="round3">
+				        						<img src="__IMG__/wap/Dice2.png" alt="" />
+				        					</span>
+								<i data-id="286" class="odds"></i>
+							</a>
+						</li>
+							<li data-num="3,3">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice3.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice3.png" alt="" />
+				        					</span>
+									<i data-id="286" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="4,4">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice4.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice4.png" alt="" />
+				        					</span>
+									<i data-id="286" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="5,5">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice5.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice5.png" alt="" />
+				        					</span>
+									<i data-id="286" class="odds"></i>
+								</a>
+							</li>
+							<li data-num="6,6">
+								<a href="javascript:void(0);">
+				        					<span class="round3">
+				        						<img src="__IMG__/wap/Dice6.png" alt="" />
+				        					</span>
+									<span class="round3">
+				        						<img src="__IMG__/wap/Dice6.png" alt="" />
+				        					</span>
+									<i data-id="286" class="odds"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<nav class="foot ">
+		<div class="clearfix">
+			<div class="left FootL">
+				已选中<span class="red" id="betTotalNum">0</span>注
+				<input type="number" class="bet-money" oninput="changeVale(this)" value="1" placeholder="输入金额" />
+			</div>
+			<div class="right FootR">
+				<a href="javascript:void(0);" class="bet_a betTab">下注</a>
+				<a href="javascript:void(0);" class="betReset">重置</a>
+			</div>
+		</div>
+	</nav>
+	<div class="rule_box">
+		<h4 class="mui-h4 mui-text-center mui-clearfix">江苏快三  <a class="mui-pull-right" href="javascript:void(0);"><img class="close" src="__IMG__/wap/close.png"/></a></h4>
+		<p>
+			该游戏的投注时间、开奖时间和开奖号码与“江苏骰宝(快3)”完全同步，北京时间（GMT+8）每天白天从上午08:40开到晚上22:10，每10分钟开一次奖,每天开奖82期。<br />
+			具体游戏规则如下: <br />
+			骰宝<br />
+			一、博彩者可在下列各瓣下注：<br />
+			1.小：三粒骰子之点数总和由4点至10点；<br />
+			2.大：三粒骰子之点数总和由11点至17点；注：若三粒骰子平面点数相同，通吃「大」、「小」各注。<br />
+			3.三军/鱼虾蟹：任何一粒骰子出现选定之平面点数；<br />
+			4.围骰：三粒骰子平面与选定点数相同；<br />
+			5.全骰：在一点至六点内，三粒骰子平面点数相同；<br />
+			6.点数：由4点至17点，三粒骰子平面点数之总和；<br />
+			7.长牌：任两粒骰子之平面点数；<br />
+			8.短牌：选定两粒骰子之平面点数；<br />
+		</p>
+	</div>
+	{include file="common/bet_list" /}
+	<div class="overlay"></div>
+</div>
+{include file="common/menu" /}
+{include file="jsks/js" /}
+</body>
+</html>

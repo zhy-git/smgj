@@ -1,0 +1,73 @@
+{extend name="common:base" /}
+
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li><a href="{:url('index')}">彩票管理</a></li>
+                <li class="active">彩种管理</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <form class="ids" action="" method="post">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>彩票ID</th>
+                                <th>名称</th>
+                                <!--<th>logo</th>-->
+                                <th>开放/关闭</th>
+                                <th>房间设置</th>
+                                <th>玩法(赔率)设置</th>
+                                <!--<th>游戏规则设置</th>-->
+                                <!--<th>开奖历史</th>-->
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name='data' id='v'}
+                            <tr>
+                                <td>{$v.id}</td>
+                                <td>{$v.name}</td>
+                                <!--<td><img width="100" src="URL_IMG{$v.cate_img}"></td>-->
+                                <td>{if $v.status ==1} 开放{else/}关闭{/if}</td>
+                                <td>
+                                    <a href="{:url('lottery/hall',array('cate'=>$v['id']))}"  title="房间设置">房间设置</a>
+                                </td>
+                                <td>
+                                    <a href="{:url('lottery/eight_index',array('cate'=>$v['id']))}"  title="玩法(赔率)设置">玩法(赔率)设置</a>
+                                </td>
+                                <!--<td>-->
+                                    <!--<a href="{:url('lottery/play_rule',array('cate'=>$v['id']))}"  title="游戏规则设置">游戏规则设置</a>-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                    <!--<a href="{:url('lottery/history',array('cate'=>$v['id']))}"  title="开奖历史">开奖历史</a>-->
+                                <!--</td>-->
+                                <td>
+                                    <a href="{:url('lottery/show',['id'=>$v['id']])}" class="fa fa-edit" title="编辑"></a>
+                                </td>
+                            </tr>
+                            {/volist}
+
+                            </tbody>
+                        </table>
+                    </form>
+
+                </div>
+            </section>
+        </div>
+
+    </div>
+</div>
+
+<!--body wrapper end-->
+{/block}

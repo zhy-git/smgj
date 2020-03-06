@@ -1,0 +1,117 @@
+<div class="siderbar">
+    <div class="side_left userctrl">
+        <ul>
+            <li>
+                <div class="r-wrap r-nowrap1">账户信息</div>
+                <div class="info">
+                    <div><label>账号：</label><span id="userinfo_name">{$memInfo.name}</span></div>
+                    <div>
+                        <label>彩票余额：</label><span class="balance" id="memMoney">{$memMoney.money}</span>
+                    </div>
+                    <div>
+                        <label>AG余额：</label><span class="balance" id="memAgMoney">{$memMoney.ag_money}</span>
+                        <a href="javascript:void(0)" title="点击刷新消息" id="refreshRealMoneyAg" onclick="refreshRealMoney('AG')">
+                            <img alt="点击刷新消息" src="__IMG__/refresh.png" width="18" height="18" title="点击刷新消息">
+                        </a>
+                    </div>
+                    <div>
+                        <label>BBIN余额：</label><span class="balance" id="memBbMoney">{$memMoney.bb_money}</span>
+                        <a href="javascript:void(0)" title="点击刷新消息" id="refreshRealMoneySs" onclick="refreshRealMoney('SS')">
+                            <img alt="点击刷新消息" src="__IMG__/refresh.png" width="18" height="18" title="点击刷新消息">
+                        </a>
+                    </div>
+                    <div>
+                        <label>未结金额：</label><span class="betting" id="memUnMoney">{$memMoney.unpaid_money}</span>
+                        <a href="javascript:void(0)" title="点击刷新消息" id="refreshMoney" onclick="refreshMoney()"><img alt="点击刷新消息" src="__IMG__/refresh.png" width="18" height="18" title="点击刷新消息"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="r-wrap r-nowrap1 link">
+                <a href="{:url('Center/index')}" class="r-bg personal_a">个人中心</a> <img src="__IMG__/msg_new2.png" class="new" >
+            </li>
+            <li class="r-wrap r-nowrap1"><div>最新注单</div></li>
+        </ul>
+    </div>
+    <div class="sider-col2"><!---->
+
+    </div>
+</div>
+<script>
+    var refreshMoneyCheck = true;
+    function refreshMoney(){
+        if(refreshMoneyCheck){
+            refreshMoneyCheck = false;
+            $.ajax({
+                url: "{:url('refresh')}",
+                type:'POST',
+                dataType: "json",
+                beforeSend:function(){ //触发ajax请求开始时执行
+
+                },
+                success: function(data){
+                    if(data.code == 1){
+                        $('#memMoney').html(data.data.money);
+                        // $('#memAgMoney').html();
+                        // $('#memBbMoney').html();
+                        $('#memUnMoney').html(data.data.unpaid_money);
+                    } else {
+                        pop(data.msg);
+                    }
+                },
+                error: function (textStatus) {
+                    //pop('服务器繁忙，请稍后再试');
+                },
+                complete: function(){
+                    setTimeout(function(){
+                        refreshMoneyCheck = true;
+                    },10000)
+                }
+            });
+        }else{
+            return;
+        }
+    }
+    var refreshRealMoneyCheck = true;
+    function refreshRealMoney(type){
+        if(refreshRealMoneyCheck){
+            refreshRealMoneyCheck = false;
+            $.ajax({
+                url: "{:url('refreshRealMoney')}",
+                data: {type: type},
+                type:'POST',
+                dataType: "json",
+                beforeSend:function(){ //触发ajax请求开始时执行
+
+                },
+                success: function(data){
+                    if(data.code == 1){
+                        if(data.date === true){
+                            setTimeout(function(){
+                                refreshRealMoneyCheck = true;
+                                refreshRealMoney(type);
+                            },1000)
+                        }else{
+                            if(type == 'SS'){
+                                $('#memBbMoney').html(data.data);
+                            }else{
+                                $('#memAgMoney').html(data.data);
+                            }
+                        }
+                    } else {
+                        pop(data.msg);
+                    }
+                },
+                error: function (textStatus) {
+                    //pop('服务器繁忙，请稍后再试');
+                },
+                complete: function(){
+                    setTimeout(function(){
+                        refreshRealMoneyCheck = true;
+                    },10000)
+                }
+            });
+        }else{
+            return;
+        }
+    }
+</script>
