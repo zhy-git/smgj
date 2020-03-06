@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>广东11选5</title>
+	<script src="__JS__/wap/mui.min.js"></script>
+	<link href="__CSS__/wap/mui.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/wap/swiper.min.css"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/wap/common.css"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/wap/index.css"/>
+	<script src="__JS__/wap/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/wap/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/wap/time.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/wap/index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/jquery.validate.min.js"></script>
+	<script src="__JS__/layer.js" ></script>
+	<script src="__JS__/common.js" ></script>
+	<script type="text/javascript" charset="utf-8">
+        mui.init();
+	</script>
+</head>
+<body style="background: #E5BCC3;">
+<div class="main">
+	<header class="mui-bar mui-bar-nav mui-clearfix">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title mui-pull-left">
+			<span class="left">广东11选5 <a href="javascript:void(0);"><img class="menu_img" src="__IMG__/wap/muen.png" alt="" /></a></span>
+		</h1>
+		<div class="mui-pull-right list_a">
+            <a href="javascript:void(0);"class="mg_top10 ">
+                <span class="mui-h5 color_ff padding_lr5" id="memMoney">{$mem.money}</span>
+                <img  class="vertical-align_m book" src="__IMG__/wap/book.png" alt="" />
+            </a>
+            <ul class="list_ul" style="z-index: 50">
+                <li><a href="{:url('Report/unsettled')}">即时注单 <p class="red" id="memUnMoney">({$mem.unpaid_money})</p></a></li>
+                <li><a href="{:url('Report/settled')}">今日已结 </a></li>
+                <li><a href="{:url('Report/noteRecord')}">下注记录</a></li>
+                <li><a href="{:url('Report/openResult',array("cate_id"=>4))}"> 开奖结果</a></li>
+                <li class="rule"><a href="javascript:void(0);"> 游戏规则</a></li>
+                <!--<li><a href="javascript:void(0);">今天输赢 <p id="thisWin" class="red">(0.00)</p></a></li>-->
+            </ul>
+        </div>
+	</header>
+	<div class="mui-content">
+		<ul class="mui-clearfix game_box1">
+			<li class="active"><a href="javascript:void(0);">投注区</a></li>
+			<li><a href="javascript:void(0);">聊天室</a></li>
+		</ul>
+		<div class="game_box2 padding_tb10 bor_bd7">
+			<div class="clearfix ">
+				<p class="left game_B2L cur_turn_num"></p>
+				<div id="result_balls" class="left game_B2R">
+					<p>
+						<i class="round1">1</i>
+						<i class="round1">2</i>
+						<i class="round1">3</i>
+						<i class="round1">4</i>
+						<i class="round1">5</i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="game_box2 padding_tb10 bor_bd7">
+			<div class="clearfix ">
+				<p class="left game_B2L" id="next_turn_num"></p>
+				<div class="left game_B2R">
+					<div class="clearfix left">
+						<span class="left lin_30">封盘：</span>
+						<div class="colockbox clearfix left" id="bet-date">
+							<span class="minute"></span>
+							<span class="second"></span>
+						</div>
+						</span>
+					</div>
+					<div class="clearfix left">
+						<span class="left lin_30 mg_left10">开奖：</span>
+						<div class="colockbox clearfix left" id="open-date">
+							<span class="minute"></span>
+							<span class="second"></span>
+						</div>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="game_box3 mui-clearfix">
+			<ul class="left game_B3L">
+				<li class="active"><a href="javascript:void(0);"><i class="round_small"></i> 两面</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 第一球</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 第二球</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 第三球</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 第四球</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 第五球</a></li>
+				<!--<li><a href="javascript:void(0);"><i class="round_small"></i> 连码 </a></li>-->
+			</ul>
+			<div class="game_tab left">
+				<div class="tab_box active">
+					<div class="">
+						<h4 class="mui-text-center padding_10 bor_bd7">总和、龙虎</h4>
+						<ul class="mui-clearfix two" data-target-type="1" data-target-num="总和">
+							<li data-num="总和大"><a href="javascript:void(0);">总和大<i data-id="35" class="odds"></i></a></li>
+							<li data-num="总和小"><a href="javascript:void(0);">总和小<i data-id="35" class="odds"></i></a></li>
+							<li data-num="总和单"><a href="javascript:void(0);">总和单<i data-id="36" class="odds"></i></a></li>
+							<li data-num="总和双"><a href="javascript:void(0);">总和双<i data-id="37" class="odds"></i></a></li>
+							<li data-num="总和尾大"><a href="javascript:void(0);">总和尾大<i data-id="38" class="odds"></i></a></li>
+							<li data-num="总和尾小"><a href="javascript:void(0);">总和尾小<i data-id="39" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);">龙<i data-id="35" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);">虎<i data-id="35" class="odds"></i></a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第一球</h4>
+						<ul class="mui-clearfix two" data-target-type="2" data-target-num="第一球">
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="35" class="odds"></i></a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第二球</h4>
+						<ul class="mui-clearfix two" data-target-type="3" data-target-num="第二球">
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="35" class="odds"></i></a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第三球</h4>
+						<ul class="mui-clearfix two" data-target-type="4" data-target-num="第三球">
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="35" class="odds"></i></a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第四球</h4>
+						<ul class="mui-clearfix two" data-target-type="5" data-target-num="第四球">
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="35" class="odds"></i></a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第五球</h4>
+						<ul class="mui-clearfix two" data-target-type="6" data-target-num="第五球">
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="35" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="35" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第一球</h4>
+						<ul class="mui-clearfix three" data-target-type="2" data-target-num="第一球">
+							<li data-num="1"><a href="javascript:void(0);"><span class="round1">1</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="2"><a href="javascript:void(0);"><span class="round1">2</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="3"><a href="javascript:void(0);"><span class="round1">3</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="4"><a href="javascript:void(0);"><span class="round1">4</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="round1">5</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="round1">6</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="7"><a href="javascript:void(0);"><span class="round1">7</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="8"><a href="javascript:void(0);"><span class="round1">8</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="9"><a href="javascript:void(0);"><span class="round1">9</span><i data-id="34" class="odds"></i></a></li>
+						</ul>
+						<ul class="mui-clearfix two" data-target-type="2" data-target-num="第一球">
+							<li data-num="10"><a href="javascript:void(0);"><span class="round1">10</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="11"><a href="javascript:void(0);"><span class="round1">11</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="34" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第二球</h4>
+						<ul class="mui-clearfix three" data-target-type="3" data-target-num="第二球">
+							<li data-num="1"><a href="javascript:void(0);"><span class="round1">1</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="2"><a href="javascript:void(0);"><span class="round1">2</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="3"><a href="javascript:void(0);"><span class="round1">3</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="4"><a href="javascript:void(0);"><span class="round1">4</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="round1">5</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="round1">6</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="7"><a href="javascript:void(0);"><span class="round1">7</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="8"><a href="javascript:void(0);"><span class="round1">8</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="9"><a href="javascript:void(0);"><span class="round1">9</span><i data-id="34" class="odds"></i></a></li>
+						</ul>
+						<ul class="mui-clearfix two" data-target-type="3" data-target-num="第二球">
+							<li data-num="10"><a href="javascript:void(0);"><span class="round1">10</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="11"><a href="javascript:void(0);"><span class="round1">11</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="34" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第三球</h4>
+						<ul class="mui-clearfix three" data-target-type="4" data-target-num="第三球">
+							<li data-num="1"><a href="javascript:void(0);"><span class="round1">1</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="2"><a href="javascript:void(0);"><span class="round1">2</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="3"><a href="javascript:void(0);"><span class="round1">3</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="4"><a href="javascript:void(0);"><span class="round1">4</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="round1">5</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="round1">6</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="7"><a href="javascript:void(0);"><span class="round1">7</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="8"><a href="javascript:void(0);"><span class="round1">8</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="9"><a href="javascript:void(0);"><span class="round1">9</span><i data-id="34" class="odds"></i></a></li>
+						</ul>
+						<ul class="mui-clearfix two" data-target-type="4" data-target-num="第三球">
+							<li data-num="10"><a href="javascript:void(0);"><span class="round1">10</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="11"><a href="javascript:void(0);"><span class="round1">11</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="34" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第四球</h4>
+						<ul class="mui-clearfix three" data-target-type="5" data-target-num="第四球">
+							<li data-num="1"><a href="javascript:void(0);"><span class="round1">1</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="2"><a href="javascript:void(0);"><span class="round1">2</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="3"><a href="javascript:void(0);"><span class="round1">3</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="4"><a href="javascript:void(0);"><span class="round1">4</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="round1">5</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="round1">6</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="7"><a href="javascript:void(0);"><span class="round1">7</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="8"><a href="javascript:void(0);"><span class="round1">8</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="9"><a href="javascript:void(0);"><span class="round1">9</span><i data-id="34" class="odds"></i></a></li>
+						</ul>
+						<ul class="mui-clearfix two" data-target-type="5" data-target-num="第四球">
+							<li data-num="10"><a href="javascript:void(0);"><span class="round1">10</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="11"><a href="javascript:void(0);"><span class="round1">11</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="34" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第五球</h4>
+						<ul class="mui-clearfix three" data-target-type="6" data-target-num="第五球">
+							<li data-num="1"><a href="javascript:void(0);"><span class="round1">1</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="2"><a href="javascript:void(0);"><span class="round1">2</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="3"><a href="javascript:void(0);"><span class="round1">3</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="4"><a href="javascript:void(0);"><span class="round1">4</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="round1">5</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="round1">6</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="7"><a href="javascript:void(0);"><span class="round1">7</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="8"><a href="javascript:void(0);"><span class="round1">8</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="9"><a href="javascript:void(0);"><span class="round1">9</span><i data-id="34" class="odds"></i></a></li>
+						</ul>
+						<ul class="mui-clearfix two" data-target-type="6" data-target-num="第五球">
+							<li data-num="10"><a href="javascript:void(0);"><span class="round1">10</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="11"><a href="javascript:void(0);"><span class="round1">11</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="34" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="34" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<!--<div class="tab_box">-->
+					<!--<div class="swiper-container">-->
+						<!--<div class="swiper-wrapper">-->
+							<!--<div class="swiper-slide"> 二中二</div>-->
+							<!--<div class="swiper-slide"> 三中三</div>-->
+							<!--<div class="swiper-slide"> 四中四</div>-->
+							<!--<div class="swiper-slide"> 五中五</div>-->
+							<!--<div class="swiper-slide"> 六中五</div>-->
+							<!--<div class="swiper-slide"> 七中五</div>-->
+							<!--<div class="swiper-slide"> 八中五</div>-->
+							<!--<div class="swiper-slide"> 前二组选</div>-->
+							<!--<div class="swiper-slide"> 前三组选</div>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div>-->
+						<!--<h4 class="mui-text-center padding_10 bor_bd7">赔率：<span class="odds"></span></h4>-->
+						<!--<ul class="mui-clearfix three">-->
+							<!--<li><a href="javascript:void(0);"><span class="round1">1</span></a></li>-->
+							<!--<li><a href="javascript:void(0);"><span class="round1">2</span></a></li>-->
+							<!--<li><a href="javascript:void(0);"><span class="round1">3</span></a></li>-->
+							<!--<li><a href="javascript:void(0);"><span class="round1">4</span></a></li>-->
+							<!--<li><a href="javascript:void(0);"><span class="round1">5</span></a></li>-->
+							<!--<li><a href="javascript:void(0);"><span class="round1">6</span></a></li>-->
+							<!--<li><a href="javascript:void(0);"><span class="round1">7</span></a></li>-->
+							<!--<li><a href="javascript:void(0);"><span class="round1">8</span></a></li>-->
+							<!--<li><a href="javascript:void(0);"><span class="round1">9</span></a></li>-->
+						<!--</ul>-->
+						<!--<ul class="mui-clearfix two">-->
+							<!--<li><a href="javascript:void(0);"><span class="round1">10</span></a></li>-->
+							<!--<li><a href="javascript:void(0);"><span class="round1">11</span></a></li>-->
+						<!--</ul>-->
+					<!--</div>-->
+				<!--</div>-->
+			</div>
+		</div>
+		<nav class="foot ">
+			<div class="clearfix">
+				<div class="left FootL">
+					已选中<span class="red" id="betTotalNum">0</span>注
+					<input type="number" class="bet-money" oninput="changeVale(this)" value="1" placeholder="输入金额" />
+				</div>
+				<div class="right FootR">
+					<a href="javascript:void(0);" class="bet_a betTab">下注</a>
+					<a href="javascript:void(0);" class="betReset">重置</a>
+				</div>
+			</div>
+		</nav>
+		<div class="rule_box">
+			<h4 class="mui-h4 mui-text-center mui-clearfix">广东11选5  <a class="mui-pull-right" href="javascript:void(0);"><img class="close" src="__IMG__/wap/close.png"/></a></h4>
+			<p>
+				1.【单码】- 指第一球、第二球、第三球、第四球、第五球出现的顺序与号码为派彩依据。<br />
+				单号：如现场滚球第一个开奖号码为10号，投注第一球为10号则视为中奖，其它号码视为不中奖 大小：开出的号码大于或等于6为大，小于或等于5为小，开出11为和 (不计算输赢)<br />
+				单双：号码为双数叫双，如2、8；号码为单数叫单，如5、9；开出11为和 (不计算输赢)。<br />
+				2.【总和】-以全部开出的5个号码，加起来的总和来判定。<br />
+				总和大小: 所有开奖号码数字加总值大于30为和大；总和值小于30为和小；若总和值等于30为和 (不计算输赢)。<br />
+				总和单双: 所有开奖号码数字加总值为单数叫和单，如11、31；加总值为双数叫和双，如42、30。<br />
+				总和尾数大小: 所有开奖号码数字加总值的尾数，大于或等于5为尾大，小于或等于4为尾小。<br />
+				3.【龙虎】<br />
+				龙：第一球开奖号码大于第五球开奖号码，如第一球开出10，第五球开出7。
+				虎：第一球开奖号码小于第五球开奖号码，如第一球开出3，第五球开出7。
+				4.选号- 选号玩法是由1~11号中，选出1~5个号码为一投注组合来进行投注。<br />
+				一中一: 投注1个号码与当期开奖的5个号码中任1个号码相同，视为中奖。<br />
+				任选二: 投注2个号码与当期开奖的5个号码中任2个号码相同(顺序不限)，视为中奖。<br />
+				任选三: 投注3个号码与当期开奖的5个号码中任3个号码相同(顺序不限)，视为中奖。<br />
+				任选四: 投注4个号码与当期开奖的5个号码中任4个号码相同(顺序不限)，视为中奖。<br />
+				任选五: 投注5个号码与当期开奖的5个号码中5个号码相同(顺序不限)，视为中奖。<br />
+				任选六: 投注6个号码中任5个号码与当期开奖的5个号码相同(顺序不限)，视为中奖。<br />
+				任选七: 投注7个号码中任5个号码与当期开奖的5个号码相同(顺序不限)，视为中奖。<br />
+				任选八: 投注8个号码中任5个号码与当期开奖的5个号码相同(顺序不限)，视为中奖。<br />
+				组选前二: 投注的2个号码与当期顺序开出的5个号码中的前2个号码相同，视为中奖。<br />
+				组选前三: 投注的3个号码与当期顺序开出的5个号码中的前3个号码相同，视为中奖。<br />
+				直选前二: 投注的2个号码与当期顺序开出的5个号码中的前2个号码相同且顺序一致，视为中奖。<br />
+				直选前三: 投注的3个号码与当期顺序开出的5个号码中的前3个号码相同且顺序一致，视为中奖。<br />
+			</p>
+		</div>
+		{include file="common/bet_list" /}
+		<div class="overlay"></div>
+	</div>
+	{include file="common/menu" /}
+	{include file="gdsyxw/js" /}
+	<script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 4,
+            spaceBetween: 0,
+            freeMode: true,
+            pagination: {
+                clickable: true,
+            },
+        });
+	</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+{extend name="common:base" /}
+{block name="css"}
+<!--pickers css-->
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-datepicker/css/datepicker-custom.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-timepicker/css/timepicker.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-datetimepicker/css/datetimepicker-custom.css" />
+{/block}
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li><a href="{:url('index')}">金额管理</a></li>
+                <li class="active">充值记录</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <header class="panel-heading col-xs-12 ">
+                    <form class="form-inline" action="{:url('')}">
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <div class="input-group  custom-date-range">
+                                    <input type="text" class="form-control form_datetime" value="{$_GET['from'] ?? ''}" name="from" placeholder="开始时间">
+                                    <span class="input-group-addon">到</span>
+                                    <input type="text" class="form-control form_datetime" value="{$_GET['to'] ?? ''}" name="to" placeholder="结束时间">
+                                </div>
+                            </div>
+                            <select class="form-control" name="status">
+                                <option value="0">充值状态</option>
+                                <option value="1" {if (isset($_GET['status']) && $_GET['status'] == 1)}selected{/if}>审核中</option>
+                                <option value='2' {if (isset($_GET['status']) && $_GET['status'] == 2)}selected{/if}>充值成功</option>
+                                <option value='3' {if (isset($_GET['status']) && $_GET['status'] == 3)}selected{/if} >充值失败</option>
+                            </select>
+                            <select class="form-control" name="is_temporary">
+                                <option value="0">用户</option>
+                                <option value="1">游客</option>
+                            </select>
+                            <input type="text" name="gm_name" class="form-control" value="{$_GET['gm_name'] ?? ''}" placeholder="用户账号">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                            <!--<a href="#"  class="btn btn-success ajax-get" onclick="recharge();"title="后台充值">后台充值</a>-->
+                        </div>
+                    </form>
+                </header>
+
+                <div class="panel-body">
+                    <form class="ids" action="{:url('delRecharge')}" method="post">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>昵称</th>
+                                <th>金额</th>
+                                <th>充值方式</th>
+                                <th>转账姓名</th>
+                                <th>备注</th>
+                                <!--<th>回执</th>-->
+                                <th>充值时间</th>
+                                <th>审核时间</th>
+                                <th>充值状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name='list' id='v'}
+                            <tr>
+                                <td>{$v.id}</td>
+                                <td>{$v.member.gm_name}</td>
+                                <td>{$v.money}</td>
+                                <td>{if $v.type==1}线上充值{elseif $v.type==2}线下充值{elseif $v.type==3}后台充值{/if}</td>
+                                <td>{$v.name|default="无"}</td>
+                                <td>{$v.remark}</td>
+                                <!--<td>-->
+                                    <!--{if $v.hui}-->
+                                    <!--<a href="{:url('money/hui',array('id'=>$v['id']))}"  title="查看">查看回执大图</a>-->
+                                    <!--{else/}-->
+                                    <!--无-->
+                                    <!--{/if}-->
+
+                                <!--</td>-->
+                                <td>{if (isTimeZero($v.create_at))}{$v.create_at}{/if}</td>
+                                <td>{if (isTimeZero($v.update_at))}{$v.update_at}{/if}</td>
+                                {if $v.status==1}
+                                <td>审核中</td>
+                                {elseif $v.status==2 }
+                                <td style="color:#65CEA7">充值成功</td>
+                                {elseif $v.status==3 }
+                                <td style="color:red">充值失败</td>
+                                {/if}
+                                <td>
+                                    <!--<a href="{:url('edit',['id'=>$v['id']])}" class="fa fa-edit" title="编辑"></a>-->
+                                    {if ($v.status == 1)}
+                                    <a href="#"   class="btn btn-success ajax-get" onclick="shenhe(1,'{$v.uid}','{$v.id}')" title="充值审核">通过</a>
+                                    <a href="#"  class="btn btn-danger ajax-get" onclick="shenhe(2,'{$v.uid}','{$v.id}')" title="充值审核">不通过</a>
+                                    <!--<a onclick="recharge('{$v.id}','{$v.member.nickname}','{$v.money}');" class="fa fa-money" title="充值"></a>-->
+                                    {/if}
+
+                                </td>
+                            </tr>
+                            {/volist}
+
+                            </tbody>
+                        </table>
+                    </form>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="dataTables_info" id="dynamic-table_info">
+                                充值次数：{$renshu}&nbsp;&nbsp; 充值总额：{$total_money}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {$page}
+        </div>
+
+    </div>
+</div>
+<!--body wrapper end-->
+<!-- Modal -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="rechargeModal" class="modal fade">
+    <div class="modal-dialog" style="width:400px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">确认充值</h4>
+            </div>
+            <form class="form-horizontal form-post-addmoney" action="{:url('addmoney')}" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-lg-3 col-sm-3 control-label">用户名</label>
+                        <div class="col-lg-8">
+                            <input type="text" name="gm_name" id="mobile" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-lg-3 col-sm-3 control-label">充值金额</label>
+                        <div class="col-lg-8">
+                            <input type="text" name="money" id="money" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-lg-3 col-sm-3 control-label">充值备注</label>
+                        <div class="col-lg-8">
+                            <input type="text" name="remark" id="remark" class="form-control" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" id="rid" value=""/>
+                    <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
+                    <button class="btn btn-primary " type="submit" target-form="form-post-addmoney">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function recharge() {
+        $('#rechargeModal').modal('show');
+    }
+    var shenheCheck = true;
+    function shenhe(type,uid,id) {
+        if(shenheCheck) {
+            shenheCheck = false
+            $.ajax({
+                type: "post",
+                url: "{:url('edit_status')}",
+                data: {'type': type, 'uid': uid, 'id': id},
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    var info = data.msg;
+                    alert(info);
+                    location.reload();
+                }
+            });
+        }
+    }
+</script>
+{/block}
+<!-- modal -->
+{block name="js"}
+<!--pickers plugins-->
+<script type="text/javascript" src="__JS__/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-daterangepicker/moment.min.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+
+<!--pickers initialization-->
+<script src="__JS__/pickers-init.js"></script>
+{/block}
+
+

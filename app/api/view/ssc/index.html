@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>重庆时时彩</title>
+    <script src="__JS__/jquery-1.6.2.min.js" ></script>
+    <script src="__JS__/mui.min.js"></script>
+    <script src="__JS__/index.js" ></script>
+    <script src="__JS__/layer.js"></script>
+    <script src="__JS__/common.js" ></script>
+    <link href="__CSS__/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/index.css"/>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+        mui('.mui-scroll-wrapper').scroll();
+    </script>
+</head>
+<body id="index">
+<nav class="mui-bar mui-bar-tab" id="ico">
+    <a class="mui-tab-item "  href="{:url('Index/index')}" >
+        <span class="mui-icon" ><img src="__IMG__/ico_f01.png"/></span>
+        <span class="mui-tab-label">大厅</span>
+    </a>
+    <a class="mui-tab-item  hall_car "  href="{:url('Car/index')}">
+        <span class="mui-icon"><img  src="__IMG__/ico_f02.png"/></span>
+        <span class="mui-tab-label">北京赛车</span>
+    </a>
+    <a class="mui-tab-item  hall_car "  href="race.html">
+        <span class="mui-icon"><img  src="__IMG__/ico_f07.png"/></span>
+        <span class="mui-tab-label">香港赛马</span>
+    </a>
+    <a class="mui-tab-item  hall_car "  href="{:url('Airship/index')}">
+        <span class="mui-icon"><img  src="__IMG__/ico_f04.png"/></span>
+        <span class="mui-tab-label">幸运飞艇</span>
+    </a>
+</nav>
+<div class="mui-content" id="hall" style="margin-bottom: 40px;">
+    <div class="hall_main0" >
+        <div class="font_02">
+            <img src="__IMG__/logo03.png" alt="" />
+            <span class="clock">
+                <strong id="minute_show">00</strong> :
+                <strong id="second_show">00</strong>
+            </span>
+        </div>
+        <p class="mui-text-center" id="fd" style="color: #fff;visibility: hidden;">开奖窗口</p>
+        <div class="mui-clearfix">
+            <p class="ru_tr mui-pull-right">
+                <span class="record  "><a href="{:url('Center/tou')}" style="color: #fff;">记录</a></span>
+                <span class="trend " >走势</span>
+            </p>
+            <p class="font_02_01">
+                <span class="mui-pull-left">开奖时间：<i class="red1" id="dateline">{$dateline|date='H:i',###}</i>	</span>
+                <span class="mui-pull-right">下一期：<i class="red1" id="stage_next">{$stage_next}</i></span>
+            </p>
+        </div>
+        <p  class="padding_lr10 yellow2 result">
+            第
+            <span class="red1" id="stage">{$stage}</span>
+            期开奖结果：
+            <i id="ssc_lh">{$number|sscLh}</i>
+            <i id="ssc_dx">{$number_sum|sscDx}</i>
+            <i id="ssc_ds">{$number_sum|sscDs}</i>
+        </p>
+        <div class="winning ">
+            {volist name='number' id='v'}
+            <div>
+                <dl class="mui-pull-left">
+                    <dt id="wei_{$i-1}" class="BallNum">{$v}</dt>
+                    <dd>{$wei[$i-1]}</dd>
+                </dl>
+                {if ($i eq 5)}
+                <span class="mui-pull-left equal"><img src="__IMG__/equal.png"/></span>
+                    {else/}
+                <span class="mui-pull-left"><img src="__IMG__/add.png"/></span>
+                {/if}
+            </div>
+            {/volist}
+            <div>
+                <dl class="mui-pull-left">
+                    <dt id="wei_5" class="BallNum">{$number_sum}</dt>
+                    <dd>和值</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <table border="" cellspacing="" cellpadding="" class="hall_trend">
+        <tr>
+            <th colspan="7" style="text-align: left;padding-left: 10px;">
+                北京赛车时时彩走势
+                <span class="mui-pull-right remove">x</span>
+            </th>
+
+        </tr>
+        <tbody id="tbody">
+        </tbody>
+    </table>
+    <ul class="hall_main1">
+        <span class="mui-pull-left"><i class="rule">规则</i> </span>
+        <li data-name="one" class="active"><i>龙虎</i> </li>
+        <li data-name="two"><i>定位</i> </li>
+        <li data-name="three"><i>单码</i> </li>
+        <li data-name="four"><i>花样玩法</i> </li>
+        <li data-name="five"><i>大小单双</i> </li>
+    </ul>
+    <div class="mui-clearfix hall_content">
+        <div class="mui-pull-left hall_font active" data-name="one">
+            <form id="form_one" method="post" action="{:url('betting')}">
+                <input type="hidden" value="1" name="type"/>
+                <div class="hall_font_main active">
+                    <div class="mui-clearfix">
+                        <p class="hall_font1 mui-pull-left">猜和值（特码）数字  </p>
+                        <p class="pay_money mui-pull-right">
+                            <span class="mui-text-center">余额:</span>
+                            <span class="red1 money_num"><i>{$users.money}</i>元</span>
+                            <span class="red1 refresh">刷新</span>
+                        </p>
+                    </div>
+                    <div class="package">
+                        <ul class="hall_font2">
+                            <li><i>龙<input type="checkbox" hidden  name="num" value="龙" data-bet="{:getBet(1)}" data-title="龙"></i></li>
+                            <li><i>虎<input type="checkbox" hidden  name="num" value="虎" data-bet="{:getBet(1)}" data-title="虎"></i></li>
+                            <li><i>和<input type="checkbox" hidden  name="num" value="和" data-bet="{:getBet(2)}" data-title="和"></i></li>
+                        </ul>
+                        <ul class="hall_font2 all font_12">
+                            <li class="whole"><i>全</i></li>
+                            <li class="clear"><i>清</i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="hall_font_main " name="rule">
+                <p class="hall_font11 back_re" ><img src="__IMG__/back.png" alt="" /> 返回</p>
+                <p class="yellow1">【1~5球竞猜特码】</p>
+                <p>开奖号号首位大于尾位为龙，首位小于尾位为虎，首尾号码相同为和，开和通吃龙虎。</p>
+                <p>【赔率】
+                    <br />
+                    龙虎1赔{:getOdds(1)}   和{:getOdds(2)}(赔率含本金)<br />
+                    【投注限制】
+                    龙虎{:getBet(1)}元   和{:getBet(2)}元
+                </p>
+            </div>
+            </form>
+        </div>
+        <div class="mui-pull-left hall_font  special " data-name="two">
+            <form id="form_two" method="post" action="{:url('betting')}">
+                <input type="hidden" value="2" name="type"/>
+            <div class="hall_font_main active">
+                <div class="mui-clearfix">
+                    <p class="hall_font1 mui-pull-left"> 猜定位组合 </p>
+                    <p class="pay_money mui-pull-right">
+                        <span class="mui-text-center">余额:</span>
+                        <span class="red1 money_num"><i>{$users.money}</i>元</span>
+                        <span class="red1 refresh">刷新</span>
+                    </p>
+                </div>
+                <p class="mui-text-center p2 magrin_tb10" >万位</p>
+                <div class="package">
+                    <ul class="hall_font2">
+                        <li><i>0<input type="checkbox" hidden  name="num_w" value="0" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>1<input type="checkbox" hidden  name="num_w" value="1" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>2<input type="checkbox" hidden  name="num_w" value="2" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>3<input type="checkbox" hidden  name="num_w" value="3" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>4<input type="checkbox" hidden  name="num_w" value="4" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>5<input type="checkbox" hidden  name="num_w" value="5" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>6<input type="checkbox" hidden  name="num_w" value="6" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>7<input type="checkbox" hidden  name="num_w" value="7" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>8<input type="checkbox" hidden  name="num_w" value="8" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>9<input type="checkbox" hidden  name="num_w" value="9" data-bet="{:getBet(3)}" data-title=""></i></li>
+                    </ul>
+                    <ul class="hall_font2 font_12 all" >
+                        <li class="whole"><i>全</i></li>
+                        <li><i>大<input type="checkbox" hidden  name="num_w" value="大" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>小<input type="checkbox" hidden  name="num_w" value="小" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>单<input type="checkbox" hidden  name="num_w" value="单" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>双<input type="checkbox" hidden  name="num_w" value="双" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li class="clear"><i>清</i></li>
+                    </ul>
+                </div>
+                <p class="mui-text-center p2 magrin_tb10">千位</p>
+                <div class="package">
+                    <ul class="hall_font2">
+                        <li><i>0<input type="checkbox" hidden  name="num_q" value="0" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>1<input type="checkbox" hidden  name="num_q" value="1" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>2<input type="checkbox" hidden  name="num_q" value="2" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>3<input type="checkbox" hidden  name="num_q" value="3" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>4<input type="checkbox" hidden  name="num_q" value="4" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>5<input type="checkbox" hidden  name="num_q" value="5" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>6<input type="checkbox" hidden  name="num_q" value="6" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>7<input type="checkbox" hidden  name="num_q" value="7" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>8<input type="checkbox" hidden  name="num_q" value="8" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>9<input type="checkbox" hidden  name="num_q" value="9" data-bet="{:getBet(3)}" data-title=""></i></li>
+                    </ul>
+                    <ul class="hall_font2 font_12 all" >
+                        <li class="whole"><i>全</i></li>
+                        <li><i>大<input type="checkbox" hidden  name="num_q" value="大" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>小<input type="checkbox" hidden  name="num_q" value="小" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>单<input type="checkbox" hidden  name="num_q" value="单" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>双<input type="checkbox" hidden  name="num_q" value="双" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li class="clear"><i>清</i></li>
+                    </ul>
+                </div>
+                <p class="mui-text-center p2 magrin_tb10">百位</p>
+                <div class="package">
+                    <ul class="hall_font2">
+                        <li><i>0<input type="checkbox" hidden  name="num_b" value="0" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>1<input type="checkbox" hidden  name="num_b" value="1" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>2<input type="checkbox" hidden  name="num_b" value="2" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>3<input type="checkbox" hidden  name="num_b" value="3" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>4<input type="checkbox" hidden  name="num_b" value="4" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>5<input type="checkbox" hidden  name="num_b" value="5" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>6<input type="checkbox" hidden  name="num_b" value="6" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>7<input type="checkbox" hidden  name="num_b" value="7" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>8<input type="checkbox" hidden  name="num_b" value="8" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>9<input type="checkbox" hidden  name="num_b" value="9" data-bet="{:getBet(3)}" data-title=""></i></li>
+                    </ul>
+                    <ul class="hall_font2 font_12 all" >
+                        <li class="whole"><i>全</i></li>
+                        <li><i>大<input type="checkbox" hidden  name="num_b" value="大" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>小<input type="checkbox" hidden  name="num_b" value="小" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>单<input type="checkbox" hidden  name="num_b" value="单" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>双<input type="checkbox" hidden  name="num_b" value="双" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li class="clear"><i>清</i></li>
+                    </ul>
+                </div>
+                <p class="mui-text-center p2 magrin_tb10">十位</p>
+                <div class="package">
+                    <ul class="hall_font2">
+                        <li><i>0<input type="checkbox" hidden  name="num_s" value="0" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>1<input type="checkbox" hidden  name="num_s" value="1" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>2<input type="checkbox" hidden  name="num_s" value="2" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>3<input type="checkbox" hidden  name="num_s" value="3" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>4<input type="checkbox" hidden  name="num_s" value="4" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>5<input type="checkbox" hidden  name="num_s" value="5" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>6<input type="checkbox" hidden  name="num_s" value="6" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>7<input type="checkbox" hidden  name="num_s" value="7" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>8<input type="checkbox" hidden  name="num_s" value="8" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>9<input type="checkbox" hidden  name="num_s" value="9" data-bet="{:getBet(3)}" data-title=""></i></li>
+                    </ul>
+                    <ul class="hall_font2 font_12 all" >
+                        <li class="whole"><i>全</i></li>
+                        <li><i>大<input type="checkbox" hidden  name="num_s" value="大" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>小<input type="checkbox" hidden  name="num_s" value="小" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>单<input type="checkbox" hidden  name="num_s" value="单" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>双<input type="checkbox" hidden  name="num_s" value="双" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li class="clear"><i>清</i></li>
+                    </ul>
+                </div>
+                <p class="mui-text-center p2 magrin_tb10">个位</p>
+                <div class="package">
+                    <ul class="hall_font2">
+                        <li><i>0<input type="checkbox" hidden  name="num_g" value="0" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>1<input type="checkbox" hidden  name="num_g" value="1" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>2<input type="checkbox" hidden  name="num_g" value="2" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>3<input type="checkbox" hidden  name="num_g" value="3" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>4<input type="checkbox" hidden  name="num_g" value="4" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>5<input type="checkbox" hidden  name="num_g" value="5" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>6<input type="checkbox" hidden  name="num_g" value="6" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>7<input type="checkbox" hidden  name="num_g" value="7" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>8<input type="checkbox" hidden  name="num_g" value="8" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>9<input type="checkbox" hidden  name="num_g" value="9" data-bet="{:getBet(3)}" data-title=""></i></li>
+                    </ul>
+                    <ul class="hall_font2 font_12 all" style="padding-bottom: 100px;">
+                        <li class="whole"><i>全</i></li>
+                        <li><i>大<input type="checkbox" hidden  name="num_g" value="大" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>小<input type="checkbox" hidden  name="num_g" value="小" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>单<input type="checkbox" hidden  name="num_g" value="单" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li><i>双<input type="checkbox" hidden  name="num_g" value="双" data-bet="{:getBet(3)}" data-title=""></i></li>
+                        <li class="clear"><i>清</i></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="hall_font_main" name="rule">
+                <p class="hall_font11 back_re" ><img src="__IMG__/back.png" alt="" /> 返回</p>
+                <p class="yellow1">【1~5球竞猜特码】</p>
+                <p> 玩法跟特码相同，特码为开奖号的最后一位（个位），定位玩法可以 分别对开奖号的万位、千位、百位、十位进行投注</p>
+                <p>
+                    【赔率】<br />
+                    1赔{:getOdds(3)}(赔率含本金)投注限制：{:getBet(3)}元
+                </p>
+            </div>
+            </form>
+        </div>
+        <div class="mui-pull-left hall_font special  "  data-name="three">
+            <form id="form_three" method="post" action="{:url('betting')}">
+                <input type="hidden" value="3" name="type"/>
+                <div class="hall_font_main active">
+                    <div class="mui-clearfix">
+                        <p class="hall_font1 mui-pull-left">  猜单码</p>
+                        <p class="pay_money mui-pull-right">
+                            <span class="mui-text-center">余额:</span>
+                            <span class="red1 money_num"><i>{$users.money}</i>元</span>
+                            <span class="red1 refresh">刷新</span>
+                        </p>
+                    </div>
+                    <div class="package">
+                        <ul class="hall_font2">
+                            <li><i>0<input type="checkbox" hidden  name="num" value="0" data-bet="{:getBet(4)}" data-title=""></i></li>
+                            <li><i>1<input type="checkbox" hidden  name="num" value="1" data-bet="{:getBet(4)}" data-title=""></i></li>
+                            <li><i>2<input type="checkbox" hidden  name="num" value="2" data-bet="{:getBet(4)}" data-title=""></i></li>
+                            <li><i>3<input type="checkbox" hidden  name="num" value="3" data-bet="{:getBet(4)}" data-title=""></i></li>
+                            <li><i>4<input type="checkbox" hidden  name="num" value="4" data-bet="{:getBet(4)}" data-title=""></i></li>
+                            <li><i>5<input type="checkbox" hidden  name="num" value="5" data-bet="{:getBet(4)}" data-title=""></i></li>
+                            <li><i>6<input type="checkbox" hidden  name="num" value="6" data-bet="{:getBet(4)}" data-title=""></i></li>
+                            <li><i>7<input type="checkbox" hidden  name="num" value="7" data-bet="{:getBet(4)}" data-title=""></i></li>
+                            <li><i>8<input type="checkbox" hidden  name="num" value="8" data-bet="{:getBet(4)}" data-title=""></i></li>
+                            <li><i>9<input type="checkbox" hidden  name="num" value="9" data-bet="{:getBet(4)}" data-title=""></i></li>
+                        </ul>
+                        <ul class="hall_font2 font_12 all" >
+                            <li class="whole"><i>全</i></li>
+                            <li class="clear"><i>清</i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="hall_font_main " name="rule">
+                    <p class="hall_font11 back_re"><img src="__IMG__/back.png" alt="" /> 返回</p>
+                    <p class="yellow1">【玩法说明】</p>
+                    <p>请至少选择1个号码进行投注，开奖号码包含投注号码为中奖， 比如投注0，开03689为中1开00689为中2</p>
+                    <p>
+                        【赔率】<br />
+                        [中1] -  [中2] -  [中3]1赔{:getOdds(6)}<br />
+                        [中4] -  [中5] - (赔率含本金)
+                    </p>
+                    <p>【投注限制】<br />
+                        {:getBet(4)}元
+                    </p>
+                </div>
+            </form>
+        </div>
+        <div class="mui-pull-left hall_font special5" data-name="four">
+            <form id="form_four" method="post" action="{:url('betting')}">
+                <input type="hidden" value="4" name="type"/>
+                <div class="hall_font_main active">
+                    <div class="mui-clearfix">
+                        <p class="hall_font1 mui-pull-left">猜花样玩法  </p>
+                        <p class="pay_money mui-pull-right">
+                            <span class="mui-text-center">余额:</span>
+                            <span class="red1 money_num"><i>{$users.money}</i>元</span>
+                            <span class="red1 refresh">刷新</span>
+                        </p>
+                    </div>
+                    <div class="package">
+                        <ul class="hall_font2">
+                            <li><i>前三豹子<input type="checkbox" hidden  name="num_w" value="1" data-bet="{:getBet(5)}" data-title="前豹"></i></li>
+                            <li><i>中三豹子<input type="checkbox" hidden  name="num_w" value="2" data-bet="{:getBet(5)}" data-title="中豹"></i></i></li>
+                            <li><i>后三豹子<input type="checkbox" hidden  name="num_w" value="3" data-bet="{:getBet(5)}" data-title="后豹"></i></li>
+                        </ul>
+                    </div>
+                    <div class="package">
+                        <ul class="hall_font2">
+                            <li><i>前三顺子<input type="checkbox" hidden  name="num_q" value="1" data-bet="{:getBet(6)}" data-title="前顺"></i></li>
+                            <li><i>中三顺子<input type="checkbox" hidden  name="num_q" value="2" data-bet="{:getBet(6)}" data-title="中顺"></i></li>
+                            <li><i>后三顺子<input type="checkbox" hidden  name="num_q" value="3" data-bet="{:getBet(6)}" data-title="后顺"></i></li>
+                        </ul>
+                    </div>
+                    <div class="package">
+                        <ul class="hall_font2">
+                            <li><i>前三对子<input type="checkbox" hidden  name="num_b" value="1" data-bet="{:getBet(7)}" data-title="前对"></i></li>
+                            <li><i>中三对子<input type="checkbox" hidden  name="num_b" value="2" data-bet="{:getBet(7)}" data-title="中对"></i></li>
+                            <li><i>后三对子<input type="checkbox" hidden  name="num_b" value="3" data-bet="{:getBet(7)}" data-title="后对"></i></li>
+                        </ul>
+                    </div>
+                    <div class="package">
+                    <ul class="hall_font2">
+                        <li><i>前三半顺<input type="checkbox" hidden  name="num_s" value="1" data-bet="{:getBet(8)}" data-title="前半"></i></li>
+                        <li><i>中三半顺<input type="checkbox" hidden  name="num_s" value="2" data-bet="{:getBet(8)}" data-title="中半"></i></li>
+                        <li><i>后三半顺<input type="checkbox" hidden  name="num_s" value="3" data-bet="{:getBet(8)}" data-title="后半"></i></li>
+                    </ul>
+                    </div>
+                    <div class="package">
+                        <ul class="hall_font2" style="padding-bottom: 100px;">
+                            <li><i>前三杂六<input type="checkbox" hidden  name="num_g" value="1" data-bet="{:getBet(9)}" data-title="前杂"></i></li>
+                            <li><i>中三杂六<input type="checkbox" hidden  name="num_g" value="2" data-bet="{:getBet(9)}" data-title="中杂"></i></li>
+                            <li><i>后三杂六<input type="checkbox" hidden  name="num_g" value="3" data-bet="{:getBet(9)}" data-title="后杂"></i></li>
+                        </ul>
+                    </div>
+                    <ul class="hall_font2 all font_12">
+                        <li class="whole"><i>全</i></li>
+                        <li class="clear"><i>清</i></li>
+                    </ul>
+                </div>
+                <div class="hall_font_main " name="rule">
+                    <p class="hall_font11 back_re" ><img src="__IMG__/back.png" alt="" /> 返回</p>
+                    <p class="yellow1">【猜花样玩法】</p>
+                    <p>
+                        1、前三豹子，中三豹子，后三豹子。<br />
+                        赔率1赔{:getOdds(9)}，压法（前豹/中豹/后豹{:getBet(5)}）  <br />
+                        2、前三顺子，中三顺子，后三顺子。  <br />
+                        赔率1赔{:getOdds(12)}，压法(前顺/中顺/后顺{:getBet(6)}) <br />
+                        3、前三对子，中三对子，后三对子  <br />
+                        赔率1赔{:getOdds(15)}，压法（前对/中对/后对{:getBet(7)}）<br />
+                        4、前三半顺，中三半顺，后三半顺  <br />
+                        赔率1赔{:getOdds(18)}，压法（前半/中半/后半{:getBet(8)}）<br />
+                        5、前三杂六，中三杂六，后三杂六  <br />
+                        赔率1赔{:getOdds(21)}，压法（前杂/中杂/后杂{:getBet(9)}<br />
+                    </p>
+                </div>
+            </form>
+        </div>
+        <div class="mui-pull-left hall_font  " data-name="five">
+            <form id="form_five" method="post" action="{:url('betting')}">
+                <input type="hidden" value="5" name="type"/>
+                <div class="hall_font_main active">
+                    <div class="mui-clearfix">
+                        <p class="hall_font1 mui-pull-left">猜特码大小单双  </p>
+                        <p class="pay_money mui-pull-right">
+                            <span class="mui-text-center">余额:</span>
+                            <span class="red1 money_num"><i>{$users.money}</i>元</span>
+                            <span class="red1 refresh">刷新</span>
+                        </p>
+                    </div>
+                        <div class="package">
+                            <ul class="hall_font2">
+                            <li><i>大<input type="checkbox" hidden  name="num" value="大" data-bet="{:getBet(10)}" data-title=""></i></li>
+                            <li><i>小<input type="checkbox" hidden  name="num" value="小" data-bet="{:getBet(10)}" data-title=""></i></li>
+                            <li><i>单<input type="checkbox" hidden  name="num" value="单" data-bet="{:getBet(10)}" data-title=""></i></li>
+                            <li><i>双<input type="checkbox" hidden  name="num" value="双" data-bet="{:getBet(10)}" data-title=""></i></li>
+                            <li><i>大单<input type="checkbox" hidden  name="num" value="大单" data-bet="{:getBet(10)}" data-title=""></i></li>
+                            <li><i>大双<input type="checkbox" hidden  name="num" value="大双" data-bet="{:getBet(10)}" data-title=""></i></li>
+                            <li><i>小单<input type="checkbox" hidden  name="num" value="小单" data-bet="{:getBet(10)}" data-title=""></i></li>
+                            <li><i>小双<input type="checkbox" hidden  name="num" value="小双" data-bet="{:getBet(10)}" data-title=""></i></li>
+                        </ul>
+                        <ul class="hall_font2 all font_12">
+                            <li class="whole"><i>全</i></li>
+                            <li class="clear"><i>清</i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="hall_font_main " name="rule">
+                    <p class="hall_font11 back_re" ><img src="__IMG__/back.png" alt="" /> 返回</p>
+                    <p class="yellow1">【猜特码大小单双】</p>
+                    <p>   押注5位开奖号码相加的和值的大小单双和0-22为小、23-45为大； 奇数为单、偶数为双</p>
+                    <p>
+                        【赔率】<br />
+                        大：1赔{:getOdds(24)} 小：1赔{:getOdds(25)} <br />
+                        单：1赔{:getOdds(26)}双：1赔{:getOdds(27)}<br />
+                        组合：1赔{:getOdds(28)}(赔率含本金)<br />
+                        【投注限制】<br />
+                        大小单双：{:getBet(10)}元
+
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="hall_font31 mui-scroll-wrapper">
+        <input type="text" name="" id="money" value="" placeholder="下注金额" style="width: 33.33%;font-size: 12px;"/>
+        <button>共<span id="zhu" class="red1">0</span>注</button>
+        <button id="form_submit">确认</button>
+    </div>
+</div>
+<script type="text/javascript">
+    var opening =true;
+    var flash =true;
+
+    function getCountDown(){
+        var timestamp = "{$dateline}";
+        setInterval(function(){
+            var nowTime = new Date();
+            var endTime = new Date(timestamp * 1000);
+            var t = endTime.getTime() - nowTime.getTime();
+            if(t>6000000){  //2-9.30 封盘
+                opening = false;
+                $('#fd').html('封盘中 9:00 - 23:00 开盘').css('visibility','inherit');
+            }else if(t>=0){
+                $('#fd').css('visibility','hidden');
+                var min=Math.floor(t/1000/60%60); //计算分
+                var sec=Math.floor(t/1000%60);      //计算秒
+                if(t <= 30000){    //30s后封盘
+                    opening = false;
+                    $('#fd').html('已封单').css('visibility','inherit');
+                }
+                if (min < 10) {
+                    min = "0" + min;
+                }
+                if (sec < 10) {
+                    sec = "0" + sec;
+                }
+                $('#minute_show').html(min);
+                $('#second_show').html(sec);
+            }else{
+                if(flash){
+                    flash= false;
+                    $('#fd').html('开奖中...').css('visibility','inherit');
+                    (function longPolling() {
+                        $.ajax({
+                            url: "{:url('Api/checkOpenSsc')}",
+                            data: {stage:$('#stage_next').html()},
+                            type:'POST',
+                            dataType: "json",
+                            timeout: 20000,//20秒超时，可自定义设置
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                if (textStatus == "timeout") { // 请求超时
+                                    longPolling(); // 递归调用
+                                }
+                            },
+                            success: function (data, textStatus) {
+                                if (data.status == 1) { // 请求成功
+                                    $('#stage_next').html(data.stage_next);
+                                    $('#dateline').html(data.time_next);
+                                    $('#stage').html(data.stage);
+                                    $('#ssc_lh').html(data.lh);
+                                    $('#ssc_dx').html(data.dx);
+                                    $('#ssc_ds').html(data.ds);
+                                    var sum = 0;
+                                    var number = data.number.split(',')
+                                    $.each(number,function(i,k){
+                                        sum = sum + parseInt(k);
+                                        $('#wei_'+i).html(k);
+                                    });
+                                    if(sum < 10){
+                                        sum = '0'+sum;
+                                    }
+                                    $('#wei_5').html(sum);
+                                    timestamp  =data.dateline;
+                                    flash = true;
+                                    opening = true;
+                                }
+                            }
+                        });
+
+                    })();
+                }
+            }
+        },1000);
+    }
+
+    function ajax_from(self,current) {
+        var number =[];
+        if(current == 'one' || current == 'three' || current == 'five'){
+            self.find('input[name=num]:checked').each(function () {
+                number.push($(this).val());
+            });
+            if(number.length < 1){
+                pop('至少选择一个号码投注');
+                return false;
+            }
+        }else if(current == 'two' || current == 'four'){
+            var w = [];
+            var q = [];
+            var b = [];
+            var s = [];
+            var g = [];
+            self.find('input[name=num_w]:checked').each(function () {
+                w.push($(this).val());
+            });
+            number.push(w);
+            self.find('input[name=num_q]:checked').each(function () {
+                q.push($(this).val());
+            });
+            number.push(q);
+            self.find('input[name=num_b]:checked').each(function () {
+                b.push($(this).val());
+            });
+            number.push(b);
+            self.find('input[name=num_s]:checked').each(function () {
+                s.push($(this).val());
+            });
+            number.push(s);
+            self.find('input[name=num_g]:checked').each(function () {
+                g.push($(this).val());
+            });
+            number.push(g);
+            if(w.length == 0 && q.length == 0 && b.length == 0 && s.length == 0 && g.length == 0){
+                pop('至少选择一个号码');
+                return false;
+            }
+        }
+        var money = $('#money').val();
+        if(money == ''){
+            pop('请填写投注金额');
+            return false;
+        }
+        cpOpenMing(self,number,money)
+    }
+    /*彩票弹出*/
+    function cpOpenMing(self,number,money) {
+        var stage = $('#stage_next').html().substr(4);
+        var html = '<ul>';
+        var open_ming = true;
+        $.each(number,function (i,j) {
+            if(jQuery.isArray(j)){
+                if(open_ming){
+                    $.each(j,function (k,v) {
+                        var bet = self.find('.package').eq(i).find('input[value='+v+']').attr('data-bet');
+                        var title = self.find('.package').eq(i).find('input[value='+v+']').attr('data-title');
+                        var bets = bet.split('-');
+                        if(Number(money) < Number(bets[0]) || Number(money) > Number(bets[1])){
+                            pop(title+'投注金额需在'+bet+'内');
+                            open_ming =false;
+                            return false;
+                        }
+                        if(self.selector == "#form_four"){
+                            html += '<li><span>期数:'+stage+'</span><span>号码:<i>'+getWei(v-1,3)+getWei(i,2)+'</i></span>金额:'+money+'</li>';
+                        }else{
+                            html += '<li><span>期数:'+stage+'</span><span>号码:<i>['+getWei(i,1)+'] '+v+'</i></span>金额:'+money+'</li>';
+                        }
+                    })
+                }
+            }else{
+                var bet = self.find('.package').find('input[value='+j+']').attr('data-bet');
+                var title = self.find('input[value='+j+']').attr('data-title');
+                var bets = bet.split('-');
+                if(Number(money) < Number(bets[0]) || Number(money) > Number(bets[1])){
+                    pop(title+'投注金额需在'+bet+'内');
+                    open_ming =false;
+                    return false;
+                }
+                html += '<li><span >期数:'+stage+'</span><span>号码:<i>'+j+'</i></span>金额:'+money+'</li>';
+            }
+        })
+        html += '</ul>';
+        if(open_ming){
+            layer.open({
+                content:html
+                ,btn: ['立即投注', '取消']
+                ,skin: 'footer'
+                ,scrollbar: true
+                ,yes: function(index){
+                    postCp(self,number,money);
+                    layer.close(index);
+                }
+            });
+        }
+    }
+
+    /*提交*/
+    function postCp(self,number,money) {
+        number = JSON.stringify(number);
+        var type = self.find('input[name=type]').val();
+        var zhu= $('#zhu').html();
+        $.post(self.attr("action"),{number:number,type:type,stage:$('#stage_next').html(),money:money,zhu:zhu},success,"json");
+        $('#form_submit').attr('disabled',true);
+        return false;
+        function success(data){
+            if(data.code){
+                self.find('input[type=submit]').attr('disabled',true);
+                pop(data.msg,data.url);
+            } else {
+                $('#form_submit').attr('disabled',false);
+                pop(data.msg);
+            }
+        }
+    }
+    //定位
+    function getWei(i,type) {
+        if(type==1){
+            var wei = ['万位','千位','百位','十位','个位'];
+        }else if(type==2){
+            var wei = ['豹子','顺子','对子','半顺','杂六'];
+        }else if(type==3){
+            var wei = ['前三','中三','后三'];
+        }
+        return wei[i];
+    }
+    $(function () {
+        getCountDown();
+        //获取走势
+        $('.trend').click(function () {
+            $.post('{:url("trend")}', {}, success, "json");
+            return false;
+            function success(data) {
+                if (data) {
+                    var html = '';
+                    $.each(data, function (k, v) {
+                        html += '<tr><td>' + k + '</td><td style="width: 32%">';
+                        var num = v.number.split(',');
+                        var hezhi = 0;
+                        var lh = '';
+                        var dx = '';
+                        var ds = '';
+                        $.each(num, function (i, j) {
+                            hezhi = hezhi + parseInt(j);
+                            html += '<i class="bg_' + j + '">' + j + '</i>';
+                        })
+                        if (hezhi < 10) {
+                            hezhi = '0' + hezhi;
+                        }
+                        //判断龙虎合
+                        if(num[0] > num[4]){
+                            lh = '龙';
+                        }else if(num[0] < num[4]){
+                            lh = '虎';
+                        }else if(num[0] == num[4]){
+                            lh = '和';
+                        }
+                        //判断大小
+                        if(hezhi>=0 && hezhi<=22){
+                            dx = '小';
+                        }else if(hezhi>=23 && hezhi<=45){
+                            dx = '大';
+                        }
+                        //判断单双
+                        if(hezhi%2 ==0) {
+                            ds = '双';
+                        }else{
+                            ds = '单';
+                        }
+                        html += '</td><td ><span class="red1">' + hezhi + '</span></td>' +
+                            '<td ><span class="bule1">' + lh + '</span></td>' +
+                            '<td ><span class="bule1">' + dx + '</span></td>' +
+                            '<td ><span class="bule1">' + ds + '</span></td>' +
+                            '</tr>';
+
+                    })
+                    $('#tbody').html(html);
+                }
+            }
+        })
+
+        //刷新余额
+        $('.refresh').click(function () {
+            $.post('{:url("refresh")}','',success,"json");
+            return false;
+            function success(data){
+                if(data.code){
+                    $('.money_num i').html(data.money);
+                }
+            }
+        })
+
+        //提交投注
+        $('#form_submit').click(function () {
+            if(opening == false){
+                pop('处于封盘中');
+                return false;
+            }
+            var current = $(".hall_main1 li.active").attr("data-name");
+            var self = $('#form_'+current);
+            ajax_from(self,current);
+        })
+        //全选
+        $('.whole').click(function () {
+            if($(this).parents().is('.package')){
+                $(this).parents('.package').find('li').addClass('red0');
+                $(this).parents('.package').find('input:checkbox').attr('checked', true);
+                $(this).removeClass('red0');
+                $('.clear').removeClass('red0');
+            }else{
+                $(this).parents('.hall_font_main').find('.package li').addClass('red0');
+                $(this).parents('.hall_font_main').find('.package input:checkbox').attr('checked', true);
+                $(this).removeClass('red0');
+                $('.clear').removeClass('red0');
+            }
+            var num = $(this).parents('.hall_font_main').find('input[type=checkbox]:checked').length;
+            $('#zhu').html(num);
+        })
+        //全清
+        $('.clear').click(function () {
+            if($(this).parents().is('.package')){
+                $(this).parents('.package').find('li').removeClass('red0');
+                $(this).parents('.package').find('input:checkbox').attr('checked',false);
+            }else{
+                $(this).parents('.hall_font_main').find('.package li').removeClass('red0');
+                $(this).parents('.hall_font_main').find('.package input:checkbox').attr('checked',false);
+            }
+            $(this).removeClass('red0');
+            var num = $(this).parents('.hall_font_main').find('input[type=checkbox]:checked').length;
+            $('#zhu').html(num);
+        })
+    })
+</script>
+</body>
+</html>

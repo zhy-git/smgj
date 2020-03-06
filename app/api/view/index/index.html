@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>首页</title>
+    <script src="__JS__/jquery-1.6.2.min.js" ></script>
+    <script src="__JS__/mui.min.js"></script>
+    <script src="__JS__/index.js" ></script>
+    <link href="__CSS__/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/index.css"/>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+</head>
+<body id="index">
+{include file="common/nav" /}
+<div class="mui-content">
+    <div class="banner">
+        <img src="__IMG__/logo_index.png"/>
+    </div>
+    <div class="index_main">
+        <p class="bg_p padding_lr10">
+            <marquee direction="left">
+                点击上下分 即可扫描财务二维码或是直接加微信
+            </marquee>
+        </p>
+        <div class="index_two">
+            <dl class="mui-clearfix">
+                <dt class="mui-pull-left"></dt>
+                <dd class="mui-pull-left">
+                    <p>
+                        <i>昵称:</i>
+                        <span>小妞</span>
+                    </p>
+                    <p>
+                        <i>钱包余额:</i>
+                        <span>0.00</span>
+                    </p>
+                </dd>
+            </dl>
+        </div>
+        <div class="index_three_main">
+            <div class="mui-col-xs-4 index_three mui-pull-left">
+                <a href="{:url('Ssc/index')}">
+                    <dl>
+                        <dt><img src="__IMG__/font_ssc.png"/></dt>
+                        <dd><img src="__IMG__/font_03.png"/></dd>
+                    </dl>
+                </a>
+            </div>
+            <div class="mui-col-xs-4 index_three mui-pull-left">
+                <a href="{:url('Car/index')}">
+                    <dl>
+                        <dt><img src="__IMG__/car.png"/></dt>
+                        <dd><img src="__IMG__/font_002.png"/></dd>
+                    </dl>
+                </a>
+            </div>
+            <div class="mui-col-xs-4 index_three mui-pull-left">
+                <a href="{:url('Airship/index')}">
+                    <dl>
+                        <dt><img src="__IMG__/bg_3.png"/></dt>
+                        <dd><img src="__IMG__/font_03ft.png"/></dd>
+                    </dl>
+                </a>
+            </div>
+            <div class="mui-col-xs-4 index_three mui-pull-left">
+                <a href="{:url('Eight/index')}">
+                    <dl>
+                        <dt><img src="__IMG__/bg_pc.png"/></dt>
+                        <dd><img src="__IMG__/font_05.png"/></dd>
+                    </dl>
+                </a>
+            </div>
+            <div class="mui-col-xs-4 index_three mui-pull-left">
+                <a href="{:url('Horse/index')}">
+                    <dl>
+                        <dt><img src="__IMG__/bg_06.png"/></dt>
+                        <dd><img src="__IMG__/font_xgsm.png"/></dd>
+                    </dl>
+                </a>
+            </div>
+            <div class="mui-col-xs-4 index_three mui-pull-left">
+                <a href="{:url('Fast/index')}">
+                    <dl>
+                        <dt><img src="__IMG__/bg_005.png"/></dt>
+                        <dd><img src="__IMG__/font_ks.png"/></dd>
+                    </dl>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

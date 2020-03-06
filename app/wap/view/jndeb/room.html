@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>{$title}</title>
+    <link rel="icon" href="__IMG__/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="__IMG__/favicon.ico" type="image/x-icon" />
+    <link href="__CSS__/wap_new/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="__CSS__/wap_new/common.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/wap_new/index.css"/>
+</head>
+<style>
+    .betting-boss.game-main{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background: #fff;
+        display: none;
+        z-index: 50;
+    }
+    .betting-boss.game-main{
+        height: calc(60vh);
+    }
+    .betting-boss.game-main .game-paly-right{
+        height: calc(60vh - 76px);
+    }
+    .betting-foot{
+        display: none;
+        z-index: 60;
+    }
+    .hello{
+        width: 75%;
+        margin: auto;
+        height: 30px;
+        background: #e5e5e5;
+        margin-top: 3%;
+        border-radius: 5px;
+        text-align: center;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+        font-size: 14px;
+        line-height: 25px;
+    }
+    .room-msg{
+        background: #e5e5e5;margin: 20px 60px; padding:10px 20px;border-radius:10px;text-align: center;
+    }
+</style>
+<body  id="game">
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title text_left">{$title}</h1>
+    <span class="top-icon">
+		    	<a href="javascript:void(0);" class="mg_left10 color_ff" id="icon-add">
+		    		<img class="icon-small vertical-align_m" src="__IMG__/wap_new/icon-list.png" alt="" />
+		    	</a>
+		    </span>
+    <!--<div class="index-nav">-->
+        <!--<div class="top-nav">-->
+            <!--<a href="hall-zhudan.html"><img class="vertical-align_m icon-small1" src="__IMG__/wap_new/icon_ball01.png" alt="" />即时注单</a>-->
+            <!--<a href="hall-today.html"><img class="vertical-align_m icon-small1" src="__IMG__/wap_new/icon_bal02.png" alt="" /> 今日已结</a>-->
+            <!--<a href="hall-Bet-record.html"><img class="vertical-align_m icon-small1" src="__IMG__/wap_new/icon_bal03.png" alt="" /> 下注记录</a>-->
+            <!--<a href="Lottery_results.html"><img class="vertical-align_m icon-small1" src="__IMG__/wap_new/icon_bal04.png" alt="" /> 开奖结果</a>-->
+            <!--<a href="hall-cl.html"><img class="vertical-align_m icon-small1" src="__IMG__/wap_new/icon_bal05.png" alt="" /> 两面长龙</a>-->
+            <!--<a href="hall-rule.html"><img class="vertical-align_m icon-small1" src="__IMG__/wap_new/icon_bal06.png" alt="" /> 游戏规则</a>-->
+            <!--<a href="money.html"><img class="vertical-align_m icon-small1" src="__IMG__/wap_new/icon_bal07.png" alt="" /> 充值</a>-->
+            <!--<a href="money.html"><img class="vertical-align_m icon-small1" src="__IMG__/wap_new/icon_bal08.png" alt="" /> 提现</a>-->
+        <!--</div>-->
+        <!--<p class="icon-triangle"></p>-->
+    <!--</div>-->
+    <div class="index-nav">
+        <div class="top-nav">
+            <a href="{:url('Report/unsettled')}"><img class="vertical-align_m icon-small1" src="__IMG__/wap/icon_ball01.png" alt="" />即时注单<p class="red" id="memUnMoney" style="text-align: center;">({:bcadd($mem.unpaid_money,0,2)})</p></a>
+            <a href="{:url('Report/settled')}"><img class="vertical-align_m icon-small1" src="__IMG__/wap/icon_bal02.png" alt="" /> 今日已结</a>
+            <a href="{:url('Report/noteRecord')}"><img class="vertical-align_m icon-small1" src="__IMG__/wap/icon_bal03.png" alt="" /> 下注记录</a>
+            <a href="{:url('Report/openResult',['cate'=>$cate])}"><img class="vertical-align_m icon-small1" src="__IMG__/wap/icon_bal04.png" alt="" /> 开奖结果</a>
+            <a href="{:url('Index/hall_cl',['cate'=>$cate])}"><img class="vertical-align_m icon-small1" src="__IMG__/wap/icon_bal05.png" alt="" /> 两面长龙</a>
+            <a href="{:url('report/rule',['cate'=>$cate])}"><img class="vertical-align_m icon-small1" src="__IMG__/wap/icon_bal06.png" alt="" /> 游戏规则</a>
+            <a href="{:url('account/index')}"><img class="vertical-align_m icon-small1" src="__IMG__/wap/icon_bal07.png" alt="" /> 充值</a>
+            <a href="{:url('account/index')}"><img class="vertical-align_m icon-small1" src="__IMG__/wap/icon_bal08.png" alt="" /> 提现</a>
+        </div>
+        <p class="icon-triangle"></p>
+    </div>
+</header>
+<div class="mui-content" id="stageStatus">
+    <div class="bg_ff">
+        <ul class="clearfix bettimg-top bor_b padding_10">
+            <li class="left">
+                <p>距离<span class="red" id="next_turn_num">325211</span>期截止</p>
+                <div class="colockbox clearfix left" id="demo02">
+                    <span class="minute"></span>:
+                    <span class="second"></span>
+                </div>
+            </li>
+            <li class="left">
+                <p>余额</p>
+                <p><img class="vertical-align_m" src="__IMG__/wap_new/yb.png"/><span id="memMoney">{:bcadd($mem['money'],0,2)}</span></p>
+            </li>
+        </ul>
+        <ul class="mui-table-view betting-ls">
+            <li class="mui-table-view-cell mui-collapse">
+                <a class="mui-navigate-right" href="#" id="openOne">
+                    <span>第<i class="blue cur_turn_num">1231333</i>期</span>
+                    <span>
+                        <i class="round1" style="margin: 0 10px;">1</i>+
+                        <i class="round1" style="margin: 0 10px;">3</i>+
+                        <i class="round1" style="margin: 0 10px;">5</i>
+                        <span>=</span>
+                        <i class="round1">9</i>
+                    </span>
+                    <span>(小,单)</span>
+                </a>
+                <div class="mui-collapse-content" id="openList"></div>
+            </li>
+        </ul>
+    </div>
+    <div class="msg-box" id="room">
+        <div class="msg-main mg_top10 roomc"></div>
+    </div>
+</div>
+
+<div class="game-main clearfix betting-boss">
+    <ul class="clearfix left game-paly-left" style="height: 742px;">
+        <li class="active"><a href="javascript:void(0);">猜双面</a></li>
+        <li> <a href="javascript:void(0);">猜数字</a> </li>
+        <li> <a href="javascript:void(0);">特殊玩法</a> </li>
+    </ul>
+    <div class="left game-paly-right bg_ff">
+        <div class="game-boss active">
+            <div class="padding_10 bor_b text-center font_15 color_00">猜双面</div>
+            <div class="game-chosess-box">
+                <ul class="clearfix text-center game-chosess" data-target-type="1" data-target-num="混合">
+                    {volist name="rule_data.hh" id="vo"}
+                    {volist name="vo" id="v1"}
+                    <li class="li_two" data-num="{$v1.rule}" data-rate="{$v1.rate}"><strong class="font_14">{$v1.rule}</strong><span data-id="{$v1.id}">{$v1.rate}</span></li>
+                    {/volist}
+                    {/volist}
+                </ul>
+            </div>
+        </div>
+        <div class="game-boss">
+            <div class="padding_10 bor_b text-center font_15 color_00">猜数字</div>
+            <div class="game-chosess-box">
+                <ul class="clearfix text-center game-chosess gameball" data-target-type="2" data-target-num="猜数字">
+                    {volist name="rule_data.tm" id="vo"}
+                    {volist name="vo" id="v1"}
+                    <li class="li_two" data-num="{$v1.rule}" data-rate="{$v1.rate}"><i class="icon-ball">{$v1.rule}</i><span data-id="{$v1.id}">{$v1.rate}</span></li>
+                    {/volist}
+                    {/volist}
+                </ul>
+            </div>
+        </div>
+        <div class="game-boss">
+            <div class="padding_10 bor_b text-center font_15 color_00">特殊玩法</div>
+            <div class="game-chosess-box">
+                <ul class="clearfix text-center game-chosess" data-target-type="3" data-target-num="特殊玩法">
+                    {volist name="rule_data.ts" id="vo"}
+                    {volist name="vo" id="v1"}
+                    <li class="li_two" data-num="{$v1.rule}" data-rate="{$v1.rate}"><strong class="font_14">{$v1.rule}</strong> <span data-id="{$v1.id}">{$v1.rate}</span> </li>
+                    {/volist}
+                    {/volist}
+                </ul>
+            </div>
+        </div>
+
+        <!--赔率说明-->
+        <!--<p class="padding_10 text_right mg_top40"><a href="javascript:void(0);" class="odds-icon"><img src="__IMG__/wap_new/icon-wh.png" class="vertical-align_m pl-icon" alt="">赔率说明</a></p>-->
+    </div>
+</div>
+<!--底部输入框-->
+<div class="game-footer">
+    <div class="padding_10">
+        <div class="footer-inpbox clearfix">
+            <!--<input type="text" name=""  class="right betting-input" value="" placeholder="" />-->
+            <div>
+                <a href="javascript:void(0);" class="betting-a tz" style="width: 100%;text-align: center;">投注</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="game-footer betting-foot">
+    <div class="padding_10">
+        <p>已选中<span class="yell nums"> 0 </span> 注</p>
+        <div class="footer-inpbox clearfix">
+            <input type="number" name="" id="money-text" value="" placeholder="输入金额">
+            <div class="right">
+                <a href="javascript:void(0);" class="betting-a xz" id="betting">下注</a>
+                <input type="reset" name="reset_inp" id="reset_inp" value="重置">
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="mi_box">-->
+    <!--<a href="javascript:void(0);"><img src="__IMG__/wap_new/mi.png"/></a>-->
+<!--</div>-->
+<div class="msg-spring"></div>
+<div class="overlay"></div>
+<script src="__JS__/wap_new/mui.min.js"></script>
+<script src="__JS__/wap_new/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/jquery.validate.min.js"></script>
+<script src="__JS__/layer.js"></script>
+<script src="__JS__/common.js"></script>
+<script src="__JS__/wap_new/index.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var room_id = {$rongData['room_id']};
+    var xbIsLogin=1,
+        rongKey="{$rongData.rong_key}",
+        rongToken="{$rongData.rong_token}",
+        xbUserInfo = {
+            id: "{$rongData.uid}",
+            name: "{$rongData.username}",
+            avatar: "{$rongData.head}"
+        };
+    function  hide(){
+        $(".betting-boss").fadeOut(200)
+        $(".betting-foot").fadeOut(200);
+        $(".overlay").hide();
+    }
+    $(function(){
+        $(".tz").click(function(){
+            $(".overlay").show();
+            $(".betting-boss").fadeIn(200)
+            $(".betting-foot").fadeIn(200);
+            $(".overlay").click(function(){
+                hide()
+            })
+        })
+        $(".xz").click(function(){
+            hide()
+        })
+    })
+</script>
+<script src="http://cdn.ronghub.com/RongIMLib-2.3.1.min.js"></script>
+<script src="__JS__/wap_new/main.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
+{include file="jndeb/room_js" /}

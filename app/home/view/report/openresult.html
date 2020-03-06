@@ -1,0 +1,393 @@
+<html>
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+	<title>历史记录</title>
+	<meta name="renderer" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link href="__CSS__/style.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/common.css"/>
+	<link href="__CSS__/balls.css" rel="stylesheet" type="text/css" />
+	<link href="__CSS__/skin.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/index.css"/>
+	<script src="__JS__/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/jquery.validate.min.js"></script>
+	<script src="__JS__/layer.js" ></script>
+	<script src="__JS__/common.js" ></script>
+</head>
+<body class="iframe-body">
+<div id="subpage" class="cp-box2" style="width: 1000px;height: 1000px;" style="display: block;">
+	<div>
+		<select id="historyQueryParamGameId">
+			{volist name='cateList' id='cll'}
+			<option value="{$cll.id}">{$cll.name}</option>
+			{/volist}
+		</select>
+		日期：
+		<input type="text" class="demo-input" id="historyQueryParamGameDate" placeholder="请选择日期"  id="test1">
+	</div>
+	<table class="u-table2 play_tab_10" id="history_table">
+	</table>
+	<div style="text-align: center;" id="BetTable_paginate"></div>
+</div>
+<script src="__JS__/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/laydate/laydate.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/laydate.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	function getData(page){
+        if(page){
+            var url = page;
+        }else{
+            var url = "{:url('Report/openResult?page=1')}";
+        }
+        var cate = $('#historyQueryParamGameId').val();
+        var date = $('#historyQueryParamGameDate').val();
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {cate: cate,date:date},
+            success: function(n) {
+                console.log(cate);
+                if (n.data != null) {
+                    var str = '';
+                    if (cate == 3 || cate == 4){
+                        str += '<thead>';
+                        str += '<tr><th style="width: 100px" rowspan="2">期数</th><th style="width: 100px" rowspan="2">开奖时间</th>';
+                        str += '<th colspan="5">开出号码</th><th colspan="3" rowspan="2">总和</th><th rowspan="2">龙虎</th>';
+                        str += '<th rowspan="2">前三</th><th rowspan="2">中三</th><th rowspan="2">后三</th></tr>';
+                        str += '<tr><th>第1球</th><th>第2球</th><th>第3球</th><th>第4球</th><th>第5球</th></tr>';
+                        str += '</thead><tbody id="openList">';
+						$.each(n.data.data,function(k,v){
+							var numArr = v.number.split(',');
+							var awardArr = awardResults(numArr);
+							str += '<tr><td>'+v.stage+'</td>';
+							str += '<td>'+v.create_time+'</td>';
+							str += '<td class="menu1" style="width:45px;"><a class="T_SSC L_CQSSC"><span><b class="b'+parseInt(numArr[0])+'">'+numArr[0]+'</b></span></a></td>';
+							str += '<td class="menu1" style="width:45px;"><a class="T_SSC L_CQSSC"><span><b class="b'+parseInt(numArr[1])+'">'+numArr[1]+'</b></span></a></td>';
+							str += '<td class="menu1" style="width:45px;"><a class="T_SSC L_CQSSC"><span><b class="b'+parseInt(numArr[2])+'">'+numArr[2]+'</b></span></a></td>';
+							str += '<td class="menu1" style="width:45px;"><a class="T_SSC L_CQSSC"><span><b class="b'+parseInt(numArr[3])+'">'+numArr[3]+'</b></span></a></td>';
+							str += '<td class="menu1" style="width:45px;"><a class="T_SSC L_CQSSC"><span><b class="b'+parseInt(numArr[4])+'">'+numArr[4]+'</b></span></a></td>';
+							str += '<td>'+awardArr[0]+'</td>';
+							str += '<td>'+awardArr[1]+'</td>';
+							str += '<td>'+awardArr[2]+'</td>';
+							str += '<td><span class="font_blue">'+awardArr[3]+'</span></td>';
+							str += '<td>'+awardArr[4]+'</td>';
+							str += '<td>'+awardArr[5]+'</td>';
+							str += '<td>'+awardArr[6]+'</td></tr>';
+						});
+                        str += '</tbody>';
+					}else if(cate == 5  || cate == 6 || cate == 7){
+                        str += '<thead>';
+                        str += '<tr><th style="width: 100px" rowspan="2">期数</th><th style="width: 100px" rowspan="2">开奖时间</th><th colspan="10">开出号码</th><th colspan="3" rowspan="2">冠亚军和</th><th colspan="5" rowspan="2">1~5龙虎</th></tr>';
+                        str += '<tr><th>第一名</th><th>第二名</th><th>第三名</th><th>第四名</th><th>第五名</th><th>第六名</th><th>第七名</th><th>第八名</th><th>第九名</th><th>第十名</th></tr>';
+                        str += '</thead><tbody>';
+                        $.each(n.data.data,function(k,v){
+                            var numArr = v.number.split(',');
+                            var totalNum = parseInt(numArr[0])*1+parseInt(numArr[1])*1;
+                            str += '<tr>';
+                            str += '<td>'+v.stage+'</td>';
+                            str += '<td>'+v.create_time+'</td>';
+                            str += '<td><span class="ball c-n'+parseInt(numArr[0])+'"></span></td>';
+                            str += '<td><span class="ball c-n'+parseInt(numArr[1])+'"></span></td>';
+                            str += '<td><span class="ball c-n'+parseInt(numArr[2])+'"></span></td>';
+                            str += '<td><span class="ball c-n'+parseInt(numArr[3])+'"></span></td>';
+                            str += '<td><span class="ball c-n'+parseInt(numArr[4])+'"></span></td>';
+                            str += '<td><span class="ball c-n'+parseInt(numArr[5])+'"></span></td>';
+                            str += '<td><span class="ball c-n'+parseInt(numArr[6])+'"></span></td>';
+                            str += '<td><span class="ball c-n'+parseInt(numArr[7])+'"></span></td>';
+                            str += '<td><span class="ball c-n'+parseInt(numArr[8])+'"></span></td>';
+                            str += '<td><span class="ball c-n'+parseInt(numArr[9])+'"></span></td>';
+                            str += '<td>'+totalNum+'</td>';
+                            str += '<td>'+dxJudgment(12,totalNum)+'</td>';
+                            str += '<td>'+dsJudgment(totalNum)+'</td>';
+                            str += '<td>'+lhhJudgment(parseInt(numArr[0]),parseInt(numArr[9]))+'</td>';
+                            str += '<td>'+lhhJudgment(parseInt(numArr[1]),parseInt(numArr[8]))+'</td>';
+                            str += '<td>'+lhhJudgment(parseInt(numArr[2]),parseInt(numArr[7]))+'</td>';
+                            str += '<td>'+lhhJudgment(parseInt(numArr[3]),parseInt(numArr[6]))+'</td>';
+                            str += '<td>'+lhhJudgment(parseInt(numArr[4]),parseInt(numArr[5]))+'</td>';
+                            str += '</tr>';
+                        });
+                        str += '</tbody>';
+					}else if(cate == 10){
+                        str += '<thead>';
+                        str += '<tr><th style="width: 100px" rowspan="2">期数</th><th style="width: 100px" rowspan="2">开奖时间</th><th colspan="5">开出号码</th><th colspan="4" rowspan="2">总和</th><th rowspan="2">龙虎</th><th colspan="5" rowspan="2">1~5大小</th></tr>';
+                        str += '<tr><th>第1球</th><th>第2球</th><th>第3球</th><th>第4球</th><th>第5球</th></tr>';
+                        str += '</thead><tbody>';
+                        $.each(n.data.data,function(k,v){
+                            var numArr = v.number.split(',');
+                            var totalNum = parseInt(numArr[0])*1+parseInt(numArr[1])*1+parseInt(numArr[2])*1+parseInt(numArr[3])*1+parseInt(numArr[4])*1;
+                            var lastHnum = totalNum.toString();
+                            str += '<tr>';
+                            str += '<td>'+v.stage+'</td>';
+                            str += '<td>'+v.create_time+'</td>';
+                            str += '<td><span class="ball c-b1">'+parseInt(numArr[0])+'</span></td>';
+                            str += '<td><span class="ball c-b1">'+parseInt(numArr[1])+'</span></td>';
+                            str += '<td><span class="ball c-b1">'+parseInt(numArr[2])+'</span></td>';
+                            str += '<td><span class="ball c-b1">'+parseInt(numArr[3])+'</span></td>';
+                            str += '<td><span class="ball c-b1">'+parseInt(numArr[4])+'</span></td>';
+                            str += '<td>'+totalNum+'</td>';
+                            str += '<td>'+dxhJudgment(30,totalNum)+'</td>';
+                            str += '<td>'+dsJudgment(totalNum)+'</td>';
+                            str += '<td>'+dxwJudgment(5,lastHnum.substr(lastHnum.length-1,1))+'</td>';
+                            str += '<td>'+lhhJudgment(parseInt(numArr[0]),parseInt(numArr[4]))+'</td>';
+                            str += '<td>'+dxhtsJudgment(6,11,parseInt(numArr[0]))+'</td>';
+                            str += '<td>'+dxhtsJudgment(6,11,parseInt(numArr[1]))+'</td>';
+                            str += '<td>'+dxhtsJudgment(6,11,parseInt(numArr[2]))+'</td>';
+                            str += '<td>'+dxhtsJudgment(6,11,parseInt(numArr[3]))+'</td>';
+                            str += '<td>'+dxhtsJudgment(6,11,parseInt(numArr[4]))+'</td>';
+                            str += '</tr>';
+                        });
+                        str += '</tbody>';
+					}else if(cate == 11 ){
+                        str += '<thead>';
+                        str += '<tr><th style="width: 100px" rowspan="2">期数</th><th style="width: 100px" rowspan="2">开奖时间</th><th colspan="3">开出骰子</th><th colspan="2" rowspan="2">总和</th></tr>';
+                        str += '<tr><th>第1球</th><th>第2球</th><th>第3球</th></tr>';
+                        str += '</thead><tbody>';
+                        $.each(n.data.data,function(k,v){
+                            var numArr = v.number.split(',');
+                            var totalNum = parseInt(numArr[0])*1+parseInt(numArr[1])*1+parseInt(numArr[2])*1;
+                            str += '<tr>';
+                            str += '<td>'+v.stage+'</td>';
+                            str += '<td>'+v.create_time+'</td>';
+                            str += '<td>';
+                            str += '<div class="K3Term">';
+                            str += '<span><b class="b'+numArr[0]+' ml20">'+numArr[0]+'</b></span>';
+                            str += '</div></td>';
+                            str += '<td>';
+                            str += '<div class="K3Term">';
+                            str += '<span><b class="b'+numArr[1]+' ml20">'+numArr[1]+'</b></span>';
+                            str += '</div></td>';
+                            str += '<td>';
+                            str += '<div class="K3Term">';
+                            str += '<span><b class="b'+numArr[2]+' ml20">'+numArr[2]+'</b></span>';
+                            str += '</div></td>';
+                            str += '<td>'+totalNum+'</td>';
+                            str += '<td>'+dxJudgment(11,totalNum)+'</td>';
+                            str += '</tr>';
+                        });
+                        str += '</tbody>';
+                    }else if(cate == 1 || cate==2){
+                        str += '<thead>';
+                        str += '<tr><th style="width: 100px" rowspan="2">期数</th><th style="width: 100px" rowspan="2">开奖时间</th><th colspan="3">开出号码</th><th rowspan="2">总和</th><th rowspan="2">大小</th><th rowspan="2">单双</th><th rowspan="2">极值</th></tr><tr><th>第1球</th><th>第2球</th><th>第3球</th></tr>';
+                        str += '</thead><tbody>';
+                        $.each(n.data.data,function(k,v){
+                            var numArr = v.number.split(',');
+                            var totalNum = parseInt(numArr[0])*1+parseInt(numArr[1])*1+parseInt(numArr[2])*1;
+                            str += '<tr>';
+                            str += '<td>'+v.stage+'</td>';
+                            str += '<td>'+v.create_time+'</td>';
+                            str += '<td><span class="ball c-b1">'+numArr[0]+'</span></td>';
+                            str += '<td><span class="ball c-b1">'+numArr[1]+'</span></td>';
+                            str += '<td><span class="ball c-b1">'+numArr[2]+'</span></td>';
+                            str += '<td>'+totalNum+'</td>';
+                            str += '<td>'+dxJudgment(14,totalNum)+'</td>';
+                            str += '<td>'+dsJudgment(totalNum)+'</td>';
+                            str += '<td>'+jdjxJudgment(23,4,totalNum)+'</td>';
+                            // str += '<td>'+colorJudgment(totalNum)+'</span></td>';
+                            str += '</tr>';
+                        });
+                        str += '</tbody>';
+                    }else if(cate == 8){
+                        str += '<thead>';
+                        str += '<tr>';
+                        str += '<th colspan="2"></th><th colspan="7">号码</th></tr><tr>';
+                        str += '<th width="70">期数</th><th width="90">开奖时间</th><th>正码一</th><th>正码二</th><th>正码三</th><th>正码四</th><th>正码五</th><th>正码六</th><th>特码</th></tr>';
+                        str += '</thead><tbody>';
+                        $.each(n.data.data,function(k,v){
+                            var numArr = v.number.split(',');
+                            var totalNum = parseInt(numArr[0])*1+parseInt(numArr[1])*1+parseInt(numArr[2])*1+parseInt(numArr[3])*1+parseInt(numArr[4])*1+parseInt(numArr[5])*1+parseInt(numArr[6])*1;
+                            str += '<tr>';
+                            str += '<td>'+v.stage+'</td>';
+                            str += '<td>'+v.create_time+'</td>';
+                            str += '<td>';
+                            str += '<i class="lhc_icon lhc_b'+numArr[0]+'">'+numArr[0]+'</i><br>';
+                            str += '<span>'+getShuXiang(numArr[0])+'</span>';
+                            str += '</td>';
+                            str += '<td>';
+                            str += '<i class="lhc_icon lhc_b'+numArr[1]+'">'+numArr[1]+'</i><br>';
+                            str += '<span>'+getShuXiang(numArr[1])+'</span>';
+                            str += '</td>';
+                            str += '<td>';
+                            str += '<i class="lhc_icon lhc_b'+numArr[2]+'">'+numArr[2]+'</i><br>';
+                            str += '<span>'+getShuXiang(numArr[2])+'</span>';
+                            str += '</td>';
+                            str += '<td>';
+                            str += '<i class="lhc_icon lhc_b'+numArr[3]+'">'+numArr[3]+'</i><br>';
+                            str += '<span>'+getShuXiang(numArr[3])+'</span>';
+                            str += '</td>';
+                            str += '<td>';
+                            str += '<i class="lhc_icon lhc_b'+numArr[4]+'">'+numArr[4]+'</i><br>';
+                            str += '<span>'+getShuXiang(numArr[4])+'</span>';
+                            str += '</td>';
+                            str += '<td>';
+                            str += '<i class="lhc_icon lhc_b'+numArr[5]+'">'+numArr[5]+'</i><br>';
+                            str += '<span>'+getShuXiang(numArr[5])+'</span>';
+                            str += '</td>';
+                            str += '<td>';
+                            str += '<i class="lhc_icon lhc_b'+numArr[6]+'">'+numArr[6]+'</i><br>';
+                            str += '<span>'+getShuXiang(numArr[6])+'</span>';
+                            str += '</td>';
+                            // str += '<td>';
+                            // str += '<span>'+qisebo(numArr)+'</span>';
+                            // str += '</td>';
+                            // str += '<td>';
+                            // str += '<span>'+dsJudgment(totalNum)+'</span>';
+                            // str += '</td>';
+                            // str += '<td>';
+                            // str += '<span>'+dxJudgment(175,totalNum)+'</span>';
+                            // str += '</td>';
+                            // str += '<td>';
+                            // str += '<span>'+totalNum+'</span>';
+                            // str += '</td>';
+                            // str += '<td>';
+                            // str += '<span>'+dsJudgment(numArr[6])+'</span>';
+                            // str += '</td>';
+                            // str += '<td>';
+                            // str += '<span>'+dxhtsJudgment(25,49,numArr[6])+'</span>';
+                            // str += '</td>';
+                            // str += '<td>';
+                            // str += '<span>'+dsJudgment(numArr[6][0]*1+numArr[6][1]*1)+'</span>';
+                            // str += '</td>';
+                            // str += '<td>';
+                            // str += '<span>'+dxhtsJudgment(7,49,numArr[6][0]*1+numArr[6][1]*1)+'</span>';
+                            // str += '</td>';
+                            // str += '<td>';
+                            // str += '<span>'+dxwhJudgment(5,49,numArr[6][1])+'</span>';
+                            // str += '</td>';
+                            str += '</tr>';
+                        });
+                        str += '</tbody>';
+                    }else if(cate == 10){
+                        str += '<thead>';
+                        str += '<tr><th style="width: 100px" rowspan="2">期数</th><th style="width: 100px" rowspan="2">开奖时间</th><th colspan="8">开出号码</th><th colspan="4" rowspan="2">总和</th><th colspan="4" rowspan="2">1~4龙虎</th></tr>';
+                        str += '<tr><th>第1球</th><th>第2球</th><th>第3球</th><th>第4球</th><th>第5球</th><th>第6球</th><th>第7球</th><th>第8球</th></tr>';
+                        str += '</thead><tbody>';
+                        $.each(n.data.data,function(k,v){
+                            var numArr = v.number.split(',');
+                            var totalNum = parseInt(numArr[0])*1+parseInt(numArr[1])*1+parseInt(numArr[2])*1+parseInt(numArr[3])*1+parseInt(numArr[4])*1+parseInt(numArr[5])*1+parseInt(numArr[6])*1+parseInt(numArr[7])*1;
+                            var lastHnum = totalNum.toString();
+                            str += '<tr>';
+                            str += '<tr><td>'+v.stage+'</td>';
+                            str += '<td>'+v.create_time+'</td>';
+                            str += '<td>';
+                            str += '<div class="XYNCTerm">';
+                            str += '<b class="b'+numArr[0]+'">'+numArr[0]+'</b>';
+                            str += '</div></td>';
+                            str += '<td>';
+                            str += '<div class="XYNCTerm">';
+                            str += '<b class="b'+numArr[1]+'">'+numArr[1]+'</b>';
+                            str += '</div></td>';
+                            str += '<td>';
+                            str += '<div class="XYNCTerm">';
+                            str += '<b class="b'+numArr[2]+'">'+numArr[2]+'</b>';
+                            str += '</div></td>';
+                            str += '<td>';
+                            str += '<div class="XYNCTerm">';
+                            str += '<b class="b'+numArr[3]+'">'+numArr[3]+'</b>';
+                            str += '</div></td>';
+                            str += '<td>';
+                            str += '<div class="XYNCTerm">';
+                            str += '<b class="b'+numArr[4]+'">'+numArr[4]+'</b>';
+                            str += '</div></td>';
+                            str += '<td>';
+                            str += '<div class="XYNCTerm">';
+                            str += '<b class="b'+numArr[5]+'">'+numArr[5]+'</b>';
+                            str += '</div></td>';
+                            str += '<td>';
+                            str += '<div class="XYNCTerm">';
+                            str += '<b class="b'+numArr[6]+'">'+numArr[6]+'</b>';
+                            str += '</div></td>';
+                            str += '<td>';
+                            str += '<div class="XYNCTerm">';
+                            str += '<b class="b'+numArr[7]+'">'+numArr[7]+'</b>';
+                            str += '</div></td>';
+                            str += '<td>'+totalNum+'</td>';
+                            str += '<td>'+dxhJudgment(84,totalNum)+'</td>';
+                            str += '<td>'+dsJudgment(totalNum)+'</td>';
+                            str += '<td>'+dxwJudgment(5,lastHnum.substr(lastHnum.length-1,1))+'</td>';
+                            str += '<td><span>'+lhhJudgment(parseInt(numArr[0]),parseInt(numArr[7]))+'</span></td>';
+                            str += '<td><span>'+lhhJudgment(parseInt(numArr[1]),parseInt(numArr[6]))+'</span></td>';
+                            str += '<td><span>'+lhhJudgment(parseInt(numArr[2]),parseInt(numArr[5]))+'</span></td>';
+                            str += '<td><span>'+lhhJudgment(parseInt(numArr[3]),parseInt(numArr[4]))+'</span></td>';
+                            str += '</tr>';
+                        });
+                        str += '</tbody>';
+                    }
+                    $('#history_table').html(str);
+                    if(str){
+                        $('#BetTable_paginate').html(n.page);
+                        pageAjax();
+					}
+                }else{
+                    $('#openList').html('<tr class="trcolor"><td colspan="14"><div>   暂无数据</div></td></tr>');
+                }
+            },
+            error: function() {
+                //warningMessage("查询失败")
+            },
+            beforeSend: function() {
+                //showloading()
+            },
+            complete: function() {
+                //hideloading()
+            }
+        })
+	}
+    function pageAjax(){
+        $(".pagination a").click(function() {
+            var page = $(this).attr("href");
+            getData(page);
+            //禁止A标签跳转
+            return false;
+        }) ;
+    }
+    var end = laydate.render({
+        elem: '#historyQueryParamGameDate',
+        min: -30,
+        max: '2099-06-16 23:59:59',
+        theme: '#009688',
+        type:'date',
+        done: function (value, date, endDate) {
+            getData("{:url('Report/openResult?page=1')}");
+        }
+    });
+    function p(s) {
+        return s < 10 ? '0' + s: s;
+    }
+    function today(){
+        var nowdate = new Date();
+        var y = nowdate.getFullYear();
+        var m = nowdate.getMonth()+1;
+        var d = nowdate.getDate();
+        $('#historyQueryParamGameDate').val(p(y)+'-'+p(m)+'-'+p(d));
+    }
+    $(function(){
+        $('#historyQueryParamGameId').change(function(){
+            getData("{:url('Report/openResult?page=1')}");
+		});
+        today();
+	})
+    //开奖结果
+    function awardResults(opennum){
+	    var returnData = [];
+        returnData[0] = 0;
+		$.each(opennum,function(k,v){
+            returnData[0] = returnData[0]*1+v*1;
+		});
+        returnData[1] = dxJudgment(23,returnData[0]);
+        returnData[2] = dsJudgment(returnData[0]);
+        returnData[3] = lhhJudgment(opennum[0],opennum[4]);
+        returnData[4] = calc(opennum[0],opennum[1],opennum[2]);
+        returnData[5] = calc(opennum[1],opennum[2],opennum[3]);
+        returnData[6] = calc(opennum[2],opennum[3],opennum[4]);
+        return returnData;
+    }
+	$(function(){
+	    setTimeout(function(){
+            getData();
+		},1000)
+	})
+</script>
+</body>
+</html>

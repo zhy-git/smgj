@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>下注记录</title>
+		<link rel="icon" href="__IMG__/wap_new/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="__IMG__/wap_new/favicon.ico" type="image/x-icon" />
+		<link href="__CSS__/wap_new/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/wap_new/common.css"/>
+		<link rel="stylesheet" type="text/css" href="__CSS__/wap_new/index.css"/>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">下注记录</h1>
+		</header>
+		<div class="mui-content">
+			<div class="table-box bg_ff" id="betList">
+				<table border="" cellspacing="" cellpadding="" class="table_nob">
+					<tr>
+						<th>时间</th>
+						<th>笔数</th>
+						<th>输赢</th>
+					</tr>
+					{volist name="data" id="vo"}
+					<tr>
+						<td>{$vo.days}</td>
+						<td>{$vo.count}</td>
+						<td>{:bcsub($vo['z_money'],$vo['bet_money'],2)}</td>
+					</tr>
+					{/volist}
+				</table>
+			</div>
+		</div>
+		<div class="footer ">
+			<div class="clearfix text-center padding_10">
+				<div class="left width50">
+					总笔数：<span>{$count}</span>
+				</div>
+				<div class="left width50">
+					总输赢：<span class="red">{$win_money}</span>
+				</div>
+			</div>
+			
+		</div>
+		<div class="msg-spring"></div>
+		<script src="__JS__/wap_new/mui.min.js"></script>
+		<script src="__JS__/wap_new/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/wap_new/index.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/layer.js" ></script>
+		<script type="text/javascript">
+
+            var height=0;
+            // var getDataBuild = {
+            //     stop : true,
+            //     page : 1,
+            //     top : true,
+            //     getData:function(){
+            //         var index = {};
+            //         $.ajax({
+            //             url: "{:url('agent/betRecord')}",
+            //             type: "POST",
+            //             data: {page:getDataBuild.page},
+            //             success: function(n) {
+            //                 if (n.code == 1) {
+            //                     getDataBuild.page ++;
+            //                     var str = '';
+            //                     var str_b='';
+            //                     $.each(n.data.data,function(k,v){
+            //                         str+='<tr><td>2018-8-9 12:00</td><td>10</td><td>0</td></tr>';
+            //                     })
+				// 				str_b='<table border="" cellspacing="" cellpadding="" class="table_nob"><tr><th>时间</th><th>笔数</th><th>输赢</th></tr>'+str+'</table>';
+            //                     if(getDataBuild.page == 2){
+            //                         $('#betList').html(str_b);
+            //                     }else{
+            //                         $('#betList').append(str_b);
+            //                     }
+            //                     getDataBuild.top = true;
+            //                 }else{
+            //                     if(getDataBuild.page>1){
+            //                         if(getDataBuild.top){
+            //                             getDataBuild.top = false;
+            //                             $('#betList').append('<div style="text-align:center;color:#aaa;">   我是有底线的  </div>');
+            //                         }
+            //                     }else{
+            //                         $('#betList').html('<div style="text-align:center;color:#aaa;">暂无下注记录</div>');
+            //                     }
+            //                 }
+            //             },
+            //             error: function() {
+            //                 getDataBuild.stop = true;
+            //                 layer.msg('服务器繁忙！')
+            //             },
+            //             beforeSend: function() {
+            //                 index = layer.load(0, {shade: false});
+            //             },
+            //             complete: function() {
+            //                 layer.close(index);
+            //                 setTimeout(function(){
+            //                     getDataBuild.stop = true;
+            //                     height=document.getElementById('rechargeList').scrollHeight;
+            //                 },1000)
+            //             }
+            //         })
+            //     }
+            // }
+            // $('#rechargeList').scroll(function() {
+            //     if ($(this).scrollTop()+$(this).height()+48 >= height) {
+            //         if(getDataBuild.stop == true){
+            //             getDataBuild.stop = false;
+            //             getDataBuild.getData();
+            //         }
+            //     }
+            // });
+            // getDataBuild.getData();
+	    </script>
+	</body>
+
+</html>

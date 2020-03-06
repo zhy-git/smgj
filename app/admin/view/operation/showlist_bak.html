@@ -1,0 +1,134 @@
+{include file = 'Common/header.html'}
+<div class="page-content">
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href='{$smarty.const.HOME_PAGE}'>首页</a>
+            </li>
+            <li class="active">操作记录</li>
+        </ul>
+    </div>
+    <!-- /Page Breadcrumb -->
+
+    <!-- /Page Header -->
+    <!-- Page Body -->
+    <div class="page-body">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="widget">
+
+                    <div class="widget-body">
+                        <div id="searchable_filter" class="dataTables_filter">
+                            <form action="{$smarty.const.__SELF__}" method="get">
+                                <div class="input-group dowebok" style=" margin-bottom:10px; width:100%;" >
+                                    <input type="text" name ="name" value="{$name}" class="form-control pull-left" placeholder="操作人名称" style="width: 200px;">
+                                    <button class="btn btn-default shiny pull-left" type="submit">搜索</button>
+                                </div>
+                                <div class="input-group dowebok" style=" margin-bottom:10px; width:100%;" >
+                                    <label style="float: left;margin-left: 10px"><i>操作起始时间:&nbsp;</i></label>
+                                    <input type="text" value="{$begin_time|default:''}" id='begin_time' name="begin_time"  placeholder="操作起始时间"  class="date-picker form-control" style="width:200px;float: left;" data-date-format="yyyy-mm-dd">
+                                    <label style="float: left;margin-left: 10px;"><i>操作结束时间:&nbsp;</i></label>
+                                    <input type="text" value="{$end_time|default:''}" id='end_time' name="end_time"  placeholder="操作结束时间"  class="date-picker form-control" style="width:200px;float: left;" data-date-format="yyyy-mm-dd">
+                                    <button style="margin-left: 10px" class="btn btn-default shiny pull-left" type="submit">搜索</button>
+                                    <!--<div class="switch style_button" style="position: absolute;top:0;right:0;margin-top: 0px">
+                                        <button type="button" onclick="put_excel()" class="btn btn-default" type="button" style="float: right; margin-right:10px;"><i class="fa fa-inbox"></i>导出Excel</button>
+                                    </div>-->
+                                </div>
+                            </form>
+                            <form action="{$smarty.const.__MODULE__}/Operation/del" method="get">
+                            <div class="input-group dowebok" style=" margin-bottom:10px; width:100%;" >
+                                <label style="float: left;margin-left: 10px"><i>操作起始时间:&nbsp;</i></label>
+                                <input type="text" value="{$d_begin_time|default:''}" name="d_begin_time"  placeholder="操作起始时间"  class="date-picker form-control" style="width:200px;float: left;" data-date-format="yyyy-mm-dd">
+                                <label style="float: left;margin-left: 10px;"><i>操作结束时间:&nbsp;</i></label>
+                                <input type="text" value="{$d_end_time|default:''}" name="d_end_time"  placeholder="操作结束时间"  class="date-picker form-control" style="width:200px;float: left;" data-date-format="yyyy-mm-dd">
+                                <button style="margin-left: 10px" class="btn btn-danger shiny pull-left" type="submit"><i class="fa fa-trash-o"></i>批量删除</button>
+                                <!--<div class="switch style_button" style="position: absolute;top:0;right:0;margin-top: 0px">
+                                    <button type="button" onclick="put_excel()" class="btn btn-default" type="button" style="float: right; margin-right:10px;"><i class="fa fa-inbox"></i>导出Excel</button>
+                                </div>-->
+                            </div>
+                            </form>
+                        </div>
+                        <table class="table table-striped table-bordered table-hover" id="expandabledatatable">
+                            <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>操作名</th>
+                                <th>操作地址</th>
+                                <th>操作人Ip信息</th>
+                                <th>操作时间</th>
+                                <th>操作人</th>
+                                <th>被操作对象id</th>
+                                <!--<th width="8%">操作</th>-->
+                            </tr>
+                            </thead>
+
+                            <tbody>
+
+                            {foreach $log_list as $k => $v}
+
+                            <tr>
+                                <td>{$v.operation_log}</td>
+                                <td>{$v.auth_note}</td>
+                                <td>{$v.operation_node}</td>
+                                <td>{$v.operation_ip}</td>
+                                <td>{$v.operation_time}</td>
+                                <td>{$v.member_name}</td>
+                                <td>{$v.operation_man|default:'无'}</td>
+                                <!--<td>-->
+                                    <!--<a onclick="del({$v.id})" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> 删除</a>-->
+                                <!--</td>-->
+                            </tr>
+
+                            {/foreach}
+
+
+                            </tbody>
+                        </table>
+                        <!--</form>-->
+                        <div class="row DTTTFooter table-toolbar">
+                            <div class="col-sm-6">
+                                <div class="dataTables_paginate paging_bootstrap" id="simpledatatable_paginate">
+                                    <ul class="pagination">
+                                        {$pagelist}
+                                    </ul></div></div></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+<!-- /Page Body -->
+</div>
+<!-- /Page Content -->
+</div>
+<!-- /Page Container -->
+<!-- Main Container -->
+
+</div>
+<!--Email Modal Templates-->
+
+<!--Basic Scripts-->
+<script src="{$smarty.const.JS_URL}jquery-2.0.3.min.js"></script>
+<script src="{$smarty.const.JS_URL}bootstrap.min.js"></script>
+
+<!--Beyond Scripts-->
+<script src="{$smarty.const.JS_URL}beyond.min.js"></script>
+
+<!--Page Related Scripts-->
+
+<script src="{$smarty.const.JS_URL}bootbox/bootbox.js"></script>
+<script src="{$smarty.const.JS_URL}datetime/bootstrap-datepicker.js"></script>
+<script language=JavaScript>
+    $('.date-picker').datepicker();
+</script>
+</body>
+<!--  /Body -->
+</html>

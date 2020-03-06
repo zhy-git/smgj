@@ -1,0 +1,48 @@
+<div id="userHead" class="headContainer" style="font-size: 14px;">
+    <ul class="center f-cb" id="user_ul">
+        <li><a class="logo changeHomePage" href="index.html"></a></li>
+        <li><a class="tua changeHomePage" href="{:url('Index/index')}">首页</a></li>
+        <li><a class="tua" href="javascript:void(0)" id="hallBtn">全部彩种</a></li>
+        <li class="tuaUser">
+            <a class="tua" href="{:url('Account/index')}">个人中心</a>
+            <ul class="userMenu" style="">
+                <li><a href="{:url('Account/index')}" class="changeAccountPage">个人中心</a></li>
+                <li><a href="MyBankCard.html" class="changeAccountPage">密码管理</a></li>
+                <li><a href="MyBankCard.html" class="changeAccountPage">奖金说明</a></li>
+                <li><a href="MyBankCard.html" class="changeAccountPage">资金管理</a></li>
+                <li><a href="MyBankCard.html" class="changeAccountPage">交易协定</a></li>
+            </ul>
+        </li>
+        <li class="tuaUser">
+            <a class="tua" href="report.html">报表中心</a>
+            <ul class="userMenu">
+                <li><a href="report.html" class="changeAccountPage">盈亏报表</a></li>
+                <li><a href="report.html" class="changeAccountPage">投注记录</a></li>
+                <li><a href="report.html" class="changeAccountPage">追号记录</a></li>
+                <li><a href="report.html" class="changeAccountPage">账变记录</a></li>
+            </ul>
+        </li>
+        <li class="tuaUser">
+            <a class="tua" href="User_Management.html">用户管理</a>
+            <ul class="userMenu">
+                <li><a href="User_Management.html" class="changeAccountPage">用户管理</a></li>
+                <li><a href="User_Management.html" class="changeAccountPage">新增用户</a></li>
+                <li><a href="User_Management.html">推广链接</a></li>
+                <li><a href="User_Management.html" class="changeAccountPage">微信推广链接</a></li>
+            </ul>
+        </li>
+        <li class=""><a class="tua  changeHomePage " href="contract.html">契约管理</a></li>
+        <li class="f-fl u-info">
+            <span class="user-t"><i class="headico"></i><span id="TopNickName">{$mem.nickname}</span></span>
+            <span class="user-t">￥<b id="walletamount" class="uin-b">{$mem.money}</b></span>
+            <i class="update_btn ico2" id="refreshwallet"></i>
+        </li>
+        <li class="f-fr specialArea">
+            <a class="tua tua2 changeAccountPage" href="Recharge.html">充值</a>
+            <a class="tua tua3 changeAccountPage" href="/WithdrawRequest/Create">取款</a>
+            <a class="tua" href="javascript:void(0)" id="specialBtn">优惠活动</a>
+            <a class="tua" href="javascript:$.connection.hub.stop();document.getElementById('logoutForm').submit()">退出</a>
+            <form action="" class="navbar-right" id="logoutForm" method="post"><input name="__RequestVerificationToken" type="hidden" value="Xs9XJwLLlfxcDIjCRpub53jBZDHackPqzCN5V6VPE1TD1-UfldzQT_ADK04GiULq1iWPHTQ7Kzqh2Klx5KQB9EWLgyJ2M_QselIPx14Qj0rbnslIXCx8XLv5I4joJnUiDEBEONcD91dqTQAj_zYC6g2"></form>
+        </li>
+    </ul>
+</div>

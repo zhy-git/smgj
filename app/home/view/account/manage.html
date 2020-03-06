@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		<meta HTTP-EQUIV="Expires" CONTENT="-1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>我的账户</title>
+		<link rel="shortcut icon" href="__IMG__/favicon.ico" />
+		<link rel="bookmark" href="__IMG__/favicon.ico" type="image/x-icon" 　/>
+		<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+		<script src="__JS__/jquery-3.2.1.min.js" ></script>
+		<script src="__JS__/laydate/laydate.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/laydate.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/paging.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/index.js"></script>
+		<script src="__JS__/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+		<script src="__JS__/area.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/layer.js" ></script>
+		<script src="__JS__/common.js" ></script>
+	</head>
+
+	<body id="account">
+		<div class="bg_ff">
+			{include file="common/top" /}
+		</div>
+		<section>
+		<ul class="account_list clearfix">
+			<li><a href="{:url('index')}">充值</a></li>
+			<li><a href="{:url('cash')}">提现</a></li>
+			<li><a href="{:url('rechargelist')}">充值记录</a></li>
+			<li><a href="{:url('cashlist')}">提现记录</a></li>
+			<li class="active"><a href="{:url('manage')}">密码管理</a></li>
+			<li><a href="{:url('addcard')}">添加银行卡</a></li>
+		</ul>
+		<div class="account_main active">
+			<h4 class="padding_10 title_list">密码管理</h4>
+					<div class="table_box psd_box">
+						<form id="resetLoginPass">
+						<table border="" cellspacing="" cellpadding="">
+							<tr>
+								<th colspan="2" class="bg_e text_left">登录密码管理</th>
+							</tr>
+							<tr>
+								<td class="text_right">原始密码：</td>
+								<td class="text_left"><input type="password" name="oldpassword" value="" /></td>
+							</tr>
+							<tr>
+								<td class="text_right">新密码：</td>
+								<td class="text_left"><input type="password" name="newpassword" value="" /></td>
+							</tr>
+							<tr>
+								<td class="text_right">确认密码：</td>
+								<td class="text_left"><input type="password" name="renewpassword" value="" /></td>
+							</tr>
+							<tr>
+								<td class="text_right"></td>
+								<td class="text_left">
+									<input type="button" name="" id = "subLogin" class="basic_a color_ff"  value="确认提交" />
+									<input type="reset" name="" class="basic_a color_ff" value=" 重置" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>	
+					<div class="table_box psd_box mg_top20">
+						{if $ismp == 1}
+						<form id="resetMoneyPass">
+						<table border="" cellspacing="" cellpadding="">
+							<tr>
+								<th colspan="2" class="bg_e text_left">设置资金密码</th>
+							</tr>
+							<tr>
+								<td class="text_right color_b" >温馨提示：</td>
+								<td class="text_left">资金密码：提现必须输入资金密码！	</td>
+							</tr>
+
+								<tr>
+									<td class="text_right">原始密码：</td>
+									<td class="text_left"><input type="password" name="oldpassword" value="" /></td>
+								</tr>
+								<tr>
+									<td class="text_right">新密码：</td>
+									<td class="text_left"><input type="password" name="newpassword" value="" /></td>
+								</tr>
+								<tr>
+									<td class="text_right">确认密码：</td>
+									<td class="text_left"><input type="password" name="renewpassword" value="" /></td>
+								</tr>
+							<tr>
+								<td class="text_right"></td>
+								<td class="text_left">
+									<input type="button" name="" id = "subMoney" class="basic_a color_ff"  value="确认提交" />
+									<input type="reset" class="basic_a color_ff" value=" 重置" />
+								</td>
+							</tr>
+						</table>
+						</form>
+						{else/}
+						<form id="setMoneyPass">
+							<table border="" cellspacing="" cellpadding="">
+								<tr>
+									<th colspan="2" class="bg_e text_left">设置资金密码</th>
+								</tr>
+								<tr>
+									<td class="text_right color_b" >温馨提示：</td>
+									<td class="text_left">资金密码：提现必须输入资金密码！	</td>
+								</tr>
+								<tr>
+									<td class="text_right">新密码：</td>
+									<td class="text_left"><input type="password" name="newpassword" value="" /></td>
+								</tr>
+								<tr>
+									<td class="text_right">确认密码：</td>
+									<td class="text_left"><input type="password" name="renewpassword" value="" /></td>
+								</tr>
+								<tr>
+									<td class="text_right"></td>
+									<td class="text_left">
+										<input type="button" name="" id = "subSetMoney" class="basic_a color_ff"  value="确认提交" />
+										<input type="reset" class="basic_a color_ff" value=" 重置" />
+									</td>
+								</tr>
+							</table>
+						</form>
+						{/if}
+					</div>	
+		</div>
+		</section>
+		{include file="common/footer" /}
+	<script>
+        var subLoginCheck = true;
+        var subMoneyCheck = true;
+        $("#subLogin").click(function(){
+            $('#resetLoginPass').serialize();
+            var self = $('#resetLoginPass');
+            var oldpassword = self.find('input[name=oldpassword]').val();
+            var newpassword = self.find('input[name=newpassword]').val();
+            var renewpassword = self.find('input[name=renewpassword]').val();
+            if(oldpassword == ''){
+                pop('原始密码不能为空');
+                return false;
+            }
+            if(newpassword == ''){
+                pop('新密码不能为空');
+                return false;
+            }
+            if(renewpassword == ''){
+                pop('两次密码输入不一致');
+                return false;
+            }
+            if(renewpassword != newpassword){
+                pop('两次密码输入不一致');
+                return false;
+            }
+            if(subLoginCheck) {
+                subLoginCheck = false;
+                $.post("{:url('subLoginReset')}", self.serialize(), success, "json");
+                return false;
+                function success(data) {
+                    if (data.code == 1) {
+                        pop(data.msg,data.url,3);
+                    } else {
+                        pop(data.msg);
+                        subLoginCheck = true;
+                    }
+                }
+            }
+        })
+        $("#subMoney").click(function(){
+            $('#resetMoneyPass').serialize();
+            var self = $('#resetMoneyPass');
+            var oldpassword = self.find('input[name=oldpassword]').val();
+            var newpassword = self.find('input[name=newpassword]').val();
+            var renewpassword = self.find('input[name=renewpassword]').val();
+            if(oldpassword == ''){
+                pop('原始密码不能为空');
+                return false;
+            }
+            if(newpassword == ''){
+                pop('新密码不能为空');
+                return false;
+            }
+            if(renewpassword == ''){
+                pop('两次密码输入不一致');
+                return false;
+            }
+            if(renewpassword != newpassword){
+                pop('两次密码输入不一致');
+                return false;
+            }
+            if(subMoneyCheck) {
+                subMoneyCheck = false;
+                $.post("{:url('subMoneyReset')}", self.serialize(), success, "json");
+                return false;
+                function success(data) {
+                    if (data.code == 1) {
+                        pop(data.msg,data.url,3);
+                    } else {
+                        pop(data.msg);
+                        subMoneyCheck = true;
+                    }
+                }
+            }
+        })
+        var subSetMoneyCheck = true;
+        $("#subSetMoney").click(function(){
+            $('#setMoneyPass').serialize();
+            var self = $('#setMoneyPass');
+            var newpassword = self.find('input[name=newpassword]').val();
+            var renewpassword = self.find('input[name=renewpassword]').val();
+            if(newpassword == ''){
+                pop('新密码不能为空');
+                return false;
+            }
+            if(newpassword == ''){
+                pop('两次密码输入不一致');
+                return false;
+            }
+            if(renewpassword != newpassword){
+                pop('两次密码输入不一致');
+                return false;
+            }
+            if(subSetMoneyCheck) {
+                subSetMoneyCheck = false;
+                $.post("{:url('subMoneySet')}", self.serialize(), success, "json");
+                return false;
+                function success(data) {
+                    if (data.code == 1) {
+                        pop(data.msg,data.url,3);
+                    } else {
+                        pop(data.msg);
+                        subSetMoneyCheck = true;
+                    }
+                }
+            }
+        })
+	</script>
+	</body>
+</html>

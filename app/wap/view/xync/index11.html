@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>幸运农场</title>
+	<script src="__JS__/wap/mui.min.js"></script>
+	<link href="__CSS__/wap/mui.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/wap/common.css"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/wap/index.css"/>
+	<script src="__JS__/wap/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/wap/time.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/wap/index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/jquery.validate.min.js"></script>
+	<script src="__JS__/layer.js" ></script>
+	<script src="__JS__/common.js" ></script>
+	<script type="text/javascript" charset="utf-8">
+        mui.init();
+	</script>
+</head>
+<body style="background: #E5BCC3;">
+<div class="main">
+	<header class="">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left mg_top10 color_ff"></a>
+		<h1 class="mui-title mui-pull-left color_ff">
+			<span class="left">幸运农场 <a href="javascript:void(0);"><img class="menu_img" src="__IMG__/wap/muen.png" alt="" /></a></span>
+		</h1>
+		{include file="common/top_list" /}
+	</header>
+	<div class="mui-content">
+		<ul class="mui-clearfix game_box1">
+			<li class="active"><a href="javascript:void(0);">投注区</a></li>
+			<li><a href="javascript:void(0);">聊天室</a></li>
+		</ul>
+		<div class="game_box2 padding_tb10 bor_bd7">
+			<div class="clearfix ">
+				<p class="left game_B2L cur_turn_num"></p>
+				<div id="result_balls" class="left game_B2R">
+					<p>
+						<i class="round1">1</i>
+						<i class="round1">2</i>
+						<i class="round1">3</i>
+						<i class="round1">4</i>
+						<i class="round1">5</i>
+						<i class="round1">3</i>
+						<i class="round1">4</i>
+						<i class="round1">5</i>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="game_box2 padding_tb10 bor_bd7">
+			<div class="clearfix ">
+				<p class="left game_B2L" id="next_turn_num"></p>
+				<div class="left game_B2R">
+					<div class="clearfix left">
+						<span class="left lin_30">封盘：</span>
+						<div class="colockbox clearfix left" id="bet-date">
+							<span class="minute"></span>
+							<span class="second"></span>
+						</div>
+						</span>
+					</div>
+					<div class="clearfix left">
+						<span class="left lin_30 mg_left10">开奖：</span>
+						<div class="colockbox clearfix left" id="open-date">
+							<span class="minute"></span>
+							<span class="second"></span>
+						</div>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="game_box3 mui-clearfix">
+			<ul class="left game_B3L">
+				<li class="active"><a href="javascript:void(0);"><i class="round_small"></i> 两面</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 第一球</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 第二球</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 第三球</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 第四球</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 第五球</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 第六球</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 第七球</a></li>
+				<li><a href="javascript:void(0);"><i class="round_small"></i> 第八球</a></li>
+				<!--<li><a href="javascript:void(0);"><i class="round_small"></i> 连码 </a></li>-->
+			</ul>
+			<div class="game_tab left">
+				<div class="tab_box active">
+					<div class="">
+						<h4 class="mui-text-center padding_10 bor_bd7">总和</h4>
+						<ul class="mui-clearfix two" data-target-type="1" data-target-num="总和">
+							<li data-num="总和大"><a href="javascript:void(0);">总和大<i data-id="264" class="odds"></i></a></li>
+							<li data-num="总和小"><a href="javascript:void(0);">总和小<i data-id="264" class="odds"></i></a></li>
+							<li data-num="总和单"><a href="javascript:void(0);">总和单<i data-id="268" class="odds"></i></a></li>
+							<li data-num="总和双"><a href="javascript:void(0);">总和双<i data-id="269" class="odds"></i></a></li>
+							<li data-num="总和尾大"><a href="javascript:void(0);">总和尾大<i data-id="270" class="odds"></i></a></li>
+							<li data-num="总和尾小"><a href="javascript:void(0);">总和尾小<i data-id="271" class="odds"></i></a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第一球</h4>
+						<ul class="mui-clearfix two" data-target-type="2" data-target-num="第一球">
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span class="">合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span class="">合双 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span class="">尾大 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span class="">尾小 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span class="">龙 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span class="">虎 </span><i data-id="264" class="odds"></i></a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第二球</h4>
+						<ul class="mui-clearfix two" data-target-type="3" data-target-num="第二球">
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span class="">合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span class="">合双 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span class="">尾大 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span class="">尾小 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span class="">龙 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span class="">虎 </span><i data-id="264" class="odds"></i></a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第三球</h4>
+						<ul class="mui-clearfix two" data-target-type="4" data-target-num="第三球">
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span class="">合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span class="">合双 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span class="">尾大 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span class="">尾小 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span class="">龙 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span class="">虎 </span><i data-id="264" class="odds"></i></a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第四球</h4>
+						<ul class="mui-clearfix two" data-target-type="5" data-target-num="第四球">
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span class="">合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span class="">合双 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span class="">尾大 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span class="">尾小 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span class="">龙 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span class="">虎 </span><i data-id="264" class="odds"></i></a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第五球</h4>
+						<ul class="mui-clearfix two" data-target-type="6" data-target-num="第五球">
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span class="">合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span class="">合双 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span class="">尾大 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span class="">尾小 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span class="">龙 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span class="">虎 </span><i data-id="264" class="odds"></i></a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第六球</h4>
+						<ul class="mui-clearfix two" data-target-type="7" data-target-num="第六球">
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span class="">合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span class="">合双 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span class="">尾大 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span class="">尾小 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span class="">龙 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span class="">虎 </span><i data-id="264" class="odds"></i></a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第七球</h4>
+						<ul class="mui-clearfix two" data-target-type="8" data-target-num="第七球">
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span class="">合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span class="">合双 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span class="">尾大 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span class="">尾小 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span class="">龙 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span class="">虎 </span><i data-id="264" class="odds"></i></a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第八球</h4>
+						<ul class="mui-clearfix two" data-target-type="9" data-target-num="第八球">
+							<li data-num="大"><a href="javascript:void(0);"><span class="">大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span class="">小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span class="">单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span class="">双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span class="">合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span class="">合双 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span class="">尾大 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span class="">尾小 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span class="">龙 </span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span class="">虎 </span><i data-id="264" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+
+
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第一球</h4>
+						<ul class="mui-clearfix three" data-target-type="2" data-target-num="第一球">
+							<li data-num="1"><a href="javascript:void(0);"><span class="round1">1</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="2"><a href="javascript:void(0);"><span class="round1">2</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="3"><a href="javascript:void(0);"><span class="round1">3</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="4"><a href="javascript:void(0);"><span class="round1">4</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="round1">5</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="round1">6</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="7"><a href="javascript:void(0);"><span class="round1">7</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="8"><a href="javascript:void(0);"><span class="round1">8</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="9"><a href="javascript:void(0);"><span class="round1">9</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="10"><a href="javascript:void(0);"><span class="round1">10</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="11"><a href="javascript:void(0);"><span class="round1">11</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="12"><a href="javascript:void(0);"><span class="round1">12</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="13"><a href="javascript:void(0);"><span class="round1">13</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="14"><a href="javascript:void(0);"><span class="round1">14</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="15"><a href="javascript:void(0);"><span class="round1">15</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="16"><a href="javascript:void(0);"><span class="round1">16</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="17"><a href="javascript:void(0);"><span class="round1">17</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="18"><a href="javascript:void(0);"><span class="round1">18</span><i data-id="263" class="odds"></i></a></li>
+
+						</ul>
+						<ul class="mui-clearfix two" data-target-type="2" data-target-num="第一球">
+							<li data-num="19"><a href="javascript:void(0);"><span class="round1">19</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="20"><a href="javascript:void(0);"><span class="round1">20</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="大"><a href="javascript:void(0);"><span >大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span >小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span >单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span >双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span >合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span >合双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span >尾大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span >尾小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span >龙</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span >虎</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="东"><a href="javascript:void(0);"><span >东</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="南"><a href="javascript:void(0);"><span >南</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="西"><a href="javascript:void(0);"><span >西</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="北"><a href="javascript:void(0);"><span >北</span><i data-id="265" class="odds"></i></a></li>
+						</ul>
+						<ul class="mui-clearfix three" data-target-type="2" data-target-num="第一球">
+							<li data-num="中"><a href="javascript:void(0);"><span >中</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="发"><a href="javascript:void(0);"><span >发</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="白"><a href="javascript:void(0);"><span >白</span><i data-id="267" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第二球</h4>
+						<ul class="mui-clearfix three" data-target-type="3" data-target-num="第二球">
+							<li data-num="1"><a href="javascript:void(0);"><span class="round1">1</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="2"><a href="javascript:void(0);"><span class="round1">2</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="3"><a href="javascript:void(0);"><span class="round1">3</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="4"><a href="javascript:void(0);"><span class="round1">4</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="round1">5</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="round1">6</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="7"><a href="javascript:void(0);"><span class="round1">7</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="8"><a href="javascript:void(0);"><span class="round1">8</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="9"><a href="javascript:void(0);"><span class="round1">9</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="10"><a href="javascript:void(0);"><span class="round1">10</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="11"><a href="javascript:void(0);"><span class="round1">11</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="12"><a href="javascript:void(0);"><span class="round1">12</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="13"><a href="javascript:void(0);"><span class="round1">13</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="14"><a href="javascript:void(0);"><span class="round1">14</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="15"><a href="javascript:void(0);"><span class="round1">15</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="16"><a href="javascript:void(0);"><span class="round1">16</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="17"><a href="javascript:void(0);"><span class="round1">17</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="18"><a href="javascript:void(0);"><span class="round1">18</span><i data-id="263" class="odds"></i></a></li>
+
+						</ul>
+						<ul class="mui-clearfix two" data-target-type="3" data-target-num="第二球">
+							<li data-num="19"><a href="javascript:void(0);"><span class="round1">19</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="20"><a href="javascript:void(0);"><span class="round1">20</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="大"><a href="javascript:void(0);"><span >大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span >小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span >单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span >双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span >合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span >合双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span >尾大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span >尾小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span >龙</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span >虎</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="东"><a href="javascript:void(0);"><span >东</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="南"><a href="javascript:void(0);"><span >南</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="西"><a href="javascript:void(0);"><span >西</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="北"><a href="javascript:void(0);"><span >北</span><i data-id="265" class="odds"></i></a></li>
+						</ul>
+						<ul class="mui-clearfix three" data-target-type="3" data-target-num="第二球">
+							<li data-num="中"><a href="javascript:void(0);"><span >中</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="发"><a href="javascript:void(0);"><span >发</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="白"><a href="javascript:void(0);"><span >白</span><i data-id="267" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第三球</h4>
+						<ul class="mui-clearfix three" data-target-type="4" data-target-num="第三球">
+							<li data-num="1"><a href="javascript:void(0);"><span class="round1">1</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="2"><a href="javascript:void(0);"><span class="round1">2</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="3"><a href="javascript:void(0);"><span class="round1">3</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="4"><a href="javascript:void(0);"><span class="round1">4</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="round1">5</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="round1">6</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="7"><a href="javascript:void(0);"><span class="round1">7</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="8"><a href="javascript:void(0);"><span class="round1">8</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="9"><a href="javascript:void(0);"><span class="round1">9</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="10"><a href="javascript:void(0);"><span class="round1">10</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="11"><a href="javascript:void(0);"><span class="round1">11</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="12"><a href="javascript:void(0);"><span class="round1">12</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="13"><a href="javascript:void(0);"><span class="round1">13</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="14"><a href="javascript:void(0);"><span class="round1">14</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="15"><a href="javascript:void(0);"><span class="round1">15</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="16"><a href="javascript:void(0);"><span class="round1">16</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="17"><a href="javascript:void(0);"><span class="round1">17</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="18"><a href="javascript:void(0);"><span class="round1">18</span><i data-id="263" class="odds"></i></a></li>
+
+						</ul>
+						<ul class="mui-clearfix two" data-target-type="5" data-target-num="第三球">
+							<li data-num="19"><a href="javascript:void(0);"><span class="round1">19</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="20"><a href="javascript:void(0);"><span class="round1">20</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="大"><a href="javascript:void(0);"><span >大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span >小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span >单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span >双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span >合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span >合双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span >尾大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span >尾小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span >龙</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span >虎</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="东"><a href="javascript:void(0);"><span >东</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="南"><a href="javascript:void(0);"><span >南</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="西"><a href="javascript:void(0);"><span >西</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="北"><a href="javascript:void(0);"><span >北</span><i data-id="265" class="odds"></i></a></li>
+						</ul>
+						<ul class="mui-clearfix three" data-target-type="4" data-target-num="第三球">
+							<li data-num="中"><a href="javascript:void(0);"><span >中</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="发"><a href="javascript:void(0);"><span >发</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="白"><a href="javascript:void(0);"><span >白</span><i data-id="267" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第四球</h4>
+						<ul class="mui-clearfix three" data-target-type="5" data-target-num="第四球">
+							<li data-num="1"><a href="javascript:void(0);"><span class="round1">1</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="2"><a href="javascript:void(0);"><span class="round1">2</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="3"><a href="javascript:void(0);"><span class="round1">3</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="4"><a href="javascript:void(0);"><span class="round1">4</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="round1">5</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="round1">6</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="7"><a href="javascript:void(0);"><span class="round1">7</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="8"><a href="javascript:void(0);"><span class="round1">8</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="9"><a href="javascript:void(0);"><span class="round1">9</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="10"><a href="javascript:void(0);"><span class="round1">10</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="11"><a href="javascript:void(0);"><span class="round1">11</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="12"><a href="javascript:void(0);"><span class="round1">12</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="13"><a href="javascript:void(0);"><span class="round1">13</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="14"><a href="javascript:void(0);"><span class="round1">14</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="15"><a href="javascript:void(0);"><span class="round1">15</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="16"><a href="javascript:void(0);"><span class="round1">16</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="17"><a href="javascript:void(0);"><span class="round1">17</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="18"><a href="javascript:void(0);"><span class="round1">18</span><i data-id="263" class="odds"></i></a></li>
+
+						</ul>
+						<ul class="mui-clearfix two" data-target-type="5" data-target-num="第四球">
+							<li data-num="19"><a href="javascript:void(0);"><span class="round1">19</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="20"><a href="javascript:void(0);"><span class="round1">20</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="大"><a href="javascript:void(0);"><span >大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span >小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span >单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span >双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span >合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span >合双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span >尾大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span >尾小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span >龙</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span >虎</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="东"><a href="javascript:void(0);"><span >东</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="南"><a href="javascript:void(0);"><span >南</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="西"><a href="javascript:void(0);"><span >西</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="北"><a href="javascript:void(0);"><span >北</span><i data-id="265" class="odds"></i></a></li>
+						</ul>
+						<ul class="mui-clearfix three" data-target-type="5" data-target-num="第四球">
+							<li data-num="中"><a href="javascript:void(0);"><span >中</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="发"><a href="javascript:void(0);"><span >发</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="白"><a href="javascript:void(0);"><span >白</span><i data-id="267" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第五球</h4>
+						<ul class="mui-clearfix three" data-target-type="6" data-target-num="第五球">
+							<li data-num="1"><a href="javascript:void(0);"><span class="round1">1</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="2"><a href="javascript:void(0);"><span class="round1">2</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="3"><a href="javascript:void(0);"><span class="round1">3</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="4"><a href="javascript:void(0);"><span class="round1">4</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="round1">5</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="round1">6</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="7"><a href="javascript:void(0);"><span class="round1">7</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="8"><a href="javascript:void(0);"><span class="round1">8</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="9"><a href="javascript:void(0);"><span class="round1">9</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="10"><a href="javascript:void(0);"><span class="round1">10</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="11"><a href="javascript:void(0);"><span class="round1">11</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="12"><a href="javascript:void(0);"><span class="round1">12</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="13"><a href="javascript:void(0);"><span class="round1">13</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="14"><a href="javascript:void(0);"><span class="round1">14</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="15"><a href="javascript:void(0);"><span class="round1">15</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="16"><a href="javascript:void(0);"><span class="round1">16</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="17"><a href="javascript:void(0);"><span class="round1">17</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="18"><a href="javascript:void(0);"><span class="round1">18</span><i data-id="263" class="odds"></i></a></li>
+
+						</ul>
+						<ul class="mui-clearfix two" data-target-type="6" data-target-num="第五球">
+							<li data-num="19"><a href="javascript:void(0);"><span class="round1">19</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="20"><a href="javascript:void(0);"><span class="round1">20</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="大"><a href="javascript:void(0);"><span >大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span >小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span >单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span >双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span >合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span >合双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span >尾大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span >尾小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span >龙</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span >虎</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="东"><a href="javascript:void(0);"><span >东</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="南"><a href="javascript:void(0);"><span >南</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="西"><a href="javascript:void(0);"><span >西</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="北"><a href="javascript:void(0);"><span >北</span><i data-id="265" class="odds"></i></a></li>
+						</ul>
+						<ul class="mui-clearfix three" data-target-type="6" data-target-num="第五球">
+							<li data-num="中"><a href="javascript:void(0);"><span >中</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="发"><a href="javascript:void(0);"><span >发</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="白"><a href="javascript:void(0);"><span >白</span><i data-id="267" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第六球</h4>
+						<ul class="mui-clearfix three" data-target-type="7" data-target-num="第六球">
+							<li data-num="1"><a href="javascript:void(0);"><span class="round1">1</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="2"><a href="javascript:void(0);"><span class="round1">2</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="3"><a href="javascript:void(0);"><span class="round1">3</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="4"><a href="javascript:void(0);"><span class="round1">4</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="round1">5</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="round1">6</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="7"><a href="javascript:void(0);"><span class="round1">7</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="8"><a href="javascript:void(0);"><span class="round1">8</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="9"><a href="javascript:void(0);"><span class="round1">9</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="10"><a href="javascript:void(0);"><span class="round1">10</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="11"><a href="javascript:void(0);"><span class="round1">11</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="12"><a href="javascript:void(0);"><span class="round1">12</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="13"><a href="javascript:void(0);"><span class="round1">13</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="14"><a href="javascript:void(0);"><span class="round1">14</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="15"><a href="javascript:void(0);"><span class="round1">15</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="16"><a href="javascript:void(0);"><span class="round1">16</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="17"><a href="javascript:void(0);"><span class="round1">17</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="18"><a href="javascript:void(0);"><span class="round1">18</span><i data-id="263" class="odds"></i></a></li>
+
+						</ul>
+						<ul class="mui-clearfix two" data-target-type="7" data-target-num="第六球">
+							<li data-num="19"><a href="javascript:void(0);"><span class="round1">19</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="20"><a href="javascript:void(0);"><span class="round1">20</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="大"><a href="javascript:void(0);"><span >大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span >小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span >单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span >双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span >合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span >合双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span >尾大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span >尾小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span >龙</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span >虎</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="东"><a href="javascript:void(0);"><span >东</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="南"><a href="javascript:void(0);"><span >南</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="西"><a href="javascript:void(0);"><span >西</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="北"><a href="javascript:void(0);"><span >北</span><i data-id="265" class="odds"></i></a></li>
+						</ul>
+						<ul class="mui-clearfix three" data-target-type="7" data-target-num="第六球">
+							<li data-num="中"><a href="javascript:void(0);"><span >中</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="发"><a href="javascript:void(0);"><span >发</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="白"><a href="javascript:void(0);"><span >白</span><i data-id="267" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第七球</h4>
+						<ul class="mui-clearfix three" data-target-type="8" data-target-num="第七球">
+							<li data-num="1"><a href="javascript:void(0);"><span class="round1">1</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="2"><a href="javascript:void(0);"><span class="round1">2</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="3"><a href="javascript:void(0);"><span class="round1">3</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="4"><a href="javascript:void(0);"><span class="round1">4</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="round1">5</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="round1">6</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="7"><a href="javascript:void(0);"><span class="round1">7</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="8"><a href="javascript:void(0);"><span class="round1">8</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="9"><a href="javascript:void(0);"><span class="round1">9</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="10"><a href="javascript:void(0);"><span class="round1">10</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="11"><a href="javascript:void(0);"><span class="round1">11</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="12"><a href="javascript:void(0);"><span class="round1">12</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="13"><a href="javascript:void(0);"><span class="round1">13</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="14"><a href="javascript:void(0);"><span class="round1">14</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="15"><a href="javascript:void(0);"><span class="round1">15</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="16"><a href="javascript:void(0);"><span class="round1">16</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="17"><a href="javascript:void(0);"><span class="round1">17</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="18"><a href="javascript:void(0);"><span class="round1">18</span><i data-id="263" class="odds"></i></a></li>
+
+						</ul>
+						<ul class="mui-clearfix two" data-target-type="8" data-target-num="第七球">
+							<li data-num="19"><a href="javascript:void(0);"><span class="round1">19</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="20"><a href="javascript:void(0);"><span class="round1">20</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="大"><a href="javascript:void(0);"><span >大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span >小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span >单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span >双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span >合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span >合双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span >尾大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span >尾小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span >龙</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span >虎</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="东"><a href="javascript:void(0);"><span >东</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="南"><a href="javascript:void(0);"><span >南</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="西"><a href="javascript:void(0);"><span >西</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="北"><a href="javascript:void(0);"><span >北</span><i data-id="265" class="odds"></i></a></li>
+						</ul>
+						<ul class="mui-clearfix three" data-target-type="8" data-target-num="第七球">
+							<li data-num="中"><a href="javascript:void(0);"><span >中</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="发"><a href="javascript:void(0);"><span >发</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="白"><a href="javascript:void(0);"><span >白</span><i data-id="267" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab_box">
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">第八球</h4>
+						<ul class="mui-clearfix three" data-target-type="9" data-target-num="第八球">
+							<li data-num="1"><a href="javascript:void(0);"><span class="round1">1</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="2"><a href="javascript:void(0);"><span class="round1">2</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="3"><a href="javascript:void(0);"><span class="round1">3</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="4"><a href="javascript:void(0);"><span class="round1">4</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="5"><a href="javascript:void(0);"><span class="round1">5</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="6"><a href="javascript:void(0);"><span class="round1">6</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="7"><a href="javascript:void(0);"><span class="round1">7</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="8"><a href="javascript:void(0);"><span class="round1">8</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="9"><a href="javascript:void(0);"><span class="round1">9</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="10"><a href="javascript:void(0);"><span class="round1">10</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="11"><a href="javascript:void(0);"><span class="round1">11</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="12"><a href="javascript:void(0);"><span class="round1">12</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="13"><a href="javascript:void(0);"><span class="round1">13</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="14"><a href="javascript:void(0);"><span class="round1">14</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="15"><a href="javascript:void(0);"><span class="round1">15</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="16"><a href="javascript:void(0);"><span class="round1">16</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="17"><a href="javascript:void(0);"><span class="round1">17</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="18"><a href="javascript:void(0);"><span class="round1">18</span><i data-id="263" class="odds"></i></a></li>
+
+						</ul>
+						<ul class="mui-clearfix two" data-target-type="9" data-target-num="第八球">
+							<li data-num="19"><a href="javascript:void(0);"><span class="round1">19</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="20"><a href="javascript:void(0);"><span class="round1">20</span><i data-id="263" class="odds"></i></a></li>
+							<li data-num="大"><a href="javascript:void(0);"><span >大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="小"><a href="javascript:void(0);"><span >小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="单"><a href="javascript:void(0);"><span >单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="双"><a href="javascript:void(0);"><span >双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合单"><a href="javascript:void(0);"><span >合单</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="合双"><a href="javascript:void(0);"><span >合双</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾大"><a href="javascript:void(0);"><span >尾大</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="尾小"><a href="javascript:void(0);"><span >尾小</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="龙"><a href="javascript:void(0);"><span >龙</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="虎"><a href="javascript:void(0);"><span >虎</span><i data-id="264" class="odds"></i></a></li>
+							<li data-num="东"><a href="javascript:void(0);"><span >东</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="南"><a href="javascript:void(0);"><span >南</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="西"><a href="javascript:void(0);"><span >西</span><i data-id="265" class="odds"></i></a></li>
+							<li data-num="北"><a href="javascript:void(0);"><span >北</span><i data-id="265" class="odds"></i></a></li>
+						</ul>
+						<ul class="mui-clearfix three" data-target-type="9" data-target-num="第八球">
+							<li data-num="中"><a href="javascript:void(0);"><span >中</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="发"><a href="javascript:void(0);"><span >发</span><i data-id="266" class="odds"></i></a></li>
+							<li data-num="白"><a href="javascript:void(0);"><span >白</span><i data-id="267" class="odds"></i></a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="tab_box">
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide"> 任选二</div>
+							<div class="swiper-slide"> 任选二组</div>
+							<div class="swiper-slide"> 任选三</div>
+							<div class="swiper-slide"> 任选四</div>
+							<div class="swiper-slide"> 任选五</div>
+						</div>
+					</div>
+					<div>
+						<h4 class="mui-text-center padding_10 bor_bd7">赔率：<span class="odds">6.5</span></h4>
+						<ul class="clearfix three">
+							<li><a href="javascript:void(0);"><span class="round1">1</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">2</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">3</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">4</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">5</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">6</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">7</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">8</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">9</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">10</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">11</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">12</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">13</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">14</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">15</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">16</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">17</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">18</span></a></li>
+
+						</ul>
+						<ul class="clearfix two">
+							<li><a href="javascript:void(0);"><span class="round1">19</span></a></li>
+							<li><a href="javascript:void(0);"><span class="round1">20</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<nav class="foot ">
+		<div class="clearfix">
+			<div class="left FootL">
+				已选中<span class="red" id="betTotalNum">0</span>注
+				<input type="number" class="bet-money" oninput="changeVale(this)" value="1" placeholder="输入金额" />
+			</div>
+			<div class="right FootR">
+				<a href="javascript:void(0);" class="bet_a betTab">下注</a>
+				<a href="javascript:void(0);" class="betReset">重置</a>
+			</div>
+		</div>
+	</nav>
+	<div class="rule_box">
+		<h4 class="mui-h4 mui-text-center mui-clearfix">幸运农场  <a class="mui-pull-right" href="javascript:void(0);"><img class="close" src="__IMG__/wap/close.png"/></a></h4>
+		<p>
+			每期重庆幸运农场开奖球数共八粒。每粒球除了总和玩法，其它都有单独的投注页面。重庆幸运农场每天开97期，每期间隔10分钟。投注时间为8分钟，等待开奖时间为2分钟，北京时间（GMT+8）每天白天从上午10：00开到次日凌晨02：00。<br />
+			1.两面：指单、双；大、小、尾大、尾小。<br />
+			单、双：号码为双数叫双，如8、16；号码为单数叫单，如19、5。<br />
+			大、小：开出之号码大于或等于11为大，小于或等于10为小。<br />
+			尾大、尾小：开出之尾数大于或等于5为尾大，小于或等于4为尾小。<br />
+			每一个号码为一投注组合，假如投注号码为开奖号码并在所投的球位置，视为中奖，其余情形视为不中奖。<br />
+			2.中发白<br />
+			中：开出之号码为01、02、03、04、05、06、07<br />
+			发：开出之号码为08、09、10、11、12、13、14<br />
+			白：开出之号码为15、16、17、18、19、20<br />
+			3.方位<br />
+			东：开出之号码为01、05、09、13、17<br />
+			南：开出之号码为02、06、10、14、18<br />
+			西：开出之号码为03、07、11、15、19<br />
+			北：开出之号码为04、08、12、16、20<br />
+			4.总和单双：所有8个开奖号码的数字总和值是单数为总和单，如数字总和值是31、51；所有8个开奖号码的数字总和值是双数为总和双，如数字总和是42、80；假如投注组合符合中奖结果，视为中奖，其余情形视为不中奖。<br />
+			5.总和大小：所有8个开奖号码的数字总和值85到132为总大；所有8个开奖号码的数字总和值36到83为总分小；所有8个开奖号码的数字总和值为84打和；如开奖号码为01、20、02、08、17、09、11，数字总和是68，则总分小。假如投注组合符合中奖结果，视为中奖，其余情形视为不中奖，打和不计算结果。<br />
+			6.总尾大小：所有8个开奖号码的数字总和数值的个位数大于或等于5为总尾大，小于或等于4为总尾小；假如投注组合符合中奖结果，视为中奖，其余情形视为不中奖。<br />
+			7.选二任选：指从01至20中任意选择2个号码对开奖号码中任意2个位置的投注。 投注号码与开奖号码中任意2个位置的号码相符，即中奖。<br />
+			8.选二连组：指从01至20中任意选择2个号码对开奖号码中按开奖顺序出现的2个连续位置的投注。 投注号码与开奖号码中按开奖顺序出现的2个连续位置的号码相符（顺序不限），即中奖。<br />
+			9.选三任选：指从01至20中任意选择3个号码对开奖号码中任意3个位置的投注。 投注号码与开奖号码中任意3个位置的号码相符，即中奖。<br />
+			10.选三前组：指从01至20中任意选择3个号码对开奖号码中按开奖顺序出现的前3个连续位置的投注。 投注号码与开奖号码中按开奖顺序出现的前3个位置的号码相符（顺序不限），即中奖。<br />
+			11.选四任选：指从01至20中任意选择4个号码，对开奖号码中任意4个位置的投注。 投注号码与开奖号码中任意4个位置的号码相符，即中奖。<br />
+			12.选五任选：指从01至20中任意选择5个号码，对开奖号码中任意5个位置的投注。 投注号码与开奖号码中任意5个位置的号码相符，即中奖。<br />
+			13.龙虎以第一球的中奖号码和第八球的中奖号码做为对奖号码。<br />
+			龙：开出之号码第一球的中奖号码大于第八球的中奖号码。如 第一球开出14 第八球开出09；第一球开出17 第八球开出08；第一球开出05 第八球开出01...中奖为龙。<br />
+			虎：开出之号码第一球的中奖号码小于第八球的中奖号码。如 第一球开出14 第八球开出16；第一球开出13 第八球开出18；第一球开出05 第八球开出08...中奖为虎。<br />
+			14.正码<br />
+			从01至20中任意选择1个号码进行投注， 投注号码与开奖号码中任意1个位置的号码相符，即中奖<br />
+		</p>
+	</div>
+	{include file="common/bet_list" /}
+	<div class="overlay"></div>
+</div>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 4,
+        spaceBetween: 0,
+        freeMode: true,
+        pagination: {
+            clickable: true,
+        },
+    });
+</script>
+{include file="common/menu" /}
+{include file="xync/js" /}
+</body>
+</html>

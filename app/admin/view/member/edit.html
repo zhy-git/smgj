@@ -1,0 +1,141 @@
+{extend name="common:base" /}
+
+{block name="main"}
+<!--body wrapper start-->
+<div class="wrapper">
+    <div class="pull-left">
+        <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回"><i class="fa fa-reply"></i></a>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!--breadcrumbs start -->
+            <ul class="breadcrumb panel">
+                <li><a href="{:url('Index/index')}"><i class="fa fa-home"></i> 控制台</a></li>
+                <li><a href="{:url('Users/index')}">用户管理</a></li>
+                <li class="active">编辑用户</li>
+            </ul>
+            <!--breadcrumbs end -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    编辑用户
+                </header>
+                <div class="panel-body">
+                    <div class="form">
+                        <form class="form-horizontal adminex-form userForm"  method="post" action="{:url('Member/edit')}">
+                            <div class="form-group ">
+                                <label  class="control-label col-lg-2">账号类型</label>
+                                <i style="padding: 14px;">
+                                    <input class="xb-icheck" type="radio" name="agent_user" id="agent_user2" value="1" {if ($info.is_proxy == 1)}checked{/if}/>
+                                    <label for="agent_user">总代理</label>
+                                </i>
+                                <i style="padding: 14px;">
+                                    <input class="xb-icheck" type="radio" name="agent_user" id="agent_user3" value="2" {if ($info.is_proxy == 2)}checked{/if}/>
+                                    <label for="agent_user">一级代理</label>
+                                </i>
+                                <i style="padding: 14px;">
+                                    <input class="xb-icheck" type="radio" name="agent_user" id="agent_user" value="3" {if ($info.is_proxy == 3)}checked{/if}/>
+                                    <label for="agent_user">二级代理</label>
+                                </i>
+                                <i>
+                                    <input class="xb-icheck" type="radio" name="agent_user" id="agent_user1" value="0" {if ($info.is_proxy == 0)}checked{/if}/>
+                                    <label for="agent_user1">普通用户</label>
+                                </i>
+                            </div>
+                            <div class="form-group ">
+                                <label  class="control-label col-lg-2">是否允许转账</label>
+                                <i style="padding: 14px;">
+                                    <input class="xb-icheck" type="radio" name="is_tmoney" id="tmoney1" value="1" {if ($info.is_tmoney == 1)}checked{/if}/>
+                                    <label for="tmoney1">允许</label>
+                                </i>
+                                <i>
+                                    <input class="xb-icheck" type="radio" name="is_tmoney" id="tmoney0" value="0" {if ($info.is_tmoney == 0)}checked{/if}/>
+                                    <label for="tmoney0">不允许</label>
+                                </i>
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label col-lg-2">账号</label>
+                                <div class="col-lg-6">
+                                    <input class=" form-control" name="gm_name" value="{$info.gm_name}" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="control-label col-lg-2">彩票返点</label>
+                                <!--<select name="rebate" class="col-lg-6 form-control" style="margin-left: 14px;width: 200px;">-->
+                                    <!--{volist name='rebate_list' id='ll'}-->
+                                    <!--<option value="{$ll.rebate},{$ll.bonus}" {if ($info.rebate == $ll.rebate)}selected{/if}>返点：{$ll.rebate}  奖金：{$ll.bonus}</option>-->
+                                    <!--{/volist}-->
+                                <!--</select>-->
+                                <div class="col-lg-6">
+                                    <input class=" form-control" name="back_rebate" value="{$info.back_rebate}" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label  class="control-label col-lg-2">用户电话</label>
+                                <div class="col-lg-6">
+                                    <input class=" form-control" name="mobile" value="{$info.mobile}" type="text" />
+                                </div>
+                            </div>
+                            <!--<div class="form-group ">-->
+                                <!--<label  class="control-label col-lg-2">用户昵称</label>-->
+                                <!--<div class="col-lg-6">-->
+                                    <!--<input class=" form-control" name="nickname" value="{$info.nickname}" type="text" />-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <div class="form-group ">
+                                <label  class="control-label col-lg-2">用户QQ</label>
+                                <div class="col-lg-6">
+                                    <input class=" form-control" name="qq" value="{$info.qq}" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group " style="display: none">
+                                <label  class="control-label col-lg-2">用户余额</label>
+                                <div class="col-lg-6">
+                                    <input class=" form-control" name="money" value="{$info.money}" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                <label  class="control-label col-lg-2">真实姓名</label>
+                                <div class="col-lg-6">
+                                    <input class=" form-control" name="true_name" value="{$info.true_name}" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label  class="control-label col-lg-2">用户备注</label>
+                                <div class="col-lg-6">
+                                    <input class=" form-control" name="remark" value="{$info.remark}" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label  class="control-label col-lg-2">重置资金密码</label>
+                                <div class="col-lg-6">
+                                    <input class=" form-control" name="remoney_password" value="" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label  class="control-label col-lg-2">重置登陆密码</label>
+                                <div class="col-lg-6">
+                                    <input class=" form-control" name="repassword" value="" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <input type="hidden" name="id" value="{$info.id}">
+                                    <button class="btn btn-primary " type="submit">保存</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!--body wrapper end-->
+{/block}
+

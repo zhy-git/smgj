@@ -1,0 +1,105 @@
+<div class="container">
+    <nav class="navbar navbar-default clearfix">
+        <a class="navbar-brand left" href="javascript:;">
+            <div class="clearfix">
+                <p class="left mg_r20">
+                    <img src="__IMG__/logo.png" />
+                </p>
+                <div class="left mg_top10 ">
+                    <p> <img src="__IMG__/logo_font.png" /></p>
+                    <p><img src="__IMG__/font_e.png" /></p>
+                </div>
+            </div>
+        </a>
+        <div class="head_user right">
+            <div class="head_user_main text-center">
+                <i><img src="__IMG__/ico_user.png"/> 欢迎您，{$users.name}</i>
+                <span class="my_account_box">
+						<a href="{:url('Account/index')}" class="padding_lr30 my_account_font">我的账户</a>
+
+						</span>
+                <span class="padding_lr30">余额：<b id="umoney">{$users.money}</b>元<a href="javascript:;" onclick="refresh();" style="margin-left: 3px;"><img style="width: 22px;" src="__IMG__/refresh.png"></a></span>
+                <a class="padding_lr10" href="{:url('Account/index')}">充值</a>
+                <a href="{:url('Login/out')}" class="basic_a back_a mg_r20">退出</a>
+            </div>
+        </div>
+    </nav>
+</div>
+<nav class="navbar navbar-default" id="nav">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse clearfix">
+            <ul class="nav navbar-nav navbar-left pay_index_nav">
+                <li class="{eq name='controllerName' value='index'}active{/eq}">
+                    <a href="{:url('Index/index')}">首页</a>
+                </li>
+                <li class="dropdown {if $controllerName == 'ssc' || $controllerName == 'car'}active{/if}">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">彩票中心<span class="caret"></span></a>
+                    <div class="dropdown-menu clearfix">
+                        <ul>
+                            <li>
+                                <a href="{:url('Ssc/index')}">重庆时时彩</a>
+                            </li>
+                            <li>
+                                <a href="{:url('Car/index')}">北京PK10</a>
+                            </li>
+                        </ul>
+                    </div>
+                    </a>
+                </li>
+                <li class="{eq name='controllerName' value='report'}active{/eq}">
+                    <a href="{:url('Report/index')}">报表中心</a>
+                </li>
+                <li class="{eq name='controllerName' value='account'}active{/eq}">
+                    <a href="{:url('Account/index')}">我的账户</a>
+                </li>
+                <li class="{eq name='controllerName' value='agent'}active{/eq}">
+                    <a href="{:url('Agent/index')}">代理中心</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="javascript:;">
+                        <i><img src="__IMG__/i_phone.png"/></i> 手机下注 <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <i><img src="__IMG__/i_offer.png"/></i> 优惠活动
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <i><img src="__IMG__/i_service.png"/></i> 客服服务
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<script>
+    var refreshCheck = true;
+    function refresh(){
+        if(refreshCheck) {
+            refreshCheck = false;
+            $.ajax({
+                url: "{:url('refresh')}",
+                type: 'POST',
+                dataType: "json",
+                success: function (data, textStatus) {
+                    if(data.code == 1) {
+                        $('#umoney').html(data.money);
+                    }
+                    refreshCheck = true;
+                }
+            });
+        }
+    }
+</script>

@@ -1,0 +1,629 @@
+<script>
+    var cate={$cate},hall={$hall},betType="{$template}";
+    var timeCountDown = {
+        getWinMessage : true,
+        longPollingCheck : true,
+        timeLapse : '',
+        getCountDown:function(t,ts){
+            var day = Math.floor(t / 1000 / 60 / 60 / 24 % 365); //计算天
+            var hour = Math.floor(t / 1000 / 60 / 60 % 24); //计算时
+            var min = Math.floor(t / 1000 / 60 % 60); //计算分
+            var sec = Math.floor(t / 1000 % 60);      //计算秒
+            var ts_day = Math.floor(ts / 1000 / 60 / 60 / 24 % 365); //计算天
+            var ts_hour = Math.floor(ts / 1000 / 60 / 60 % 24); //计算时
+            var ts_min = Math.floor(ts / 1000 / 60 % 60); //计算分
+            var ts_sec = Math.floor(ts / 1000 % 60);      //计算秒
+            if (t >= 3600000) {
+                if (hour < 10) {
+                    hour = "0" + hour;
+                }
+                if (min < 10) {
+                    min = "0" + min;
+                }
+                if (sec < 10) {
+                    sec = "0" + sec;
+                }
+                if (ts_hour < 10) {
+                    ts_hour = "0" + ts_hour;
+                }
+                if (ts_min < 10) {
+                    ts_min = "0" + ts_min;
+                }
+                if (ts_sec < 10) {
+                    ts_sec = "0" + ts_sec;
+                }
+                $('#open-date').html(day + '天 ' + hour + ':' + min + ':' + sec);
+                $('#bet-date').html(ts_day + '天 ' + ts_hour + ':' + ts_min + ':' + ts_sec);
+            } else if (t >= 0) {
+                if (t <= 30000) {    //30s后封盘
+                    $('#fd').html('已封单').css('visibility', 'inherit');
+                }
+                if (hour < 10) {
+                    hour = "0" + hour;
+                }
+                if (min < 10) {
+                    min = "0" + min;
+                }
+                if (sec < 10) {
+                    sec = "0" + sec;
+                }
+                if (ts_hour < 10) {
+                    ts_hour = "0" + ts_hour;
+                }
+                if (ts_min < 10) {
+                    ts_min = "0" + ts_min;
+                }
+                if (ts_sec < 10) {
+                    ts_sec = "0" + ts_sec;
+                }
+                $('#open-date').html(day + '天 ' + hour + ':' + min + ':' + sec);
+                $('#bet-date').html(ts_day + '天 ' + ts_hour + ':' + ts_min + ':' + ts_sec);
+            } else {
+                var s = $('#next_turn_num').html();
+                clearInterval(timeCountDown.timeLapse);
+                $('#lastBets .bets').html('');
+                timeCountDown.getTime();
+                timeCountDown.longPolling(s);
+            }
+        },
+        getTime:function (s,n) {
+            $.ajax({
+                url: "{:url('Xglhc/getStage')}",
+                type: 'POST',
+                dataType: "json",
+                timeout: 20000,//20秒超时，可自定义设置
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if (textStatus == "timeout") { // 请求超时
+                        setTimeout(function(){
+                            timeCountDown.getTime();
+                        },3000); // 递归调用
+                    }
+                },
+                success: function (data, textStatus) {
+                    if (data) {
+                        if(s,n){
+                            var openStage = Number(s);
+                            var stage = Number(data.stage_next)-1;
+                            if(openStage != stage){
+                                timeCountDown.longPolling(stage);
+                            }
+                            var nArr = n.split(',')
+                            $.each(nArr,function(k,v){
+                                $('#result_balls span:eq('+k+') b').attr('class','b'+v);
+                                $('#result_balls span:eq('+k+') b').html(v);
+                                $('#result_balls span:eq('+k+') i').html(getShuXiang(v));
+                            })
+                            $('#result_balls span:eq(7) b').attr('class','b'+nArr[6]);
+                            $('#result_balls span:eq(7) i').html(getShuXiang(nArr[6]));
+                            $('.cur_turn_num').html(openStage);
+                        }
+                        $('#next_turn_num').html(data.stage_next);
+                        var t = data.dateline * 1000;
+                        var ts = (data.dateline - 300) * 1000;
+                        if(data.stage_next){
+                            banBet();
+                            timeCountDown.timeLapse = setInterval(function () {
+                                timeCountDown.getCountDown(t,ts);
+                                t = t - 1000;
+                                if (ts <= 0) {
+                                    ts = 0;
+                                    banBet('ban');
+                                } else {
+                                    ts = ts - 1000;
+                                }
+                            }, 1000);
+                        }else{
+                            setTimeout(function(){
+                                banBet('ban');
+                                timeCountDown.getCountDown(-1,-1);
+                            },30000);
+                        }
+                    } else {
+                        setTimeout(function(){
+                            timeCountDown.getTime();
+                        },3000);
+                    }
+                }
+            });
+        },
+        longPolling:function (stage) {
+            if (timeCountDown.longPollingCheck) {
+                timeCountDown.longPollingCheck = false;
+            } else {
+                return;
+            }
+            $.ajax({
+                url: "{:url('Api/checkOpenXglhc')}",
+                data: {stage: stage},
+                type: 'POST',
+                dataType: "json",
+                timeout: 20000,//20秒超时，可自定义设置
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    setTimeout(function () {
+                        timeCountDown.longPollingCheck = true;
+                        timeCountDown.longPolling(stage);
+                    }, 3000);
+                },
+                success: function (data, textStatus) {
+                    if (data.status == 1) { // 请求成功
+                        $.each(data.number.split(','),function(k,v){
+                            $('#result_balls span:eq('+k+') b').attr('class','b'+v);
+                            $('#result_balls span:eq('+k+') b').html(v);
+                            $('#result_balls span:eq('+k+') i').html(getShuXiang(v));
+                        })
+                        $('#result_balls span:eq(6) b').attr('class','b'+nArr[6]);
+                        $('#result_balls span:eq(7) i').html(getShuXiang(nArr[6]));
+                        $('.cur_turn_num').html(data.stage);
+                        setTimeout(function () {
+                            timeCountDown.longPollingCheck = true;
+                        }, 3000);
+                    } else {
+                        setTimeout(function () {
+                            timeCountDown.longPollingCheck = true;
+                            timeCountDown.longPolling(stage);
+                        }, 3000);
+                    }
+                }
+            });
+        },
+        getWinMessage : function(){
+            $.ajax({
+                url: "{:url('Api/checkWinMessage')}",
+                type: 'POST',
+                dataType: "json",
+                timeout: 20000,//20秒超时，可自定义设置
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                },
+                success: function (data, textStatus) {
+                    if (data.status == 1) { // 请求成功
+                        var str = '';
+                        $.each(data.data,function(k,v){
+                            str += v.content+'<br>';
+                        });
+                        var type = 'rb',
+                            text = str;
+                        layer.open({
+                            title:'<span class="win_message_alert_title">中奖信息</span>'
+                            ,type: 1
+                            ,offset: type
+                            ,area:['308px','auto']
+                            ,time:3000
+                            ,id: 'layerDemo'+type
+                            ,content: '<div class="win_message_alert">'+ text +'</div>'
+                            ,btnAlign: 'c'
+                            ,shade: 0
+                            ,yes: function(){
+                                layer.closeAll();
+                            }
+                        });
+                        lotteryBetController.fresh();
+                    }
+                }
+            });
+        }
+    }
+    var lotteryBetController = {
+        setOrderCheck : true,
+        freshCheck : true,
+        betTab : function(){
+            if($('#stageStatus').attr('data-status')=='off'){
+                pop('该期已封单，不能下单');
+                return;
+            }
+            var limitNum = 0;
+            switch(betType){
+                case 'five':
+                    if($("#changeTab .checkbox_td input:checked").length<2){
+                        pop('下注内容不正确，请重新下注单');
+                        return;
+                    }
+                    break;
+                case 'fifteen':
+                    var titleType = $("#changeTitle a.on").attr('data-id');
+                    switch (titleType){
+                        case '18':
+                            limitNum = 5;
+                            break;
+                        case '19':
+                            limitNum = 6;
+                            break;
+                        case '20':
+                            limitNum = 7;
+                            break;
+                        case '21':
+                            limitNum = 8;
+                            break;
+                        case '22':
+                            limitNum = 9;
+                            break;
+                        case '23':
+                            limitNum = 10;
+                            break;
+                        case '24':
+                            limitNum = 11;
+                            break;
+                        case '25':
+                            limitNum = 12;
+                            break;
+                        default:
+                            break;
+                    }
+                    if($("#changeTab .checkbox_td input:checked").length<limitNum){
+                        pop('下注内容不正确，请重新下注单');
+                        return;
+                    }
+                    break;
+                case 'seventeen':
+                    var titleType = $("#changeTitle a.on").attr('data-id');
+                    switch (titleType){
+                        case '34':
+                        case '35':
+                            limitNum=3;
+                            break;
+                        case '36':
+                        case "37":
+                        case "38":
+                            limitNum=2;
+                            break;
+                        default:
+                            break;
+                    }
+                    if($("#changeTab .checkbox_td input:checked").length<limitNum){
+                        pop('下注内容不正确，请重新下注单');
+                        return;
+                    }
+                    break;
+                case 'sixteen':
+                case 'eighteen':
+                    var titleType = $("#changeTitle a.on").attr('data-id');
+                    switch (titleType){
+                        case '10':
+                        case '14':
+                            limitNum=2;
+                            break;
+                        case '11':
+                        case '15':
+                            limitNum=3;
+                            break;
+                        case '12':
+                        case '16':
+                            limitNum=4;
+                            break;
+                        case "13":
+                        case '17':
+                            limitNum=5;
+                            break;
+                        default:
+                            break;
+                    }
+                    if($("#changeTab .checkbox_td input:checked").length<limitNum){
+                        pop('下注内容不正确，请重新下注单');
+                        return;
+                    }
+                    break;
+                default:
+                    if(!$('#betTable .amount.bg_yellow').length){
+                        pop('下注内容不正确，请重新下注单');
+                        return;
+                    }
+                    break;
+            }
+            var str = '';
+            var totalMoney = 0;
+            var totalBet = 0;
+            switch (betType){
+                case 'seventeen':
+                case 'fifteen':
+                    var title = $("#changeTitle a.on").attr('data-num');
+                    var titleType = $("#changeTitle a.on").attr('data-id');
+                    var unitPrice = $("#changeTitle a.on").attr('data-odds');
+                    var money = $(".bet-money").val();
+                    var ruleArr = [];
+                    $.each($("#changeTab .checkbox_td input:checked"),function (k,v) {
+                        ruleArr.push($(v).attr('data-num'));
+                    });
+                    var ruleData = permutations(ruleArr,limitNum);
+                    $.each(ruleData,function (i,j) {
+                        var type = j.join(',');
+                        str += '<tr><td class="multiple" data-target-type="'+titleType+'" data-target-num="'+type+'" style="text-align: left; padding-left: 5px;">'+title+'  '+type+' </td>';
+                        str += '<td><span class="c-txt3">'+unitPrice+'</span></td>';
+                        str += '<td><input type="number" oninput="lotteryBetController.betTabChangeVale(this)" onpropertychange="lotteryBetController.betTabChangeVale(this)" class="el-tooltip" value="'+money+'" style="width: 85%;"></td>';
+                        str += '<td><input type="checkbox" onclick="lotteryBetController.betTabCheck(this)" checked></td></tr>';
+                        totalMoney = totalMoney*1 + money*1;
+                        totalBet ++;
+                    })
+                    break;
+                case 'sixteen':
+                case 'eighteen':
+                    var title = $("#changeTitle a.on").attr('data-num');
+                    var titleType = $("#changeTitle a.on").attr('data-id');
+                    var money = $(".bet-money").val();
+                    var ruleArr = [];
+                    var unitPrice=0;
+                    $.each($("#changeTab .checkbox_td input:checked"),function (k,v) {
+                        unitPrice= $(v).parent().attr('data-odds');
+                        ruleArr.push($(v).parent().attr('data-num'));
+                    });
+                    var ruleData = permutations(ruleArr,limitNum);
+                    $.each(ruleData,function (i,j) {
+                        var type = j.join(',');
+                        str += '<tr><td class="multiple" data-target-type="'+titleType+'" data-target-num="'+type+'" style="text-align: left; padding-left: 5px;">'+title+'  '+type+' </td>';
+                        str += '<td><span class="c-txt3">'+unitPrice+'</span></td>';
+                        str += '<td><input type="number" oninput="lotteryBetController.betTabChangeVale(this)" onpropertychange="lotteryBetController.betTabChangeVale(this)" class="el-tooltip" value="'+money+'" style="width: 85%;"></td>';
+                        str += '<td><input type="checkbox" onclick="lotteryBetController.betTabCheck(this)" checked></td></tr>';
+                        totalMoney = totalMoney*1 + money*1;
+                        totalBet ++;
+                    });
+                    break;
+                case 'five':
+                    var title = $("#changeTab").attr('data-target-num');
+                    var titleType = $("#changeTab").attr('data-target-type');
+                    var unitPrice = $("#oddsSpan").text();
+                    var money = $(".bet-money").val();
+                    var ruleArr = [];
+                    $.each($("#changeTab .checkbox_td input:checked"),function (k,v) {
+                        ruleArr.push($(v).parent().attr('data-num'));
+                    });
+                    var type = ruleArr.join(',');
+                    str += '<tr><td class="multiple" data-target-type="'+titleType+'" data-target-num="'+type+'" style="text-align: left; padding-left: 5px;">'+title+'  '+type+' </td>';
+                    str += '<td><span class="c-txt3">'+unitPrice+'</span></td>';
+                    str += '<td><input type="number" oninput="lotteryBetController.betTabChangeVale(this)" onpropertychange="lotteryBetController.betTabChangeVale(this)" class="el-tooltip" value="'+money+'" style="width: 85%;"></td>';
+                    str += '<td><input type="checkbox" onclick="lotteryBetController.betTabCheck(this)" checked></td></tr>';
+                    totalMoney = totalMoney*1 + money*1;
+                    totalBet ++;
+                    break;
+                default:
+                    $.each($('#betTable .amount.bg_yellow input'),function(){
+                        var title = $(this).parent().parent().attr('data-target-num');
+                        var titleType =$(this).parent().parent().attr('data-target-type');
+                        var type = $(this).parent().prev().prev().attr('data-num');
+                        var unitPrice = $(this).parent().prev().find('span').html();
+                        var money = $(this).val();
+                        str += '<tr><td class="multiple" data-target-type="'+titleType+'" data-target-num="'+type+'" style="text-align: left; padding-left: 5px;">'+title+'  '+type+' </td>';
+                        str += '<td><span class="c-txt3">'+unitPrice+'</span></td>';
+                        str += '<td><input type="number" oninput="lotteryBetController.betTabChangeVale(this)" onpropertychange="lotteryBetController.betTabChangeVale(this)" class="el-tooltip" value="'+money+'" style="width: 85%;"></td>';
+                        str += '<td><input type="checkbox" onclick="lotteryBetController.betTabCheck(this)" checked></td></tr>';
+                        totalMoney = totalMoney*1 + money*1;
+                        totalBet ++;
+                    })
+                    break;
+            }
+            $('#bcountVal').html(totalBet);
+            $('#btotalVal').html(totalMoney);
+            $('#betModalList').html(str);
+            layer.open({
+                type: 1,
+                title:false,
+                closeBtn: 0,
+                shadeClose: true,
+                resize:false,
+                scrollbar:false,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['500px',$('#betModal').height()], //宽高
+                content: $('#betModal').html()
+            });
+        },
+        betTabCheck : function (_this){
+            var money = $(_this).parent().prev().find('input').val();
+            var btotalVal = $('.layui-layer-content #btotalVal').html();
+            var bcountVal = $('.layui-layer-content #bcountVal').html();
+            if($(_this).attr('checked')){
+                $('.layui-layer-content #bcountVal').html(bcountVal*1 + 1*1);
+                $('.layui-layer-content #btotalVal').html(btotalVal*1+money*1);
+            }else{
+                $('.layui-layer-content #bcountVal').html(bcountVal - 1);
+                $('.layui-layer-content #btotalVal').html(btotalVal*1-money*1);
+            }
+        },
+        betTabChangeVale : function(_this){
+            var val = $(_this).val();
+            if(val.length<=6){
+                $(_this).val(val);
+            }else{
+                $(_this).val(val.slice(0,6));
+            }
+            var totalNum = 0;
+            $.each($(_this).parent().parent().siblings().find('td:eq(2) input'),function(){
+                totalNum = totalNum*1 + $(this).val()*1;
+            })
+            $('.layui-layer-content #btotalVal').html(totalNum*1+val*1);
+        },
+        betReset : function(){
+            $('#betTable .amount input').val('');
+            $('#betTable table tr td').removeClass('bg_yellow');
+            $('.checkbox_td').find('input').prop('checked',false);
+        },
+        setOrder : function (){
+            if(!lotteryBetController.setOrderCheck){
+                return;
+            }
+            var betData = {};
+            var betDataArr = new Array();
+            var check = true;
+            if($('.layui-layer-content #betModalList tr').length == 0){
+                layer.closeAll();
+                pop('下注内容不正确，请重新下注');
+                return;
+            }
+            var bcountVal = $("#bcountVal").text();
+            console.log(bcountVal);
+            if(bcountVal>100){
+                pop('单次最多可下注100组');
+                return;
+            }
+            $.each($('.layui-layer-content #betModalList tr'),function(k,v){
+                betData = {};
+                if($(v).find('td:eq(3) input').attr('checked')){
+                    var t = $(v).find('td:eq(0)').attr('data-target-type');
+                    var n = $(v).find('td:eq(0)').attr('data-target-num');
+                    var o = $(v).find('td:eq(1) span').html();
+                    var m = $(v).find('td:eq(2) input').val();
+                    if(t && n && o && m){
+                        var value = parseInt(m);
+                        if(value>0 && value == m){
+                            betData['type'] = t;
+                            betData['num'] = n;
+                            betData['odds'] = o;
+                            betData['money'] = m;
+                            betDataArr.push(betData);
+                        }else{
+                            pop('投注金额错误');
+                            check = false;
+                        }
+                    }else{
+                        layer.closeAll();
+                        pop('数据异常');
+                        check = false;
+                    }
+                }
+            })
+            if(check){
+                $.ajax({
+                    url: "{:url('betting')}",
+                    data:  {'data':betDataArr,'cate':cate,'hall':hall},
+                    type:'POST',
+                    dataType: "json",
+                    beforeSend:function(){ //触发ajax请求开始时执行
+                        lotteryBetController.setOrderCheck = false;
+                        $('.layui-layer-content .bet-loading').css('display','block');
+                    },
+                    success: function(data){
+                        if(data.code == 1){
+                            layer.closeAll();
+                            pop(data.msg);
+                            $('.betReset').click();
+                            lotteryBetController.showList(data.data,betDataArr);
+                        } else {
+                            pop(data.msg);
+                        }
+                    },
+                    error: function (textStatus) {
+                        pop('服务器繁忙，请稍后再试');
+                    },
+                    complete: function(){
+                        lotteryBetController.setOrderCheck = true;
+                    }
+                });
+            }else{
+                return;
+            }
+        },
+        oddsSet : function(){
+            var pl = {:json_encode($oddsList)};
+            var userPl = {:json_encode($mem)};
+            var oddsArr = oddsCalculation(pl,userPl);
+            $.each($('#betTable .u-table2').find('td.odds'),function(k,v){
+                var play_id = $(v).attr('data-id');
+                if(play_id){
+                    $(v).find('span').html(oddsArr[cate][play_id]['rate']);
+                }
+            })
+        },
+        showList : function(data){
+            var str = '';
+            $.each(data,function(k,v){
+                str += '<li>';
+                str += '<p>期号：<span class="bid">'+v.stage+'</span></p>';
+                str += '<p> 内容：<span class="text">'+v.typeName+' '+v.number+'</span>@ <span class="odds">'+v.odds+'</span></p>';
+                str += '<p>金额：￥'+v.money+'</p>';
+                str += '</li>';
+            });
+            $('#lastBets .bets').prepend(str);
+        },
+        fresh : function(){
+            if(lotteryBetController.freshCheck == false){
+                return;
+            }
+            $.ajax({
+                url: "{:url('refresh')}",
+                type:'POST',
+                dataType: "json",
+                beforeSend:function(){ //触发ajax请求开始时执行
+                    lotteryBetController.freshCheck = false;
+                },
+                success: function(data){
+                    if(data.code == 1){
+                        $('#memMoney').html(data.data.money);
+                        $('#memUnMoney').html(data.data.unpaid_money);
+                    }
+                },
+                error: function (textStatus) {
+                    setTimeout(function(){
+                        lotteryBetController.freshCheck = true;
+                        lotteryBetController.fresh();
+                    },1000); // 递归调用
+                },
+                complete: function(){
+                    setTimeout(function(){
+                        lotteryBetController.freshCheck = true;
+                    },3000); // 递归调用
+                }
+            });
+        }
+    }
+    function banBet(data){
+        if(data){
+            $('#betTable .amount input').attr('readonly',true);
+            $('#betTable .amount input').addClass('fengpan');
+            $('#betTable .u-table2 td.odds span').html('--');
+            $('#betTable .u-table2 td.amount input').val('封盘');
+            $('#stageStatus').attr('data-status','off');
+            $('#betTable .u-table2 td').removeClass('bg_yellow');
+        }else{
+            $('#stageStatus').attr('data-status','on');
+            $('#betTable .amount input').attr('readonly',false);
+            $('#betTable .amount input').removeClass('fengpan');
+            $('#betTable .u-table2 td.amount input').val('');
+            lotteryBetController.oddsSet();
+        }
+    }
+    $(function () {
+        $('#stat_qiu .u-tb3-th2').click(function(){
+            $('#stat_qiu .u-tb3-th2').removeClass('select');
+            $(this).addClass('select');
+            $('#stat_type th:eq(0)').html($(this).html());
+            $('#stat_type th').removeClass('select');
+            $('#stat_type th:eq(0)').addClass('select');
+        });
+        $('#stat_type .u-tb3-th2').click(function(){
+            $('#stat_type .u-tb3-th2').removeClass('select');
+            $(this).addClass('select');
+        });
+        setTimeout(function () {
+            timeCountDown.getTime("{$openStage}","{$openNum}");
+            //lotteryBetController.oddsSet();
+            $('#stat_qiu .u-tb3-th2:eq(0)').click();
+        },1000)
+        $('.betTab').click(lotteryBetController.betTab);
+        $('.betReset').click(lotteryBetController.betReset);
+        setInterval(function(){
+            timeCountDown.getWinMessage();
+        },10000)
+    });
+    function changeVale(_this){
+        var val = $(_this).val();
+        if(val.length<=6){
+            $('.bet-money').val(val);
+            $('#betTable .amount.bg_yellow input').val(val);
+        }else{
+            $('.bet-money').val(val.slice(0,6));
+            $('#betTable .amount.bg_yellow input').val(val.slice(0,6));
+        }
+    }
+    function getShuXiang(num){
+        var shuxing = [];
+        shuxing['01'] = '狗';shuxing['13'] = '狗';shuxing['25'] = '狗';shuxing['37'] = '狗';shuxing['49'] = '狗';
+        shuxing['02'] = '鸡';shuxing['14'] = '鸡';shuxing['26'] = '鸡';shuxing['38'] = '鸡';shuxing['50'] = '鸡';
+        shuxing['03'] = '猴';shuxing['15'] = '猴';shuxing['27'] = '猴';shuxing['39'] = '猴';shuxing['51'] = '猴';
+        shuxing['04'] = '羊';shuxing['16'] = '羊';shuxing['28'] = '羊';shuxing['40'] = '羊';shuxing['52'] = '羊';
+        shuxing['05'] = '马';shuxing['17'] = '马';shuxing['29'] = '马';shuxing['41'] = '马';shuxing['53'] = '马';
+        shuxing['06'] = '蛇';shuxing['18'] = '蛇';shuxing['30'] = '蛇';shuxing['42'] = '蛇';shuxing['54'] = '蛇';
+        shuxing['07'] = '龙';shuxing['19'] = '龙';shuxing['31'] = '龙';shuxing['43'] = '龙';shuxing['55'] = '龙';
+        shuxing['08'] = '兔';shuxing['20'] = '兔';shuxing['32'] = '兔';shuxing['44'] = '兔';shuxing['56'] = '兔';
+        shuxing['09'] = '虎';shuxing['21'] = '虎';shuxing['33'] = '虎';shuxing['45'] = '虎';shuxing['57'] = '虎';
+        shuxing['10'] = '牛';shuxing['22'] = '牛';shuxing['34'] = '牛';shuxing['46'] = '牛';shuxing['58'] = '牛';
+        shuxing['11'] = '鼠';shuxing['23'] = '鼠';shuxing['35'] = '鼠';shuxing['47'] = '鼠';shuxing['59'] = '鼠';
+        shuxing['12'] = '猪';shuxing['24'] = '猪';shuxing['36'] = '猪';shuxing['48'] = '猪';shuxing['60'] = '猪';
+        return shuxing[num];
+    }
+</script>

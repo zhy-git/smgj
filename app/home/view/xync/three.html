@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+	<meta HTTP-EQUIV="Expires" CONTENT="-1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="shortcut icon" href="__IMG__/favicon.ico" />
+	<link rel="bookmark" href="__IMG__/favicon.ico" type="image/x-icon"　/>
+	<title>幸运农场</title>
+	<link rel="stylesheet" href="__CSS__/index.css">
+	<script src="__JS__/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/jquery.validate.min.js"></script>
+	<script src="__JS__/layer.js" ></script>
+	<script src="__JS__/common.js" ></script>
+	<style>
+		.spinner {
+			width: 60px;
+			height: 30px;
+			display: inline-block;
+			background: rgba(255, 255, 255, 0.85);
+			padding: 10px 50px 0;
+		}
+
+		.spinner .three-bounce {
+			position: relative;
+			text-align: center;
+			top: 50%;
+			bottom: 50%;
+			margin-top: -9px
+		}
+
+		.spinner .three-bounce>div {
+			display: inline-block;
+			width: 18px;
+			height: 18px;
+			border-radius: 100%;
+			top: 50%;
+			margin-top: -9px;
+			background: #aeadba;
+			-webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+			animation: bouncedelay 1.4s infinite ease-in-out;
+			-webkit-animation-fill-mode: both;
+			animation-fill-mode: both
+		}
+
+		.spinner .three-bounce .one {
+			-webkit-animation-delay: -.32s;
+			animation-delay: -.32s;
+			background: rgb(55,137,250);
+		}
+
+		.spinner .three-bounce .two {
+			-webkit-animation-delay: -.16s;
+			animation-delay: -.16s;
+			background: rgb(99,99,99);
+		}
+
+		.spinner .three-bounce .three {
+			background: rgb(235,67,70);
+		}
+
+		@keyframes bouncedelay {
+			0%,100%,80% {
+				transform: scale(0);
+				-webkit-transform: scale(0)
+			}
+
+			40% {
+				transform: scale(1);
+				-webkit-transform: scale(1)
+			}
+		}
+		.fengpan{color: rgb(170, 152, 152);}
+		.bet-modal .u-btn1{
+			background: linear-gradient(to bottom,#d87c86 0,#6a1f2d 100%);
+			border: 1px solid #ab374a;
+			color: #fff;
+		}
+	</style>
+	<link type="text/css" rel="stylesheet" href="__CSS__/chat-index.css"></head>
+<body>
+<div id="appLoading" class="bet-loading" style="position: fixed; width: 100%; top: 200px; text-align: center; z-index: 3000; display: none;">
+	<div class="spinner">
+		<div class="three-bounce">
+			<div class="one"></div>
+			<div class="two"></div>
+			<div class="three"></div>
+		</div>
+	</div>
+</div>
+<div class="main-body skin_red" style="right: 0px;">
+	<div class="header">
+		<div class="header-top clearfix">
+			<div class="logo2">
+				<img src="__IMG__/logo.png" alt="最专业彩票网" height="53">
+			</div>
+			<div class="menu1">
+				<div class="draw_number"><div>重庆幸运农场</div>
+					<div>
+						<span class="cur_turn_num"></span>期开奖</div>
+				</div>
+				<div id="result_balls" class="T_KLSF L_XYNC">
+					<span><b class="b02 ml10">02</b></span>
+					<span><b class="b07 ml10">07</b></span>
+					<span><b class="b06 ml10">06</b></span>
+					<span><b class="b14 ml10">14</b></span>
+					<span><b class="b20 ml10">20</b></span>
+					<span><b class="b18 ml10">18</b></span>
+					<span><b class="b19 ml10">19</b></span>
+					<span><b class="b10 ml10">10</b></span>
+				</div>
+				<!--<div title="点击关闭提醒声音" class="open_sound"></div>-->
+			</div>
+			{include file="common/detail_top" /}
+		</div>
+		<div class="header-middle lotterys">
+			{include file="common/cate_top" /}
+		</div>
+		<div class="header-bottom sub">
+			<div class="show cate_menu">
+				<a href="{:url('index')}" class="">两面盘</a> |
+				<a href="{:url('index?type=two')}" class="">单号1~8</a> |
+				<a href="{:url('index?type=three')}" class="router-link-exact-active selected">第一球</a> |
+				<a href="{:url('index?type=four')}" class="">第二球</a> |
+				<a href="{:url('index?type=five')}" class="">第三球</a> |
+				<a href="{:url('index?type=six')}" class="">第四球</a> |
+				<a href="{:url('index?type=seven')}" class="">第五球</a> |
+				<a href="{:url('index?type=eight')}" class="">第六球</a> |
+				<a href="{:url('index?type=nine')}" class="">第七球</a> |
+				<a href="{:url('index?type=ten')}" class="">第八球</a>
+				<!--<a href="{:url('index?type=eleven')}" class="">正码</a> |-->
+				<!--<a href="javascript:void(0)" class="">连码</a>-->
+			</div>
+		</div>
+	</div>
+	<div class="main-wrap"><!---->
+		{include file="common/siderbar" /}
+		<div class="content-wrap">
+			<div class="content">
+				<div class="sub-wrap clearfix">
+					<div class="cont-main one_ball active">
+						<div class="cont-col3">
+							<div class="u-header play_tab_1 clearfix">
+								<div class="fl">
+									<span id="page_game_name">重庆幸运农场</span>&nbsp;&nbsp;-&nbsp;&nbsp;
+									<span id="page_name">第一球</span>
+									<!--<span id="total_sum_money_text"> &nbsp;&nbsp; 当前彩种输赢：<span id="total_sum_money">0.000</span></span>-->
+								</div>
+								<div class="fr">
+									<span id="stageStatus" data-status="off" style="display: none;"></span>
+									<span id="next_turn_num"></span>&nbsp;期 距离封盘：
+									<span id="bet-date">00:00</span> 距离开奖：
+									<span id="open-date">00:00</span>
+								</div>
+							</div>
+							<div>
+								<div class="cont-col3-hd clearfix">
+									<div class="cont-col3-box2">
+										<span>金额 </span>
+										<input type="number" class="bet-money" oninput="changeVale(this)" onpropertychange="changeVale(this)" maxlength="6" value="1" />
+										<a href="javascript:void(0)" class="u-btn1 betTab">确定</a>
+										<a href="javascript:void(0)" class="u-btn1 betReset">重置</a>
+									</div>
+								</div>
+								<div>
+									<div>
+										<div class="cont-col3-bd">
+											<table class="u-table2 XYNCTerm">
+												<thead>
+												<tr>
+													<th colspan="12" data-target-type="2">第一球</th>
+												</tr>
+												</thead>
+												<tbody>
+												<tr>
+													<td data-id="263" class="name" data-num="01"><b class="b01">01</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="06"><b class="b06">06</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="11"><b class="b11">11</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="16"><b class="b16">16</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+												</tr>
+												<tr>
+													<td data-id="263" class="name" data-num="02"><b class="b02">02</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="07"><b class="b07">07</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="12"><b class="b12">12</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="17"><b class="b17">17</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+												</tr>
+												<tr>
+													<td data-id="263" class="name" data-num="03"><b class="b03">03</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="08"><b class="b08">08</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="13"><b class="b13">13</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="18"><b class="b18">18</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+												</tr>
+												<tr>
+													<td data-id="263" class="name" data-num="04"><b class="b04">04</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="09"><b class="b09">09</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="14"><b class="b14">14</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="19"><b class="b19">19</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+												</tr>
+												<tr>
+													<td data-id="263" class="name" data-num="05"><b class="b05">05</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="10"><b class="b10">10</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="15"><b class="b15">15</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+													<td data-id="263" class="name" data-num="20"><b class="b20">20</b></td>
+													<td data-id="263" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="263" class="amount"><input type="text" /></td>
+												</tr>
+												<tr>
+													<td data-id="264" class="name" data-num="大">大</td>
+													<td data-id="264" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="264" class="amount"><input type="text" /></td>
+													<td data-id="264" class="name" data-num="单">单</td>
+													<td data-id="264" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="264" class="amount"><input type="text" /></td>
+													<td data-id="264" class="name" data-num="尾大">尾大</td>
+													<td data-id="264" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="264" class="amount"><input type="text" /></td>
+													<td data-id="264" class="name" data-num="合数单">合数单</td>
+													<td data-id="264" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="264" class="amount"><input type="text" /></td>
+												</tr>
+												<tr>
+													<td data-id="264" class="name" data-num="小">小</td>
+													<td data-id="264" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="264" class="amount"><input type="text" /></td>
+													<td data-id="264" class="name" data-num="双">双</td>
+													<td data-id="264" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="264" class="amount"><input type="text" /></td>
+													<td data-id="264" class="name" data-num="尾小">尾小</td>
+													<td data-id="264" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="264" class="amount"><input type="text" /></td>
+													<td data-id="264" class="name" data-num="合数双">合数双</td>
+													<td data-id="264" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="264" class="amount"><input type="text" /></td>
+												</tr>
+												<tr>
+													<td data-id="265" class="name" data-num="东">东</td>
+													<td data-id="265" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="265" class="amount"><input type="text" /></td>
+													<td data-id="265" class="name" data-num="南">南</td>
+													<td data-id="265" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="265" class="amount"><input type="text" /></td>
+													<td data-id="265" class="name" data-num="西">西</td>
+													<td data-id="265" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="265" class="amount"><input type="text" /></td>
+													<td data-id="265" class="name" data-num="北">北</td>
+													<td data-id="265" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="265" class="amount"><input type="text" /></td>
+												</tr>
+												<tr>
+													<td data-id="266" class="name" data-num="中">中</td>
+													<td data-id="266" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="266" class="amount"><input type="text" /></td>
+													<td data-id="266" class="name" data-num="发">发</td>
+													<td data-id="266" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="266" class="amount"><input type="text" /></td>
+													<td data-id="267" class="name" data-num="白">白</td>
+													<td data-id="267" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="267" class="amount"><input type="text" /></td>
+													<td colspan="3" class="name not-event"></td>
+												</tr>
+												<tr>
+													<td data-id="264" class="name" data-num="龙">龙</td>
+													<td data-id="264" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="264" class="amount"><input type="text" /></td>
+													<td data-id="264" class="name" data-num="虎">虎</td>
+													<td data-id="264" class="odds"><span class="c-txt3">--</span></td>
+													<td data-id="264" class="amount"><input type="text" /></td>
+													<td colspan="6" class="name not-event"></td>
+												</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class="cont-col3-hd clearfix" style="margin-top: 15px;">
+									<div class="cont-col3-box2">
+										<span>金额 </span>
+										<input type="number" class="bet-money" oninput="changeVale(this)" onpropertychange="changeVale(this)" maxlength="6" value="1" />
+										<a href="javascript:void(0)" class="u-btn1 betTab">确定</a>
+										<a href="javascript:void(0)" class="u-btn1 betReset">重置</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						{include file="xync/integration" /}
+					</div>
+					{include file="xync/integration2" /}
+				</div>
+
+			</div>
+			<div class="iframe_table">
+				<iframe id="iframeMain" src="" width="1100"  frameborder="0" scrolling="no" id="test" ></iframe>
+			</div>
+		</div>
+	</div>
+	<div id="betModal" style="display: none;">
+		<div class="el-dialog el-dialog--small bet-modal">
+			<div class="el-dialog__header">
+				<span class="el-dialog__title">下注明细 (请确认注单)</span>
+				<button type="button" aria-label="Close" class="el-dialog__headerbtn"><i class="el-dialog__close el-icon el-icon-close" onclick="layer.closeAll();"><img src="__IMG__/close.png" alt="" /></i></button>
+			</div>
+			<div class="el-dialog__body">
+				<div>
+					<div style="max-height: 380px; overflow-y: auto;">
+						<table class="u-table10">
+							<thead>
+							<tr>
+								<th style="width: 60%;">号码</th>
+								<th style="width: 15%;">赔率</th>
+								<th style="width: 15%;">金额</th>
+								<th style="width: 10%;">确认</th>
+							</tr>
+							</thead>
+							<tbody id="betModalList"></tbody>
+						</table>
+					</div>
+					<div class="bet-bottom" style="margin-top: 10px;">
+						<span class="bcount">组数：<b class="bcountVal" id="bcountVal"></b></span> <span class="btotal">总金额：
+                    <b class="btotalVal" id="btotalVal"><span></span></b></span></div>
+					<div class="cont-col3-hd clearfix">
+						<div class="cont-col3-box2">
+							<a href="javascript:void(0)" class="u-btn1" onclick="lotteryBetController.setOrder();">确定</a>
+							<a href="javascript:void(0)" onclick="layer.closeAll();" class="u-btn1">取消</a>
+						</div>
+						<div class="bet-loading" style="display: none;">
+							<div class="gif"></div>
+							<div class="txt">正在提交</div>
+						</div>
+					</div>
+				</div>
+			</div><!---->
+		</div>
+	</div>
+	<!--弹框结束-->
+	{include file="common/footer" /}
+</div>
+
+<div class="gameservice"><!----></div>
+<script src="__JS__/tab.js" type="text/javascript" charset="utf-8"></script>
+{include file="xync/js" /}
+<script type="text/javascript">
+    $(function(){
+        $(".zm_ball").before( $(".one_ball").clone());
+        $(".zm_ball").before( $(".one_ball").clone());
+    })
+</script>
+</body>
+</html>

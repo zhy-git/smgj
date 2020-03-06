@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Expires" CONTENT="-1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="shortcut icon" href="__IMG__/favicon.ico" />
+    <link rel="bookmark" href="__IMG__/favicon.ico" type="image/x-icon"　/>
+    <title>注册</title>
+    <link rel="stylesheet" href="__CSS__/common.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/chat-index.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/index_sy.css"/>
+    <script src="__JS__/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__JS__/layer.js" ></script>
+</head>
+
+<body>
+	<div class="index-top">
+	    <div class="text-right nav-top">
+	   	  <input type="text" name="" id="" value=""  placeholder="用户账号"/>
+	   	  <input type="password" name="" id="" value="" placeholder="密码" />
+	   	  <span class="code-box">
+	   	  	 <input type="text" name="" id="" value="" placeholder="验证码"/>
+	   	  	 <img class="codeimg" src="" alt="" />
+	   	  </span>
+	   	  <a href="javascript:void(0);" class="login-a">登录</a>
+	   	  <a href="javascript:void(0);" class="reg-a">注册</a>
+	   	  <a href="javascript:void(0);" class="forget-psd-a">忘记密码？</a>
+	    </div>
+	</div>   
+    <div class="nav">
+	   	<div class="nav-list">
+		   	<div class="clearfix">
+		   	 	<img class="left" src="__IMG__/logo.png"/>
+		   	 	<ul class="right clearfix nav-li">
+		   	 		<li><a href="{:url('Index/index')}">彩票游戏<br />LOTTERY</a></li>
+		   	 		<li class="active"><a href="{:url('Download/index')}">手机APP<br />ACTIVITY</a></li>
+		   	 		<li><a href="javascript:void(0);">幸运抽奖<br />ANNOUNCEMENT</a></li>
+		   	 		<li><a href="javascript:void(0);">游戏规则<br />GAMEINFORMATION</a></li>
+		   	 		<li><a href="javascript:void(0);">在线服务<br />MOBILE</a></li>
+		   	 	</ul>
+		   	 </div>
+	   </div>
+    </div>
+   <div class="">
+      	<img class="width100" style="margin-bottom: -4px;" src="__IMG__/banner02.png"/>
+   </div>
+   <div id="bg_index" style="height: 600px;">
+	   	<div class="reg-box clearfix">
+	   	  <ul class="reg-box-left left">
+	   	     <li class="active"><a href="javascript:void(0);"><img class="" src="__IMG__/icon-01hover.png"/> 关于我们</a></li>
+	   	     <li><a href="javascript:void(0);"><img class="" src="__IMG__/icon-02.png"/> 联系我们</a></li>
+	   	     <li><a href="javascript:void(0);"><img class="" src="__IMG__/icon-03.png"/> 联盟合作</a></li>
+	   	     <li><a href="javascript:void(0);"><img class="" src="__IMG__/icon-04.png"/> 存款帮助</a></li>
+	   	     <li><a href="javascript:void(0);"><img class="" src="__IMG__/icon-05.png"/> 取款帮助</a></li>
+	   	     <li><a href="javascript:void(0);"><img class="" src="__IMG__/icon-06.png"/> 常见问题</a></li>
+	   	  </ul>
+	   	  <div class="reg-box-right left">
+	   	  	 <p class="padding_tb20 text-center"><img src="__IMG__/welcome.png"/></p>
+	   	  	 <div class="reg_box">
+	   	  	 	<p class="reg-tittle">注册账号</p>
+	   	  	 	<form id="regForm" action="{:url('login/reg')}" method="post" class="reg-main">
+					<input name="param" type="hidden" value="{$id}" placeholder="" />
+	   	  	 		<div class="reg-list">
+	   	  	 			<label for="">*会员账号: </label>
+		   	  	 		<input type="text" name="username" id="" value="" />
+		   	  	 		<span>请输入用户名：2-12个数字字母</span>
+	   	  	 		</div>
+	   	  	 		<!--<div class="reg-list">-->
+	   	  	 			<!--<label for="">*昵称: </label>-->
+		   	  	 		<!--<input type="text" name="" id="" value="" />-->
+		   	  	 		<!--<span>请输入昵称</span>-->
+	   	  	 		<!--</div>-->
+	   	  	 		<div class="reg-list">
+	   	  	 			<label for="">*登录密码: </label>
+		   	  	 		<input type="password" name="password" id="" value="" />
+		   	  	 		<span>请输入你的密码：6-12个字符</span>
+	   	  	 		</div>
+					<div class="reg-list">
+						<label for="">*确认登录密码: </label>
+						<input type="password" name="repassword" id="" value="" />
+						<span>请输入你的密码：6-12个字符</span>
+					</div>
+	   	  	 		<!--<div class="reg-list">-->
+	   	  	 			<!--<label for="">*手机号码: </label>-->
+		   	  	 		<!--<input type="tel" name="" id="" value="" />-->
+		   	  	 		<!--<span>请输入正确的手机号码</span>-->
+	   	  	 		<!--</div>-->
+	   	  	 		<!--<div class="reg-list">-->
+	   	  	 			<!--<label for="">*QQ号: </label>-->
+		   	  	 		<!--<input type="number" name="" id="" value="" />-->
+		   	  	 		<!--<span>请输入正确的QQ号</span>-->
+	   	  	 		<!--</div>-->
+	   	  	 		<!--<div class="reg-list">-->
+	   	  	 			<!--<label for="">*推荐码: </label>-->
+		   	  	 		<!--<input type="text" name="" id="" value="" />-->
+		   	  	 		<!--<span>请输入推荐码</span>-->
+	   	  	 		<!--</div>-->
+	   	  	 		<div class="reg-list">
+	   	  	 			<label for="">*验证码: </label>
+						<input name="verifyCode" type="text" placeholder="请输入验证码"/>
+		   	  	 		<span><img id="verify_img" src="{:captcha_src()}" alt="验证码" onclick="refreshVerify()"/></span>
+	   	  	 		</div>
+	   	  	 	</form>
+	   	  	 </div>
+	   	  	    <p class="color_ff text-center mg_tb10">
+	   	  	 		<input type="checkbox" name="" id="checkbox" value="" />
+	   	  	 		<label for="checkbox">我已经满18岁，且同意本站用户协议</label>
+	   	  	 	</p>
+	   	  	 	 <p class="color_ff text-center mg_tb10 reg-btn">
+	   	  	 		<input type="button" onclick="reg()" value=" 立即注册" />
+	   	  	 		<input type="reset" value="重置" />
+	   	  	 	</p>
+	   	  </div>
+	   </div>
+   </div>
+   
+    <div class="game-foot">
+    	<img src="__IMG__/footer.png" alt="" />
+    </div>
+</body>
+</html>
+<script>
+    function refreshVerify() {
+        var ts = Date.parse(new Date())/1000;
+        $('#verify_img').attr("src", "/captcha?id="+ts);
+    }
+    function reg() {
+        var self = $('#regForm'),
+            rules = {
+                param :{
+                    required : true
+                },
+                username : {
+                    required : true,
+                    rangelength : [5,10],
+                    stringCheck : true
+                },
+                password : {
+                    required : true,
+                    rangelength : [6,12],
+                    stringCheck : true
+                },
+                repassword : {
+                    required : true,
+                    rangelength : [6,12],
+                    equalTo : '#regForm input[name=password]'
+                },
+                verifyCode : {
+                    required : true,
+                    rangelength : [4,4]
+                }
+            },
+            messages = {
+                param : {
+                    required : '参数错误,请刷新后重试',
+                },
+                username : {
+                    required : '请输入登陆账号',
+                    rangelength : '用户名长度5到10之间',
+                    stringCheck : '用户账号只能包含英文、数字、下划线'
+                },
+                password : {
+                    required : '请输入密码',
+                    rangelength : '密码长度6到12之间',
+                    stringCheck : '密码只能包含英文、数字、下划线'
+                },
+                repassword : {
+                    required : '两次密码输入不一致',
+                    rangelength : '密码长度6到12之间',
+                    equalTo : '两次密码输入不一致'
+                },
+                verifyCode : {
+                    required : '请输入验证码',
+                    rangelength : '验证码不正确'
+                }
+            };
+        if(!check_validate(self,rules,messages).form()){
+            return false;
+        }
+        $.post(self.attr("action"), self.serialize(), success, "json");
+        return false;
+        function success(data) {
+            if (data.code == 1) {
+                pop(data.msg,data.url,1);
+            } else {
+                pop(data.msg);
+                refreshVerify();
+            }
+        }
+    }
+</script>
+
+
+
+

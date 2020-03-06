@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		<meta HTTP-EQUIV="Expires" CONTENT="-1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>我的账户</title>
+		<link rel="shortcut icon" href="__IMG__/favicon.ico" />
+		<link rel="bookmark" href="__IMG__/favicon.ico" type="image/x-icon" 　/>
+		<link rel="stylesheet" type="text/css" href="__JS__/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+		<script src="__JS__/jquery-3.2.1.min.js" ></script>
+		<script src="__JS__/laydate/laydate.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/laydate.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/paging.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/index.js"></script>
+		<script src="__JS__/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+		<script src="__JS__/area.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/layer.js" ></script>
+		<script src="__JS__/common.js" ></script>
+	</head>
+	<body id="account">
+		<div class="bg_ff">
+			{include file="common/top" /}
+		</div>
+		<section>
+		<ul class="account_list clearfix">
+			<li><a href="{:url('index')}">充值</a></li>
+			<li class="active"><a href="{:url('cash')}">提现</a></li>
+			<li><a href="{:url('rechargelist')}">充值记录</a></li>
+			<li><a href="{:url('cashlist')}">提现记录</a></li>
+			<li><a href="{:url('manage')}">密码管理</a></li>
+			<li><a href="{:url('addcard')}">添加银行卡</a></li>
+		</ul>
+		<div class="account_main active">
+			<div class="table_box">
+				<form action="" id="cash_form">
+					<table border="" cellspacing="" cellpadding="" class="recharge_tab">	
+						<tr>
+							<th colspan="2"class="text_left ">提款申请</th></tr>
+						<tr>
+							<td>提示信息：</td>
+							<td class="text_left">
+								<p>
+									每天限提<strong class="red1">{$remainNum}</strong>次,
+									今天您已经成功发起了  <strong class="blue1">{$withdrawals}</strong>  次提现申请
+								</p>
+								<p>每天的提现处理时间为：<strong class="red1">早上 10:00 至 晚上 22:00</strong> </p>
+								<p>资金密码可至个人中心 - 密码管理重置资金密码</p>
+								<p class="blue">每次提款金额最低   <strong class="blue1">100</strong>  元，最高提现   <strong class="blue1">200000 </strong> 元。</p>
+							</td>
+						</tr>
+						<tr>
+							<td>银行类型：</td>
+							<td class="text_left ">
+								<select name="bankType" onchange="bankChange(this)" style="cursor: pointer; width: 150px; background: #D1EAF6;border: 1px solid #0088CE; border-radius: 6px;padding: 5px 10px;">
+								{volist name="userCard" id="ucl"}
+								<option value="{$i}" data-target-num="{$ucl.num}" data-target-name="{$ucl.name}">{$ucl.bank}</option>
+								{/volist}
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>银行账号：</td>
+							<td class="text_left ">
+								<p id="banknum">{$userCard[0]['num']}</p>
+							</td>
+						</tr>
+						<tr>
+							<td>账户名：</td>
+							<td class="text_left ">
+								<p id="bankname">{$userCard[0]['name']}</p>
+							</td>
+						</tr>
+						<tr>
+							<td>提款金额：</td>
+							<td class="text_left ">
+								<p class="padding_10">
+								  <input type="number" name="money" value="" maxlength="6" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+								  <span>( 单笔提现限额：最低：<span class="red1">100 </span> 元， 最高： <span class="red1">200000</span>  元 )</span>
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td>资金密码：</td>
+							<td>
+								<input type="password" name="money_password" value="" />
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td class="text_left ">
+								<p class="padding_10">
+									<input type="button" value="申请提交" id="cash_form_sub" class="basic_a "/>
+								   <input type="reset" value="重置" onclick="$('#cash_form')[0].reset()"  class="basic_a"/>
+								</p>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+		</section>
+		{include file="common/footer" /}
+		<script>
+            var checkPass = {
+                checkMoneyPass: function(){
+                    $.ajax({
+                        url: "{:url('checkMoneyPass')}",
+                        data:{type:3},
+                        type: 'POST',
+                        dataType: "json",
+                        success: function (data) {
+                            if(data.code == 0){
+                                pop(data.msg,data.url,3);
+                            }
+                        }
+                    });
+                }
+            }
+            function bankChange(_this){
+				$('#banknum').html($(_this).find('option:selected').attr('data-target-num'));
+                $('#bankname').html($(_this).find('option:selected').attr('data-target-name'));
+			}
+            var subCheck = true;
+            $("#cash_form_sub").click(function(){
+                $('#cash_form').serialize();
+                var self = $('#cash_form');
+                var money = self.find('input[name=money]').val();
+                var money_password = self.find('input[name=money_password]').val();
+                if(money == ''){
+                    pop('提款金额不能为空');
+                    return false;
+                }
+                if(money < 100){
+                    pop('提款金额不能低于100');
+                    return false;
+                }
+                if(money > 200000){
+                    pop('提款金额不能高于200000');
+                    return false;
+                }
+                if(money_password == ''){
+                    pop('资金密码不能为空');
+                    return false;
+				}
+                if(subCheck) {
+                    subCheck = false;
+                    $.post("{:url('cash')}", self.serialize(), success, "json");
+                    return false;
+                    function success(data) {
+                        if (data.code == 1) {
+                            pop(data.msg,data.url,3);
+                        } else {
+                            pop(data.msg);
+                            subCheck = true;
+                        }
+                    }
+                }
+            })
+            $(function () {
+                checkPass.checkMoneyPass();
+            })
+		</script>
+	</body>
+</html>

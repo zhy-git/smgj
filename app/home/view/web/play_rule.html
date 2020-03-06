@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	    <title>{$name}玩法说明</title>
+		<script src="__JS__/mui.min.js"></script>
+		<link href="__CSS__/mui.min.css" rel="stylesheet"/>
+	    <script type="text/javascript" charset="utf-8">
+	      	mui.init();
+	    </script>
+	    <style type="text/css">
+	    	.two table{
+	    		text-align: center;
+	    		font-size: 14px;
+	    		border: 1px solid #efefef;
+	    	}
+	    	.two table th{
+	    		background: #FEC81E;
+	    	}
+	    	.two table th,.two table td{
+	    		padding: 5px;
+	    	}
+			p {
+				color: #000;
+			}
+	    </style>
+	<body style="background: #fff;">
+		<!--<header class="mui-bar mui-bar-nav"style="background: #fff;">-->
+	        <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000;"></a>-->
+	        <!--<h1 class="mui-title">玩法介绍</h1>-->
+	    <!--</header>-->
+	    <div class="mui-content " style="background: #fff;">
+	    	<div style="padding: 10px;">
+	    		<h4 style="color: #387EFE;padding: 10px 0;">{$name}玩法说明</h4>
+	    	{$data}
+	    	</div>
+	    	<!--<div class="two">-->
+	    		<!--<p style="padding: 10px;">赔率说明  <a href="javascript:void(0);" style="float: right;">关闭</a></p>-->
+	    		<!--<table border="" cellspacing="" cellpadding="" style="width: 96%; margin: 20px auto;">-->
+	    			<!--<tr>-->
+	    				<!--<th>玩法</th>-->
+	    				<!--<th>赔率</th>-->
+	    			<!--</tr>-->
+	    			<!--<tr>-->
+	    				<!--<td>极大，极小</td>-->
+	    				<!--<td>1:13.00</td>-->
+	    			<!--</tr>-->
+	    		<!--</table>-->
+	    	<!--</div>-->
+	    </div>
+	</body>
+</html>
