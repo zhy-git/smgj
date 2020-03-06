@@ -1,0 +1,141 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:62:"/www/wwwroot/smgj/public/../app/wap/view/report/unsettled.html";i:1540372018;}*/ ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>即时注单</title>
+	<script src="__JS__/wap/mui.min.js"></script>
+	<link href="__CSS__/wap/mui.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/wap/swiper.min.css"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/wap/common.css"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/wap/index.css"/>
+	<script src="__JS__/wap/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/wap/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/wap/time.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/wap/index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/jquery.validate.min.js"></script>
+	<script src="__JS__/layer.js" ></script>
+	<script src="__JS__/common.js" ></script>
+	<script type="text/javascript" charset="utf-8">
+        mui.init();
+	</script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">即时注单</h1>
+</header>
+<div class="mui-content ">
+	<div class="note_tab">
+		<table border="" cellspacing="" cellpadding="">
+			<tr>
+				<th>期号</th>
+				<th>下注明细</th>
+				<th>下注金额</th>
+				<th>操作</th>
+			</tr>
+			<tbody id="tableList"></tbody>
+		</table>
+	</div>
+</div>
+<script>
+	var ybGetData = {
+        stop : true,
+        page : 1,
+        getData : function(){
+            $.ajax({
+                url: "<?php echo url('Report/unsettled'); ?>",
+                type: "POST",
+                data: {from: 'unsettled',page:ybGetData.page},
+                success: function(n) {
+                    if (n.data != null) {
+                        var str = '';
+                        $.each(n.data.data,function(k,v){
+                            var hall = '';
+                            if(v.cate==2){
+                                if(v.hall==1){
+                                    hall='A盘';
+                                }else if(v.hall==2){
+                                    hall="1.85模式";
+                                }else if(v.hall==3){
+                                    hall="1.6模式";
+								}
+							}else{
+                                if(v.hall==1){
+									hall='A盘';
+								}else if(v.hall==2){
+                                    hall="B盘";
+								}
+							}
+                            str += '<tr><td class="f1">'+v.name+'-'+hall+'<br> 第&nbsp;<span style="color: rgb(41, 154, 38);">'+v.stage+'</span>&nbsp;期</td>';
+                            str += '<td class="f1 multiple">';
+                            str += '<span style="color: rgb(40, 54, 244);">'+v.typeName+' : '+v.number+' <br/><span style="color: rgb(0, 0, 0);">@</span>';
+                            str += '<span style="color: red;">'+v.odds+'</span></span></td>';
+                            str += '<td class="f1">'+v.money+'</td><td><a href="javascript:void(0);" class="basic_a" onclick="cedan('+v.id+',this)">撤单</a></td></tr>';
+                        })
+                        $('#tableList').append(str);
+                        ybGetData.page = ybGetData.page*1+1;
+                    }else{
+
+                    }
+                },
+                error: function() {
+
+                },
+                beforeSend: function() {
+
+                },
+                complete: function() {
+                    setTimeout(function(){
+                        ybGetData.stop = true;
+                    },1000)
+                }
+            })
+        }
+	}
+    $(function(){
+        setTimeout(ybGetData.getData,500);
+    })
+
+    $(window).scroll(function() {
+        if ($(this).scrollTop() + $(window).height()  >= $(document).height() && $(this).scrollTop() > 10) {
+            if(ybGetData.stop == true){
+                ybGetData.stop = false;
+                ybGetData.getData();
+            }
+        }
+    });
+	var cedanCheck=true;
+	function cedan(num,obj) {
+	    if(cedanCheck){
+            $.ajax({
+                'url':'/home/bet/cedan',
+                'type':'post',
+                'dataType':'json',
+                'data':{num:num},
+                beforeSend:function(){ //触发ajax请求开始时执行
+                    cedanCheck = false;
+                },
+                success:function (data) {
+                    if(data.code==1){
+                        $(obj).parents('tr').remove();
+					}
+					layer.msg(data.msg);
+                },
+                error: function (textStatus) {
+                    layer.msg('服务器繁忙，请稍后再试');
+                },
+                complete: function(){
+                    setTimeout(function(){
+                        cedanCheck = true;
+                    },1000);
+                }
+            });
+		}else{
+	     	layer.msg('请勿重复提交');
+		}
+    }
+</script>
+</body>
+</html>

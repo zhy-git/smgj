@@ -1,0 +1,294 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:59:"/www/wwwroot/smgj/public/../app/wap/view/account/index.html";i:1541151464;}*/ ?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>资金管理</title>
+		<link rel="icon" href="__IMG__/wap_new/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="__IMG__/wap_new/favicon.ico" type="image/x-icon" />
+		<link href="__CSS__/wap_new/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/wap_new/common.css"/>
+		<link rel="stylesheet" type="text/css" href="__CSS__/wap_new/index.css"/>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">资金管理</h1>
+		</header>
+		<nav class="mui-bar mui-bar-tab">
+		    <a class="mui-tab-item1" href="<?php echo url('Index/index'); ?>">
+		        <span class="mui-icon "><img src="__IMG__/wap_new/icon-01.png" alt="" /></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a class="mui-tab-item1" href="<?php echo url('Index/game'); ?>">
+		        <span class="mui-icon "><img src="__IMG__/wap_new/icon-02.png" alt="" /></span>
+		        <span class="mui-tab-label">游戏大厅</span>
+		    </a>
+		    <a class="mui-tab-item1 mui-active" href="<?php echo url('Account/index'); ?>">
+		        <span class="mui-icon "><img src="__IMG__/wap_new/icon-03yellow.png" alt="" /></span>
+		        <span class="mui-tab-label">资金管理</span>
+		    </a>
+		    <a class="mui-tab-item1 " href="<?php echo url('Center/index'); ?>">
+		        <span class="mui-icon "><img src="__IMG__/wap_new/icon-04.png" alt="" /></span>
+		        <span class="mui-tab-label">我的</span>
+		    </a>
+		</nav>
+		<div class="mui-content">
+			<div class="money-top">
+				<dl class="clearfix">
+					<dt class="left"><img class="head" src="__IMG__/wap_new/head.png" alt="" /></dt>
+					<dd class="left padding_lr10">
+						<p class="color_ff mg_top10"><?php echo $mem['gm_name']; ?></p>
+						<p class="color_ff mg_top10">账户余额：￥<span id="memUnMoney"><?php echo bcadd($mem['money'],0,2); ?></span><img src="/static/home/img/refresh.png" onclick="refreshMoney()" style="width: 15px;margin-left: 10px;" alt=""></p>
+					</dd>
+				</dl>
+			</div>
+			<div class="money-main">
+				<ul class="clearfix money-nav bg_ff">
+					<li class="active"><a href="javascript:void(0);">存款</a></li>
+					<li><a href="javascript:void(0);">取款</a></li>
+					<li><a href="javascript:void(0);" onclick="getDataBuild.getData();">存款记录</a></li>
+					<li><a href="javascript:void(0);" onclick="getDataBuild1.getData();">取款记录</a></li>
+				</ul>
+			</div>
+			<div class="money-div mg_top10">
+				<!--存款-->
+				<div class="money-list active">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" href="<?php echo url('pay_con',['way'=>2]); ?>">
+							   <img class="icon-pay" src="__IMG__/wap_new/icon-pay.png" alt="" /> 支付宝转账
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" href="<?php echo url('pay_con',['way'=>1]); ?>">
+								<img class="icon-pay" src="__IMG__/wap_new/icon-wchate.png" alt="" /> 微信转账
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" href="<?php echo url('pay_con',['way'=>3]); ?>">
+								<img class="icon-pay" src="__IMG__/wap_new/icon-bank.png" alt="" /> 银行卡转账
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" href="<?php echo url('pay_con',['way'=>4]); ?>">
+							   <img class="icon-pay" src="__IMG__/wap_new/icon-cft.png" alt="" /> 财付通
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!--取款-->
+				<div class="money-list">
+					<!--<div class="padding_10 bg_ff">-->
+						<!--<p class="mg_top10 money-inpbox">-->
+			        		<!--<label for="">取款金额</label>-->
+			        		<!--<input type="number" name="" id="" value=""  placeholder="请输入取款金额"/>-->
+			        	<!--</p>-->
+			        	<!--<p class="mg_top10 money-inpbox">-->
+			        		<!--<span> 农业银行 尾号1234 张天爱</span>-->
+			        	<!--</p>-->
+			        	<!--<p class="mg_top10 money-inpbox">-->
+			        		<!--<label for="">取款密码</label>-->
+			        		<!--<input type="number" name="" id="" value=""  placeholder="请输取款密码"/>-->
+			        	<!--</p>-->
+					<!--</div>-->
+					<div class="padding_10">
+						<!--<p class="font-bank">支持支付宝和各大银行卡提现，考虑安全因素需要用绑定的支付宝和银行卡行进提现</p>-->
+						<div class="bank-a">
+							<a href="<?php echo url('tx',['way'=>2]); ?>">支付宝提现</a>
+							<a href="<?php echo url('tx',['way'=>1]); ?>" class="bg_ff">银行卡提现</a>
+						</div>
+					</div>
+				</div>	
+				<!--存款记录-->
+				<div class="money-list" id="rechargeList" style="height:calc(100% - 260px);overflow-y: auto;">
+					<div class="no-record" >
+						<img src="__IMG__/wap_new/no_img.png"/>
+						<p>暂无存款记录</p>
+					</div>
+				</div>	
+				<!--取款记录-->
+				<div class="money-list" id="cashList" style="height:calc(100% - 260px);overflow-y: auto;">
+					<div class="no-record" >
+						<img src="__IMG__/wap_new/no_img.png"/>
+						<p>暂无存款记录</p>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="msg-spring"></div>
+		<script src="__JS__/wap_new/mui.min.js"></script>
+		<script src="__JS__/wap_new/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/wap_new/index.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/layer.js" ></script>
+		<script type="text/javascript">
+		var refreshMoneyCheck = true;
+		function refreshMoney(){
+			if(refreshMoneyCheck){
+				$.ajax({
+					url: "/home/pcdd/refresh.html",
+					type:'POST',
+					dataType: "json",
+					beforeSend:function(){ //触发ajax请求开始时执行
+                        refreshMoneyCheck = false;
+                        index = layer.load(0, {shade: false});
+					},
+					success: function(data){
+						if(data.code == 1){
+							$('#memMoney').html(data.data.money);
+							// $('#memAgMoney').html();
+							// $('#memBbMoney').html();
+						} else {
+                            layer.msg(data.msg);
+						}
+					},
+					error: function (textStatus) {
+						//pop('服务器繁忙，请稍后再试');
+					},
+					complete: function(){
+                        layer.close(index);
+						setTimeout(function(){
+							refreshMoneyCheck = true;
+						},10000)
+					}
+				});
+			}else{
+			    layer.msg('刷新间隔为10秒');
+				return;
+			}
+		}
+
+		$(function(){
+			$('.money-nav li').click(function(){
+				var index=$(this).index();
+				$(this).addClass('active').siblings().removeClass('active')
+				$('.money-list').eq(index).addClass('active').siblings().removeClass('active')
+			})
+		})
+        var height=0;
+        var getDataBuild = {
+            stop : true,
+            page : 1,
+            top : true,
+            getData:function(){
+                var index = {};
+                $.ajax({
+                    url: "<?php echo url('rechargelist'); ?>",
+                    type: "POST",
+                    data: {page:getDataBuild.page},
+                    success: function(n) {
+                        if (n.code == 1) {
+                            getDataBuild.page ++;
+                            var str = '';
+                            $.each(n.data.data,function(k,v){
+                                str+='<div class="bg_ff" ><div class="bor_b padding_10"><h4 class="clearfix"><span class="left">'+v.name+':'+v.remark+'</span><span class="right">+'+v.money+'</span></h4><p class="clearfix mg_top10">'+
+                                    '<span class="left">'+v.create_at+'</span><span class="right">'+v.status+'</span></p></div></div>';
+                            })
+                            if(getDataBuild.page == 2){
+                                $('#rechargeList').html(str);
+                            }else{
+                                $('#rechargeList').append(str);
+                            }
+                            getDataBuild.top = true;
+                        }else{
+                            if(getDataBuild.page>1){
+                                if(getDataBuild.top){
+                                    getDataBuild.top = false;
+                                    $('#rechargeList').append('<div style="text-align:center;color:#aaa;">   我是有底线的  </div>');
+                                }
+                            }else{
+                                $('#rechargeList').html('<div class="no-record" ><img src="__IMG__/wap_new/no_img.png"/><p>暂无存款记录</p></div>');
+                            }
+                        }
+                    },
+                    error: function() {
+                        getDataBuild.stop = true;
+                        layer.msg('服务器繁忙！')
+                    },
+                    beforeSend: function() {
+                        index = layer.load(0, {shade: false});
+                    },
+                    complete: function() {
+                        layer.close(index);
+                        setTimeout(function(){
+                            getDataBuild.stop = true;
+                            height=document.getElementById('rechargeList').scrollHeight;
+                        },1000)
+                    }
+                })
+            }
+        }
+        $('#rechargeList').scroll(function() {
+            if ($(this).scrollTop()+$(this).height()+48 >= height) {
+                if(getDataBuild.stop == true){
+                    getDataBuild.stop = false;
+                    getDataBuild.getData();
+                }
+            }
+        });
+        var height1=0;
+        var getDataBuild1 = {
+            stop : true,
+            page : 1,
+            top : true,
+            getData:function(){
+                var index = {};
+                $.ajax({
+                    url: "<?php echo url('cashlist'); ?>",
+                    type: "POST",
+                    data: {page:getDataBuild1.page},
+                    success: function(n) {
+                        if (n.code == 1) {
+                            getDataBuild1.page ++;
+                            var str = '';
+                            $.each(n.data.data,function(k,v){
+                                str+='<div class="bg_ff" ><div class="bor_b padding_10"><h4 class="clearfix"><span class="left">'+v.gm_name+':'+v.bank_name+'</span><span class="right">-'+v.money+'</span></h4><p class="clearfix mg_top10">'+
+                                    '<span class="left">'+v.create_at+'</span><span class="right">'+v.status+'</span></p></div></div>';
+                            })
+                            if(getDataBuild1.page == 2){
+                                $('#cashList').html(str);
+                            }else{
+                                $('#cashList').append(str);
+                            }
+                            getDataBuild1.top = true;
+                        }else{
+                            if(getDataBuild1.page>1){
+                                if(getDataBuild1.top){
+                                    getDataBuild1.top = false;
+                                    $('#cashList').append('<div style="text-align:center;color:#aaa;">   我是有底线的  </div>');
+                                }
+                            }else{
+                                $('#cashList').html('<div class="no-record" ><img src="__IMG__/wap_new/no_img.png"/><p>暂无存款记录</p></div>');
+                            }
+                        }
+                    },
+                    error: function() {
+                        getDataBuild1.stop = true;
+                        layer.msg('服务器繁忙！')
+                    },
+                    beforeSend: function() {
+                        index = layer.load(0, {shade: false});
+                    },
+                    complete: function() {
+                        layer.close(index);
+                        setTimeout(function(){
+                            getDataBuild1.stop = true;
+                            height1=document.getElementById('cashList').scrollHeight;
+                        },1000)
+                    }
+                })
+            }
+        }
+        $('#cashList').scroll(function() {
+            if ($(this).scrollTop()+$(this).height()+48 >= height1) {
+                if(getDataBuild1.stop == true){
+                    getDataBuild1.stop = false;
+                    getDataBuild1.getData();
+                }
+            }
+        });
+	    </script>
+	</body>
+
+</html>
